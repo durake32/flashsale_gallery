@@ -3,11 +3,6 @@
 
     <thead>
         <tr role="row">
-            {{-- <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 30px;"
-                aria-sort="ascending" aria-label="Name: activate to sort column descending">#
-            </th> --}}
-            {{-- <th class="text-center"></th> --}}
-
             <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
                 style="width: 177px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
                 Title
@@ -46,11 +41,11 @@
                     <i class="fa fa-eye"></i>
                 </a>
 
-                <a href="{{route($segment.'.'.'payment-method.edit',$pm->id)}}"
+                <a href="{{route('admin.payment-method.edit',$pm->id)}}"
                     class="btn btn-link btn-info btn-just-icon like"><i class="fa fa-edit"></i></a>
                 <a class="btn btn-link btn-danger btn-just-icon remove">
                     <form onsubmit="return confirm('Do you really want to delete?');"
-                        action="{{route($segment.'.'.'payment-method.destroy',$pm->id)}}" method="POST">
+                        action="{{route('admin.payment-method.destroy',$pm->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">

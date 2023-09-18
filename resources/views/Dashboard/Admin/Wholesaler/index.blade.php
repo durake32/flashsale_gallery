@@ -15,11 +15,9 @@
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                         @can('wholesaler create')
-                        <button>
-                            <a href="{{route('wholesaler.create')}}">
+                            <a href="{{route('wholesaler.create')}}" class="btn btn-success btn-sm">
                                 Create
                             </a>
-                        </button>
                         @endcan
                     </div>
                     <div class="material-datatables">

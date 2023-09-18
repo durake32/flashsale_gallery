@@ -2,7 +2,6 @@
     width="100%" style="width: 100%;" role="grid" aria-describedby="datatables_info">
     <thead>
         <tr role="row">
-            {{-- <th class="text-center"></th> --}}
             <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
                 style="width: 100px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">Image
             </th>
@@ -63,11 +62,11 @@
                 <a href="#" data-target="#modal-{{ $product->id }}" data-toggle="modal"
                     class="btn btn-link btn-warning btn-just-icon edit"><i class="fa fa-eye"></i>
                 </a>
-                <a href="{{ route($segment . '.' . 'brand-wise-products.edit', $product->id) }}"
+                <a href="{{ route('admin.brand-wise-products.edit', $product->id) }}"
                     class="btn btn-link btn-info btn-just-icon like"><i class="fa fa-edit"></i></a>
                 <a class="btn btn-link btn-danger btn-just-icon remove">
                     <form onsubmit="return confirm('Do you really want to delete?');"
-                        action="{{ route($segment . '.' . 'brand-wise-products.destroy', $product->id) }}"
+                        action="{{ route('admin.brand-wise-products.destroy', $product->id) }}"
                         method="POST">
                         @csrf
                         @method('DELETE')

@@ -2,10 +2,6 @@
     width="100%" style="width: 100%;" role="grid" aria-describedby="datatables_info">
     <thead>
         <tr role="row">
-            {{-- <th class="text-center"></th> --}}
-            {{-- <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 90px;"
-                aria-sort="ascending" aria-label="Name: activate to sort column descending">Image
-            </th> --}}
             <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
                 style="width: 130px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
                 Customer
@@ -56,7 +52,7 @@
                     </a>
                     <a class="btn btn-link btn-danger btn-just-icon remove">
                         <form onsubmit="return confirm('Do you really want to delete?');"
-                            action="{{ route($segment . '.' . 'direct-order.destroy', $order->id) }}" method="POST">
+                            action="{{ route('admin.direct-order.destroy', $order->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit">

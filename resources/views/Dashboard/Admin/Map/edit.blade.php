@@ -5,7 +5,6 @@
         <div class="alert alert-success"> {{ session('message') }} </div>
     @endif
     <div class="container-fluid">
-        <?php $segment = Request::segment(1); ?>
         <form role="form" enctype="multipart/form-data" action="{{ route('admin.map.update') }}" method="POST">
             @csrf
             @method('put')
@@ -51,7 +50,7 @@
                                 <h3 class="box-title">Action</h3>
                             </div>
                             <div class="box-footer" style="display: block;">
-                                <input class="btn btn-primary" type="submit">
+                                <input class="btn btn-primary" type="submit" value="Save">
                             </div>
                         </div>
                     </div>

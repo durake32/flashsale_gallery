@@ -17,11 +17,6 @@
                 <div class="card-body">
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
-               {{--         <button>
-                            <a href="{{route($segment . '.' . 'brand-wise-products.create',$brand[0]['slug'])}}">
-                                Create
-                            </a>
-                        </button>--}}
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">

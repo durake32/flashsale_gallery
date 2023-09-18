@@ -3,10 +3,6 @@
 
     <thead>
         <tr role="row">
-            {{-- <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 30px;"
-                aria-sort="ascending" aria-label="Name: activate to sort column descending">#
-            </th> --}}
-            {{-- <th class="text-center"></th> --}}
             <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 70px;"
                 aria-sort="ascending" aria-label="Name: activate to sort column descending">Image
             </th>

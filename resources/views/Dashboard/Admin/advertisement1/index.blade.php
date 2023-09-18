@@ -2,9 +2,6 @@
 
 @section('content')
 <div class="container-fluid">
-    <?php
-        $segment = Request::segment(1);
-        ?>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -33,7 +30,6 @@
                                         aria-describedby="datatables_info">
                                         <thead>
                                             <tr role="row">
-                                                {{-- <th class="text-center"></th> --}}
                                                 <th class="sorting_asc" tabindex="0" aria-controls="datatables"
                                                     rowspan="1" colspan="1" style="width: 100px;" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending">Image

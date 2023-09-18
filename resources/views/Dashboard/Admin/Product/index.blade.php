@@ -18,9 +18,9 @@
                 <div class="card-body">
                     <div class="toolbar">
                         @can('product create')
-                        <button onclick='window.location.href="{{route($segment . '.' . 'product.create')}}"'>
+                        <a href="{{route('admin.product.create')}}"' class="btn btn-success btn-sm">
                         Create
-                        </button>
+                        </a>
                         @endcan
                     </div>
                     <div class="material-datatables">

@@ -2,7 +2,6 @@
     width="100%" style="width: 100%;" role="grid" aria-describedby="datatables_info">
     <thead>
         <tr role="row">
-            {{-- <th class="text-center"></th> --}}
             <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
                 style="width: 100px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">Image
             </th>
@@ -44,7 +43,7 @@
             <td>{{ $category->name }}</td>
             @can('sub-category view')
             <td>
-                <a href="{{ route($segment . '.' . 'category-wise-sub-category.show', $category->slug) }}">
+                <a href="{{ route('admin.category-wise-sub-category.show', $category->slug) }}">
                     <i class="fas fa-folder-open"></i>
                     {{ $category->sub_categories->count() }}
                 </a>
@@ -67,7 +66,7 @@
                     class="btn btn-link btn-warning btn-just-icon edit"><i class="fa fa-eye"></i>
                 </a>
                 @can('category edit')
-                <a href="{{ route($segment . '.' . 'category.edit', $category->id) }}"
+                <a href="{{ route('admin.category.edit', $category->id) }}"
                     class="btn btn-link btn-info btn-just-icon like"><i class="fa fa-edit"></i>
                 </a>
                 @endcan

@@ -45,7 +45,7 @@
             <td>{{ $brand->name }}</td>
             <td>
                 @can('product view')
-                <a href="{{ route($segment . '.' . 'brand-wise-products.show', $brand->slug) }}">
+                <a href="{{ route('admin.brand-wise-products.show', $brand->slug) }}">
                     <i class="fas fa-folder-open"></i>
                     {{ $brand->products->count() }}
                 </a>
@@ -68,7 +68,7 @@
                     class="btn btn-link btn-warning btn-just-icon edit"><i class="fa fa-eye"></i>
                 </a>
                 @can('brand edit')
-                <a href="{{ route($segment . '.' . 'brand.edit', $brand->id) }}"
+                <a href="{{ route('admin.brand.edit', $brand->id) }}"
                     class="btn btn-link btn-info btn-just-icon like"><i class="fa fa-edit"></i></a>
                 @endcan
                 @can('brand delete')

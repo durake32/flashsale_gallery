@@ -18,11 +18,9 @@
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                         @can('offline-order create')
-                        <button>
-                            <a href="{{route('admin.offlineorders.create')}}">
+                            <a href="{{route('admin.offlineorders.create')}}" class="btn btn-success btn-sm">
                                 Create
                             </a>
-                        </button>
                         @endcan
                     </div>
                     <div class="material-datatables">

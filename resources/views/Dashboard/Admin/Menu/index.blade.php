@@ -3,9 +3,6 @@
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
-<?php
-$segment = Request::segment(1);
-?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -20,11 +17,9 @@ $segment = Request::segment(1);
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                         @can('menu create')
-                        <button>
-                            <a href="{{route($segment . '.' . 'menu.show', $menuCategory->id)}}">
+                            <a href="{{route('admin.menu.show', $menuCategory->id)}}" class="btn btn-success btn-sm">
                                 Create
                             </a>
-                        </button>
                         @endcan
                     </div>
                     <div class="material-datatables">

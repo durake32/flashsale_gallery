@@ -1,8 +1,6 @@
 @extends('Dashboard.layouts.master')
 
 @section('content')
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -15,11 +13,9 @@
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                         @can('banner create')
-                        <button>
-                            <a href="{{route('banner.create')}}">
+                            <a href="{{route('banner.create')}}" class="btn btn-success btn-sm">
                                 Create
                             </a>
-                        </button>
                         @endcan
                     </div>
                     <div class="material-datatables">

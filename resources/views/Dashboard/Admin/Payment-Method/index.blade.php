@@ -2,9 +2,6 @@
 
 @section('content')
 <div class="container-fluid">
-    <?php
-    $segment = Request::segment(1);
-    ?>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -15,11 +12,9 @@
                 <div class="card-body">
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
-                        <button>
-                            <a href="{{route($segment.'.'.'payment-method.create')}}">
-                                Create
-                            </a>
-                        </button>
+                        <a href="{{route('admin.payment-method.create')}}" class="btn btn-success btn-sm">
+                            Create
+                        </a>
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">

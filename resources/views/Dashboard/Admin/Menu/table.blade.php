@@ -2,7 +2,6 @@
     width="100%" style="width: 100%;" role="grid" aria-describedby="datatables_info">
     <thead>
         <tr role="row">
-            {{-- <th class="text-center"></th> --}}
             <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 50px;"
                 aria-sort="ascending" aria-label="Name: activate to sort column descending">#
             </th>
@@ -40,7 +39,7 @@
             <td>{{ $menu['order'] }}</td>
             <td tabindex="0" class="sorting_1">{{ $menu->menu_title }}</td>
             <td>
-                <a href="{{ route($segment . '-' . 'menu-wise-menu-items', $menu->id) }}">
+                <a href="{{ route('admin-menu-wise-menu-items', $menu->id) }}">
                     <i class="fas fa-folder-open"></i>
                     <span>
                         @if ($menu->menu_items)
@@ -62,13 +61,13 @@
                     class="btn btn-link btn-warning btn-just-icon edit"><i class="fa fa-eye"></i>
                 </a>
                 @can('menu edit')
-                <a href="{{ route($segment . '.' . 'menu.edit', $menu->id) }}"
+                <a href="{{ route('admin.menu.edit', $menu->id) }}"
                     class="btn btn-link btn-info btn-just-icon like"><i class="fa fa-edit"></i></a>
                 @endcan
                 @can('menu delete')
                 <a class="btn btn-link btn-danger btn-just-icon remove">
                     <form onsubmit="return confirm('Do you really want to delete?');"
-                        action="{{ route($segment . '.' . 'menu.destroy', $menu->id) }}" method="POST">
+                        action="{{ route('admin.menu.destroy', $menu->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">

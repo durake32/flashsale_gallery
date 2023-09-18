@@ -1,9 +1,6 @@
 @extends('Dashboard.layouts.master')
 
 @section('content')
-<?php
-$segment = Request::segment(1);
-?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -17,11 +14,9 @@ $segment = Request::segment(1);
                 <div class="card-body">
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
-                        <button>
-                            <a href="{{route($segment . '.' . 'menu-category.create')}}">
-                                Create
-                            </a>
-                        </button>
+                        <a href="{{route('admin.menu-category.create')}}" class="btn btn-success btn-sm">
+                            Create
+                        </a>
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">

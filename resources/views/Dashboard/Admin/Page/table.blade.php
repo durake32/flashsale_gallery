@@ -3,10 +3,6 @@
 
     <thead>
         <tr role="row">
-            {{-- <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 30px;"
-                aria-sort="ascending" aria-label="Name: activate to sort column descending">#
-            </th> --}}
-            {{-- <th class="text-center"></th> --}}
             <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 70px;"
                 aria-sort="ascending" aria-label="Name: activate to sort column descending">Image
             </th>
@@ -49,13 +45,13 @@
                     <i class="fa fa-eye"></i>
                 </a>
                 @can('page edit')
-                <a href="{{route($segment.'.'.'page.edit',$pg->id)}}"
+                <a href="{{route('admin.page.edit',$pg->id)}}"
                     class="btn btn-link btn-info btn-just-icon like"><i class="fa fa-edit"></i></a>
                 @endcan
                 @can('page delete')
                 <a class="btn btn-link btn-danger btn-just-icon remove">
                     <form onsubmit="return confirm('Do you really want to delete?');"
-                        action="{{route($segment.'.'.'page.destroy',$pg->id)}}" method="POST">
+                        action="{{route('admin.page.destroy',$pg->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">

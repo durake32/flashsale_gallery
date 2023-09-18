@@ -2,9 +2,6 @@
 
 @section('content')
 <div class="container-fluid">
-    <?php
-    $segment = Request::segment(1);
-    ?>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -16,11 +13,9 @@
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                         @can('page create')
-                        <button>
-                            <a href="{{route($segment.'.'.'page.create')}}">
+                            <a href="{{route('admin.page.create')}}" class="btn btn-success btn-sm">
                                 Create
                             </a>
-                        </button>
                         @endcan
                     </div>
                     <div class="material-datatables">

@@ -14,11 +14,6 @@
                 <div class="card-body">
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
-                        @can('query create')
-                            <a href="{{route('query.create')}}">
-                                Add New
-                            </a>
-                        @endcan
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">

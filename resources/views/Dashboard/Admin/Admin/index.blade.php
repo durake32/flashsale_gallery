@@ -14,11 +14,11 @@
                 <div class="card-body">
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
-                        <a class="btn btn-success"  href="{{route('admin.create')}}">
+                        <a class="btn btn-success btn-sm"  href="{{route('admin.create')}}">
                             Create
                         </a>
                         @can('is_super_admin')
-                            <a class="btn btn-success" href="{{route('roles.index')}}">
+                            <a class="btn btn-info btn-sm" href="{{route('roles.index')}}">
                                 Role Management
                             </a>
                         @endcan

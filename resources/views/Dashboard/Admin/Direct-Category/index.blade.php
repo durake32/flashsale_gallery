@@ -2,9 +2,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <?php
-        $segment = Request::segment(1);
-        ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -18,9 +15,9 @@
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                             @can('direct-category create')
-                            <button onclick='window.location.href="{{ route('admin.directCategory.create') }}"'>
+                            <a href="{{ route('admin.directCategory.create') }}" class="btn btn-success btn-sm">
                                 Create
-                            </button>
+                            </a>
                             @endcan
                         </div>
                         <div class="material-datatables">
@@ -33,8 +30,6 @@
                                             aria-describedby="datatables_info">
                                             <thead>
                                                 <tr role="row">
-                                                    {{-- <th class="text-center"></th> --}}
-                   
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatables"
                                                         rowspan="1" colspan="1" style="width: 177px;"
                                                         aria-sort="ascending"
