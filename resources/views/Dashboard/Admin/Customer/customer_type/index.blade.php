@@ -20,6 +20,12 @@
                             class="btn btn-success btn-sm">
                             Create
                         </button>
+
+                        @can('customer view')
+                            <a href="{{route('customer.index')}}" class="btn btn-info btn-sm">
+                                Customer List
+                            </a>
+                        @endcan
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">

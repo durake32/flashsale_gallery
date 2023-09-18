@@ -33,6 +33,8 @@ class CreateCustomer extends FormRequest
             'country' => 'nullable', 'string', 'max:255',
             'contact_no' => 'nullable', 'string', 'max:255',
             'image' => 'nullable', 'image', 'max:255',
+            'location_id' => 'required',
+            'customer_type_id' => 'required',
         ];
     }
 }

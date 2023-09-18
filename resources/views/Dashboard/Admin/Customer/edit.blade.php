@@ -57,6 +57,40 @@
                     </div>
                     @include('Dashboard.Admin.Customer.Partials.password-edit-section')
 
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">Customer Type *</h4>
+                            </div>
+                            <div class="box-footer" style="display: block;">
+                                <select class="browser-default custom-select" name="customer_type_id">
+                                    <option selected disabled>Select Customer Type</option>
+                                    @foreach ($types as $type)
+                                        <option value="{{ $type->id }}" {{ $user->customer_type_id == $type->id ? 'selected' : ''}}>{{ $type->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">Location *</h4>
+                            </div>
+                            <div class="box-footer" style="display: block;">
+                                <select class="browser-default custom-select" name="location_id">
+                                    <option selected disabled>Select Location</option>
+                                    @foreach ($locations as $location)
+                                        <option value="{{ $location->id }}" {{ $user->location_id == $location->id ? 'selected' : ''}}>{{ $location->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     @include('Dashboard.Commons.update-button-section')
                 </div>
             </div>

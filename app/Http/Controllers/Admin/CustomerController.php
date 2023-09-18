@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\CreateCustomer;
+use App\Models\CustomerType;
+use App\Models\Location;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +33,9 @@ class CustomerController extends Controller
      */
     public function create(User $user)
     {
-        return view('Dashboard.Admin.Customer.create', compact('user'));
+        $locations = Location::get();
+        $types = CustomerType::get();
+        return view('Dashboard.Admin.Customer.create', compact('user','locations','types'));
     }
 
     /**
@@ -50,7 +54,8 @@ class CustomerController extends Controller
         $user['contact_no'] = $request->contact_no;
         $user['is_wholesaler'] = 0;
         $user['password'] = Hash::make($request['password']);
-
+        $user['customer_type_id'] = $request->get('customer_type_id');
+        $user['location_id'] = $request->get('location_id');
         $name = strtolower($request->name);
 
         $removeSpace = str_replace(' ', '-', $name);
@@ -62,7 +67,7 @@ class CustomerController extends Controller
 
         $user->save();
 
-        return redirect(route('customer.index'));
+        return redirect()->route('customer.index')->with('success','Customer added Successfully');
     }
 
     /**
@@ -85,8 +90,9 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-
-        return view('Dashboard.Admin.Customer.edit', compact('user'));
+        $locations = Location::get();
+        $types = CustomerType::get();
+        return view('Dashboard.Admin.Customer.edit', compact('user','locations','types'));
     }
 
     /**
@@ -105,7 +111,6 @@ class CustomerController extends Controller
 
         switch ($request->input('action')) {
             case 'update':
-                // Save 
                 $this->validate($request, [
                     'name' => 'required|string|max:255',
                     'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
@@ -115,10 +120,9 @@ class CustomerController extends Controller
                     'is_wholesaler' => 'required', 'boolean',
                     'contact_no' => 'nullable', 'string', 'max:255',
                     'image' => 'nullable', 'image', 'max:255',
-
+                    'location_id' =>'required',
+                    'customer_type_id' =>'required',
                 ]);
-                // dd($request->all());
-
                 $user['name'] = $request->name;
                 $user['email'] = $request->email;
                 $user['address'] = $request->address;
@@ -128,23 +132,22 @@ class CustomerController extends Controller
                 $user['contact_no'] = $request->contact_no;
                 $user['status'] = $request->status;
                 $user['remarks'] = $request->remarks;
+                $user['customer_type_id'] = $request->get('customer_type_id');
+                $user['location_id'] = $request->get('location_id');
 
-
-                    if ($request->hasFile('image')) {
-                        $existingImage = 'Asset/Uploads/Users/' . $user->image;
-            
-                        if (file_exists($existingImage)) {
-                       @unlink($existingImage);
-                        }
-            
-                        $file = $request->file('image');
-                        $extension = $file->getClientOriginalExtension();
-                        $fileName = $removeSpace . uniqid() . '.' . $extension;
-                        $file->move('Asset/Uploads/Users/', $fileName);
-                        $user->image = $fileName;
+                if ($request->hasFile('image')) {
+                    $existingImage = 'Asset/Uploads/Users/' . $user->image;
+        
+                    if (file_exists($existingImage)) {
+                    @unlink($existingImage);
                     }
-
-
+        
+                    $file = $request->file('image');
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName = $removeSpace . uniqid() . '.' . $extension;
+                    $file->move('Asset/Uploads/Users/', $fileName);
+                    $user->image = $fileName;
+                }
                 $user->save();
 
                 break;
@@ -153,16 +156,13 @@ class CustomerController extends Controller
                 // Preview model
                 $this->validate($request, [
                     'password' => 'required|string|min:8|confirmed',
-
                 ]);
                 $user->password = Hash::make($request->password);
-
                 $user->save();
-
                 break;
         }
 
-        return redirect(route('customer.index'));
+        return redirect()->route('customer.index')->with('success','Customer updated Successfully');
     }
 
     /**
@@ -174,22 +174,15 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-
-        // dd($user);
-
         $existingImage = 'Asset/Uploads/Users/' . $user->image;
 
-
         if (file_exists($existingImage)) {
-       @unlink($existingImage);
+            @unlink($existingImage);
         }
-      
-      
-        $user->orders()->delete(); // See below
-
-
+        if($user->orders()->count() > 0){
+            return redirect()->route('customer.index')->with('error','Sorry !!! ,Customer has orders.');
+        }
         $user->delete();
-
-        return redirect(route('customer.index'));
+        return redirect()->route('customer.index')->with('success','Customer deleted Successfully');
     }
 }

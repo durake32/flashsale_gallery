@@ -59,6 +59,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Order::class);
     }
 
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
+    public function customer_type()
+    {
+        return $this->belongsTo(CustomerType::class);
+    }
+
     public function getNameAttribute($value){
         return ucwords($value);
     }

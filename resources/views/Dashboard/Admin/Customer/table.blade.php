@@ -21,6 +21,9 @@
                 aria-label="Position: activate to sort column ascending">Address
             </th>
 
+            <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
+                aria-label="Position: activate to sort column ascending">Location
+            </th>
 
             <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
                 aria-label="Position: activate to sort column ascending">Order Count
@@ -46,12 +49,14 @@
                         alt="" height="100" width="100">
                 </div>
             </td>
-            <td>{{ $user->name }}</td>
+            <td>{{ $user->name }} 
+                <span class="badge badge-info">{{ $user->customer_type ? $user->customer_type->name : '' }}</span>
+            </td>
             <td>{{ $user->email }}</td>
-
             <td>{{ $user->contact_no }}</td>
-
             <td>{{ $user->address }}</td>
+            <td>{{ $user->location ? $user->location->name : '' }}</td>
+
             @php
             $orders = App\Models\Order::where('user_id', $user->id)->orderBy('created_at','DESC')->count();
             @endphp
