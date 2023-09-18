@@ -12,20 +12,16 @@
                     <div class="card-icon">
                         <i class="fas fas fa-cubes fa-2x"></i>
                     </div>
-                    <h4 class="card-title">advertisements</h4>
+                    <h4 class="card-title">Educational Partners</h4>
                 </div>
                 <div class="card-body">
                     <div class="toolbar">
-                        <!--        Here you can write extra buttons/actions for the toolbar              -->
-                        @if($advertisementCount < 8) @can('advertisement create') <button
-                            onclick='window.location.href="{{ route('admin.advertisement2.create') }}"'>
-                            Create
-                            </button>
-                            @endcan
-                            @else
-                            <div class="alert alert-info text-center">Advertisement cannot be added more than 8 times
-                            </div>
-                            @endif
+                        @can('advertisement create')
+                            <a class="btn btn-success btn-sm" href="{{ route('admin.advertisement2.create') }}"'>
+                                Create
+                            </a>
+                        @endcan
+                            
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -37,7 +33,6 @@
                                         aria-describedby="datatables_info">
                                         <thead>
                                             <tr role="row">
-                                                {{-- <th class="text-center"></th> --}}
                                                 <th class="sorting_asc" tabindex="0" aria-controls="datatables"
                                                     rowspan="1" colspan="1" style="width: 100px;" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending">Image

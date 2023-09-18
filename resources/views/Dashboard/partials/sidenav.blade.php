@@ -31,7 +31,7 @@
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'product*']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ url(Request::segment(1), 'product') }}">
-                <i class="fas fa-user-edit"></i>
+                <i class="fa fa-product-hunt"></i>
                 <p> Product </p>
             </a>
         </li>
@@ -53,7 +53,7 @@
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'order']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ url(Request::segment(1), 'order') }}">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-cart-plus"></i>
                 <p> Orders </p>
             </a>
         </li>
@@ -137,7 +137,7 @@
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'notifications*']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ url(Request::segment(1), 'notifications') }}">
-                <i class="far fa-file-alt"></i>
+                <i class="fas fa-bell"></i>
                 <p> Notification </p>
             </a>
         </li>
@@ -164,16 +164,16 @@
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'advertisement1*']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ route('admin.advertisement1.index') }}">
-                <i class="far fa-file-alt"></i>
+                <i class="fas fa-ad"></i>
                 <p> Advertisement1 </p>
             </a>
         </li>
 
-        <li class="nav-item {{ Request::is([$segment1 . '/' . 'advertisement2*']) ? 'active' : '' }}">
+        <li class="nav-item {{ Request::is([$segment1 . '/' . 'educational-partners*']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ route('admin.advertisement2.index') }}">
-                <i class="far fa-file-alt"></i>
-                <p> Advertisement2 </p>
+                <i class="fa fa-handshake-o"></i>
+                <p> Educational Partners </p>
             </a>
         </li>
         @endcan
@@ -181,7 +181,7 @@
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'map*']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ route('admin.map.edit') }}">
-                <i class="far fa-file-alt"></i>
+                <i class="fa fa-map-marker"></i>
                 <p> Map </p>
             </a>
         </li>
@@ -239,7 +239,7 @@
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'calendars*']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ route('admin.calendars.index') }}">
-                <i class="far fa-calendar"></i>
+                <i class="far fa-calendar-check"></i>
                 <p>Calendar </p>
             </a>
         </li>

@@ -12,7 +12,6 @@ class Advertisement extends Model
 
     protected $table="advertisements";
     protected $fillable=["title","url",'link','type','type_id'];
-    public $timestamps = false;
 
 
 }

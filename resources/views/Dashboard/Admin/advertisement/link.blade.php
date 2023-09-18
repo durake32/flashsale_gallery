@@ -17,7 +17,7 @@
     </div>
 
 
-    <div class="col-md-12">
+    <div class="col-md-12" id="category">
         <div class="form-group bmd-form-group">
             <label for="type_id"> Select Category *</label>
             <select class="browser-default custom-select" name="type_id">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-12" id="sub_category">
         <div class="form-group bmd-form-group">
             <label for="type_id"> Select Sub Category *</label>
             <select class="browser-default custom-select" name="type_id">
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-12" id="brand">
         <div class="form-group bmd-form-group">
             <label for="type_id"> Select Brand*</label>
             <select class="browser-default custom-select" name="type_id">
@@ -53,3 +53,26 @@
         </div>
     </div>
 </div>
+@section('js')
+<script>
+    $('#category').hide();
+    $('#sub_category').hide();
+    $('#brand').hide();
+    $('#type').on('change',function(){
+        let filter = $(this).val();
+        if(filter == 'category'){
+            $('#category').show();
+            $('#sub_category').hide();
+            $('#brand').hide();
+        }else if(filter == 'subcategory') {
+            $('#category').hide();
+            $('#sub_category').show();
+            $('#brand').hide();
+        }else{
+            $('#category').hide();
+            $('#sub_category').hide();
+            $('#brand').show();
+        }
+    });
+</script>
+@endsection

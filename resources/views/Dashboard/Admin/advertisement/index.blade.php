@@ -18,9 +18,9 @@
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                         @can('advertisement create')
-                        <button onclick='window.location.href="{{ route('admin.advertisement.create') }}"'>
+                        <a class="btn btn-success btn-sm" href="{{ route('admin.advertisement.create') }}"'>
                             Create
-                        </button>
+                        </a>
                         @endcan
                     </div>
                     <div class="material-datatables">
@@ -33,7 +33,6 @@
                                         aria-describedby="datatables_info">
                                         <thead>
                                             <tr role="row">
-                                                {{-- <th class="text-center"></th> --}}
                                                 <th class="sorting_asc" tabindex="0" aria-controls="datatables"
                                                     rowspan="1" colspan="1" style="width: 100px;" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending">Image

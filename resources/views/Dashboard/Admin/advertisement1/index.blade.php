@@ -18,9 +18,9 @@
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                         @can('advertisement create')
-                        <button onclick='window.location.href="{{ route('admin.advertisement1.create') }}"'>
+                        <a class="btn btn-success btn-sm" href="{{ route('admin.advertisement1.create') }}"'>
                             Create
-                        </button>
+                        </a>
                         @endcan
                     </div>
                     <div class="material-datatables">

@@ -184,7 +184,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     //advertisement
     Route::resource('advertisement',AdvertisementController::class)->names('admin.advertisement');
     Route::resource('advertisement1',Advertisement1Controller::class)->names('admin.advertisement1');
-    Route::resource('advertisement2',Advertisment2Controller::class)->names('admin.advertisement2')->except('show');
+    Route::resource('educational-partners',Advertisment2Controller::class)
+            ->names('admin.advertisement2')->except('show');
 
     //map
     Route::get('/map/edit',[MapController::class,'edit'])->name('admin.map.edit');

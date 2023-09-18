@@ -56,7 +56,6 @@
 <script>
     
     $('#selectAll').click(function() {
-        console.log('fdfd')
         $('#permission option').attr("selected","selected");
     });   
     $('#deselectAll').click(function() {
