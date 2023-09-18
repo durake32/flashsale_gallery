@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\DirectCategoryController;
 use App\Http\Controllers\Admin\DirectOrderController;
+use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\MapController;
 use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuController;
@@ -80,6 +81,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::resource('retailer', RetailerController::class);
 
     Route::resource('wholesaler', WholesalerController::class);
+
+    Route::resource('locations', LocationController::class)
+        ->only('index','store','update','destroy')->names('admin.locations');
+
 
     Route::get('customer/deactive', [CustomerController::class,'deactiveCustomer'])->name('admin.customerDeactive');
     Route::resource('customer', CustomerController::class);
@@ -203,4 +208,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::post('/notifications/send',[PushNotificationController::class,'bulksend'])->name('admin.notification.send');
     Route::get('/notifications', [PushNotificationController::class,'index'])->name('admin.notification.index');
     Route::get('/notifications/create', [PushNotificationController::class,'create'])->name('admin.notification.create');
+
+
 });
