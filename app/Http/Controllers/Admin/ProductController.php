@@ -20,10 +20,12 @@ class ProductController extends Controller
     public function index()
     {
         if (Auth::guard('admin')->check()) {
-            $products = Product::with('brand')->with('category')->with('sub_category')->with('retailer')->with('reviews')->latest()->get();
+            $products = Product::with(['brand','category','sub_category','retailer','reviews'])
+            ->latest()->paginate(10);
         } elseif (Auth::guard('retailer')->check()) {
             $retailerID = Auth::guard('retailer')->user()->id;
-            $products = Product::with('brand')->with('category')->with('retailer')->with('sub_category')->where('retailer_id', $retailerID)->with('reviews')->latest()->get();
+            $products = Product::with(['brand','category','sub_category','retailer','reviews'])
+              ->where('retailer_id', $retailerID)->latest()->paginate(10);
         }
         return view('Dashboard.Admin.Product.index', compact('products'));
     }

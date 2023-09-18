@@ -13,15 +13,6 @@
             <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 100px;"
                 aria-label="Position: activate to sort column ascending">Assign To
             </th>
-            <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
-                style="width: 177px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
-                Products
-            </th>
-            <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
-                style="width: 100px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
-                Items
-            </th>
-
             <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 100px;"
                 aria-label="Position: activate to sort column ascending">Delivery Charge
             </th>
@@ -53,18 +44,6 @@
             <td>{{ $order->random_id }}</td>
             <td>{{ $order->user->name ?? '' }}</td>
             <td>{{ $order->adminUser->name ?? '---' }}</td>
-            <td>
-                @php $count = 0; @endphp
-                @foreach ($order->order_products as $products)
-                @php $count++; @endphp
-                <p class="text-primary">
-                    {{$count}} {{ $products['product_name'] }}
-                </p>
-                @endforeach
-            </td>
-            <td>
-                {{ $order->order_details['total_quantity'] }}
-            </td>
             <td>
                 Rs. {{ $order->delivery_charge }}
             </td>

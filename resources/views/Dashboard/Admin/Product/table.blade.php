@@ -2,7 +2,6 @@
     width="100%" style="width: 100%;" role="grid" aria-describedby="datatables_info">
     <thead>
         <tr role="row">
-            {{-- <th class="text-center"></th> --}}
             <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
                 style="width: 100px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">Image
             </th>
