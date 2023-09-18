@@ -43,7 +43,7 @@ class SendCalendarEvent extends Command
         $events = CalendarEvent::where('is_sent',0)->whereBetween('event_date', [now(),now()->addWeek()])->get();
         foreach($events as $event){
             Mail::to($event->email)
-            ->cc('ceodailomaa@gmail.com')
+            ->cc(['ceodailomaa@gmail.com','csrdailomaa@gmail.com'])
             ->send(new CalendarEventMail($event));
             $event->is_sent = 1;
             $event->save();

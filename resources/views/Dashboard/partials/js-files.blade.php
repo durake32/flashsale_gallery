@@ -1,10 +1,8 @@
 <!--   Core JS Files   -->
 <script src="{{ asset('Asset/Dashboard/js/core/jquery.min.js') }}"></script>
 <script src="{{ asset('Asset/Dashboard/js/core/popper.min.js') }}"></script>
-<script src="{{ asset('Asset/Dashboard/js/core/bootstrap-material-design.min.js') }}"></script>
-{{-- <script
+<script src="{{ asset('Asset/Dashboard/js/core/bootstrap-material-design.min.js') }}"></script> <script
     src="{{ asset('Asset/Dashboard/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
---}}
 <script src="{{ asset('Asset/Dashboard/js/plugins/jquery.bootstrap-wizard.js') }}"></script>
 <script src="{{ asset('Asset/Dashboard/js/Actions/actions.js') }}"></script>
 <script src="{{ asset('Asset/Dashboard/js/image-uploader.min.js') }}"></script>
@@ -55,9 +53,6 @@
   @endif
 </script>
 
-{{-- <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Yno10-YTnLjjn_Vtk0V8cdcY5lC4plU"></script>
---}}
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!--  Notifications Plugin    -->
