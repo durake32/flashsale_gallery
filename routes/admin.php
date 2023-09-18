@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryWiseSCController;
 use App\Http\Controllers\Admin\CkeditorController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\CustomerTypeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\DirectCategoryController;
 use App\Http\Controllers\Admin\DirectOrderController;
@@ -85,6 +86,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::resource('locations', LocationController::class)
         ->only('index','store','update','destroy')->names('admin.locations');
 
+    Route::resource('customer-types', CustomerTypeController::class)
+        ->only('index','store','update','destroy')->names('admin.customer_types');
 
     Route::get('customer/deactive', [CustomerController::class,'deactiveCustomer'])->name('admin.customerDeactive');
     Route::resource('customer', CustomerController::class);

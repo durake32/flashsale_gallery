@@ -212,6 +212,13 @@
                         </a>
                     </li>
                     @endcan
+
+                    <li class="nav-item {{ Request::is([$segment1 . '/' . 'locations*']) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url(Request::segment(1), 'locations') }}">
+                            <span class="sidebar-mini"> L </span>
+                            <span class="sidebar-normal"> Location </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </li>

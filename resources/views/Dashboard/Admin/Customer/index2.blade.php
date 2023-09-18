@@ -15,17 +15,11 @@
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                         @can('customer view')
-                        <button>
-                            <a href="{{route('customer.index')}}">
+                            <a href="{{route('customer.index')}}" class="btn btn-success btn-sm">
                                 Customer List
                             </a>
-                        </button>
                         @endcan
-                        <button>
-                            <a href="{{route('admin.customerDeactive')}}">
-                                Inactive Customer
-                            </a>
-                        </button>
+                        
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
