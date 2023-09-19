@@ -34,7 +34,6 @@ class FrontController extends Controller
 
 
         $newarrivals = Product::onlineProduct()->onlineProduct()->where('status', 1)
-            ->latest()
             ->with('brand')
             ->take(12)
            ->latest()
@@ -45,7 +44,7 @@ class FrontController extends Controller
             ->where('is_featured', 1)
             ->with('brand')
             ->take(12)
-          ->latest()
+            ->latest()
             ->get();
         $data['Featured Product']=$featured;
 
@@ -86,9 +85,7 @@ class FrontController extends Controller
         return response()->json($data, 200);
     }
 
-
-
-     public function bannerDetails($id){
+    public function bannerDetails($id){
         $bannerDetails = Banner::find($id);
 
         if($bannerDetails){
@@ -153,11 +150,9 @@ class FrontController extends Controller
             return response()->json($data, 200);
         }
 
-     }
+    }
 
-
-
-        public function advertismentDetails($id){
+    public function advertismentDetails($id){
         $bannerDetails = Advertisement::find($id);
 
         if($bannerDetails){
@@ -222,10 +217,9 @@ class FrontController extends Controller
             return response()->json($data, 200);
         }
 
-        }
+    }
 
-
-            public function advertisment1Details($id){
+    public function advertisment1Details($id){
         $bannerDetails = Advertisement1::find($id);
 
         if($bannerDetails){
@@ -290,20 +284,19 @@ class FrontController extends Controller
             return response()->json($data, 200);
         }
 
-        }
+    }
 
-
-         public function advertisment2Details($id){
+    public function advertisment2Details($id){
         $bannerDetails = Advertisement2::find($id);
 
         if($bannerDetails){
 
             if(!empty($bannerDetails['type'] == 'category')){
                 $products = Product::onlineProduct()->where('status', 1)
-                    ->where('category_id', $bannerDetails->type_id)
-                    ->with('brand')
-                    ->latest()
-                    ->get();
+                        ->where('category_id', $bannerDetails->type_id)
+                        ->with('brand')
+                        ->latest()
+                        ->get();
                 if($products){
                     $data['data']= $products;
                     $data['type']= 'category';
@@ -352,15 +345,10 @@ class FrontController extends Controller
                     return response()->json($data, 200);
                 }
             }
-
-        }else{
-            $data['data']= 'No Data Found';
-            return response()->json($data, 200);
-        }
-
-
-
-
-  }
+            }else{
+                $data['data']= 'No Data Found';
+                return response()->json($data, 200);
+            }
+    }
 
 }

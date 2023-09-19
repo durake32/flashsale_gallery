@@ -11,11 +11,11 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function getCategory(){
-        $categories = Category::where('status', 1)->get();
+        $categories = Category::where('status', 1)->where('is_feature',1)->get();
         $data['category']=$categories;
         $data['message']='Category List';
       
-        $subcategories = SubCategory::where('status', 1)->get();
+        $subcategories = SubCategory::where('status', 1)->where('is_feature',1)->get();
         $data['subcategory']=$subcategories;
         $data['message']='SubCategory List'; 
       
