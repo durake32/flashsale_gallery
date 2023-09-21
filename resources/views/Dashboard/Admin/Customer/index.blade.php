@@ -23,10 +23,11 @@
                         <a href="{{route('admin.customerDeactive')}}" class="btn btn-danger btn-sm">
                             Inactive Customer
                         </a>
-
+                        @can('customer type view')
                         <a href="{{route('admin.customer_types.index')}}" class="btn btn-info btn-sm">
                             Customer Type
                         </a>
+                        @endcan
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">

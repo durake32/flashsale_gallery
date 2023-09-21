@@ -12,7 +12,7 @@
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'dashboard']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ url(Request::segment(1), 'dashboard') }}">
-                <i class="fas fa-cogs"></i>
+                <i class="fa fa-dashboard"></i>
                 <p> Dashboard </p>
             </a>
         </li>
@@ -40,7 +40,7 @@
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'category*']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ url(Request::segment(1), 'category') }}">
-                <i class="fas fa-list"></i>
+                <i class="fas fa-sitemap"></i>
                 <p> Category </p>
             </a>
         </li>
@@ -103,7 +103,7 @@
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'customer*']) ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ url(Request::segment(1), 'customer') }}">
-                <i class="fas fa-users"></i>
+                <i class="fas fa-user-plus"></i>
                 @php
                 $countuser = \App\Models\User::all()->count();
                 @endphp
@@ -212,11 +212,43 @@
                         </a>
                     </li>
                     @endcan
-
+                    @can('location view')
                     <li class="nav-item {{ Request::is([$segment1 . '/' . 'locations*']) ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url(Request::segment(1), 'locations') }}">
                             <span class="sidebar-mini"> L </span>
                             <span class="sidebar-normal"> Location </span>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#report" aria-expanded="true">
+                <i class="fa fa-chart-bar"></i>
+                <p> Report <b class="caret"></b>
+                </p>
+            </a>
+
+            <div class="collapse" id="report" style="">
+                <ul class="nav">
+                    <li class="nav-item {{ Request::is([$segment1 . '/' . 'report/customer*']) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url(Request::segment(1), 'report/customer') }}">
+                            <span class="sidebar-mini"> CR </span>
+                            <span class="sidebar-normal"> Customer Report </span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Request::is([$segment1 . '/' . 'report/customer-product*']) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url(Request::segment(1), 'report/customer-product') }}">
+                            <span class="sidebar-mini"> CPR </span>
+                            <span class="sidebar-normal"> CustomerProduct Report </span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Request::is([$segment1 . '/' . 'report/order*']) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url(Request::segment(1), 'report/order') }}">
+                            <span class="sidebar-mini"> OR </span>
+                            <span class="sidebar-normal"> Order Report </span>
                         </a>
                     </li>
                 </ul>
@@ -232,11 +264,9 @@
         </li>
         @endcan
         @can('direct-category view')
-
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'direct-order-category*']) ? 'active' : '' }}">
-
             <a class="nav-link" href="{{ route('admin.directCategory.index') }}">
-                <i class="far fa-file-alt"></i>
+                <i class="fas fa-edit"></i>
                 <p>Direct Category </p>
             </a>
         </li>

@@ -35,7 +35,8 @@ Route::group(['prefix' => 'customer', 'middleware' => ['auth']], function () {
     Route::get('/order/excel/download',[OrderController::class,'exportOrder'])->name('export.order');
 
     
-    Route::get('/track/order', [OrderController::class,'index'],['as' => 'customer.order'])->name('customer.order');
+    Route::get('/track/order', [OrderController::class,'index'])
+    ->name('customer.order');
     Route::get('/payment', [OrderController::class,'paymentHistory'])->name('customer.payment.history');
 
     

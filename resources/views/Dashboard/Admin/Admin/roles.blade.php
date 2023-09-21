@@ -20,8 +20,6 @@
                             <div class="card-icon">
                                 <i class="fas fa-user"></i>
                             </div>
-                            {{-- <h4 class="card-title">Details</h4>
-                            --}}
                             @include('Dashboard.Commons.breadcrum')
                         </div>
                         <input type="hidden" name="admin_id" value="{{$admin->id}}">

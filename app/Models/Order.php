@@ -147,7 +147,7 @@ class Order extends Model
         if ($this->status == 1) {
             return [
                 'status' => 'badge badge-success',
-                'message' => 'Ordered',
+                'message' => 'Ordered Complete',
             ];
         } elseif ($this->status == 2) {
             return [

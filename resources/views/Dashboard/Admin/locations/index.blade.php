@@ -16,10 +16,12 @@
                 </div>
                 <div class="card-body">
                     <div class="toolbar">
+                        @can('location create')
                         <button href="#" data-target="#modal-add-location" data-toggle="modal"
                             class="btn btn-success btn-sm">
                             Create
                         </button>
+                        @endcan
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -44,9 +46,13 @@
                                                     
                                                     <td> {{ $location->name }}</td>
                                                     <td class="text-right">
+                                                        @can('location edit')
                                                         <a href="#" data-target="#modal-{{ $location->id }}" data-toggle="modal"
                                                             class="btn btn-link btn-warning btn-just-icon edit"><i class="fa fa-eye"></i>
                                                         </a>
+                                                        @endcan
+
+                                                        @can('location delete')
                                                         <a class="btn btn-link btn-danger btn-just-icon remove">
                                                             <form onsubmit="return confirm('Do you really want to delete?');"
                                                                 action="{{ route('admin.locations.destroy', $location->id) }}" method="POST">
@@ -57,6 +63,7 @@
                                                                 </button>
                                                             </form>
                                                         </a>
+                                                        @endcan
                                                     </td>
                                                 </tr>
 

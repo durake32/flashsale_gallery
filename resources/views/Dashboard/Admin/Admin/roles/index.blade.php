@@ -14,11 +14,9 @@
                 <div class="card-body">
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
-                        <button>
-                            <a href="{{route('roles.create')}}">
-                                Create
-                            </a>
-                        </button>
+                        <a href="{{route('roles.create')}}" class="btn btn-success btn-sm">
+                            Create
+                        </a>
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">

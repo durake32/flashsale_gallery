@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductWiseReviewsController;
 use App\Http\Controllers\Admin\QueryController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RetailerController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SCWiseBrandsController;
@@ -212,5 +213,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::get('/notifications', [PushNotificationController::class,'index'])->name('admin.notification.index');
     Route::get('/notifications/create', [PushNotificationController::class,'create'])->name('admin.notification.create');
 
+    //Report 
+    Route::prefix('report')->group(function(){
+        Route::get('customer',[ReportController::class,'customer'])->name('admin.report.customer');
+        Route::get('order',[ReportController::class,'order'])->name('admin.report.order');
+        Route::get('customer-product',[ReportController::class,'customer_product'])->name('admin.report.customer_product');
+    });
+    
 
 });
