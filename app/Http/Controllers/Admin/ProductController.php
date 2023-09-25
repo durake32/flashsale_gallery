@@ -38,9 +38,7 @@ class ProductController extends Controller
     public function create(Product $product)
     {
         $brands = Brand::select('id', 'name')->get();
-
         $retailers = Retailer::select('id', 'name')->get();
-
         $categories = Category::select('id','name')->get();
         $subCategories = SubCategory::select('id','name')->get();
 
@@ -106,7 +104,6 @@ class ProductController extends Controller
 
             ]);
         }
-        // dd($request->all());
 
         if (Auth::guard('admin')->check()) {
             $retailerID = $request->retailer_id;
@@ -116,12 +113,6 @@ class ProductController extends Controller
         }
 
         $brandID = $request->brand_id;
-
-        $brand = Brand::where('id', $brandID)->firstOrFail();
-
-        $subCategoryID = $brand['sub_category_id'];
-
-        // dd($subCategoryID);
 
         $product['name'] = $request->name;
         $product['brand_id'] = $brandID;
@@ -141,6 +132,11 @@ class ProductController extends Controller
         $product['meta_description'] = $request->meta_description;
         $product['status'] = $request->status;
         $product['product_type'] = $request->product_type;
+        $product['best'] = $request->best;
+        $product['latest'] = $request->latest;
+        $product['trending'] = $request->trending;
+        $product['is_discount'] = $request->input('discount_amount') > 0 ? 1 : 0;
+        $product['discount_amount'] = $request->discount_amount;
 
         if ($request->hasFile('main_image')) {
             $image = $request->file('main_image');
@@ -178,18 +174,12 @@ class ProductController extends Controller
 
     public function productWiseReviews($id)
     {
-        // $productReviews = Product::where('id', $id)->with('reviews')
-        //     ->firstOrFail();
-
         if (Auth::guard('admin')->check()) {
             $productReviews = Product::where('id', $id)->with('reviews')->firstOrFail();
         } elseif (Auth::guard('retailer')->check()) {
             $retailerID = Auth::guard('retailer')->user()->id;
             $productReviews = Product::where('id', $id)->where('retailer_id', $retailerID)->with('reviews')->firstOrFail();
         }
-
-        // dd($productReviews->toArray());
-
         return view('Dashboard/Admin/Product-Wise-Reviews.index', compact('productReviews'));
     }
 
@@ -218,7 +208,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         $segment = $request->segment(1);
         $product = Product::findOrFail($id);
         if ($segment == 'admin') {
@@ -269,8 +258,6 @@ class ProductController extends Controller
                 'product_type' => 'required|string',
             ]);
         }
-        // dd($request->all());
-
 
         if (Auth::guard('admin')->check()) {
             $retailerID = $request->input('retailer_id');
@@ -280,13 +267,6 @@ class ProductController extends Controller
         }
 
         $brandID = $request->input('brand_id');
-
-        $brand = Brand::where('id', $brandID)->firstOrFail();
-
-        $subCategoryID = $brand['sub_category_id'];
-
-        // dd($subCategoryID);
-
         $product->name = $request->input('name');
         $product->brand_id = $brandID;
         $product['category_id'] = $request->category_id;
@@ -305,6 +285,11 @@ class ProductController extends Controller
         $product->meta_description = $request->input('meta_description');
         $product->status = $request->input('status');
         $product->product_type = $request->product_type;
+        $product->best = $request->input('best');
+        $product->latest = $request->input('latest');
+        $product->trending = $request->input('trending');
+        $product->is_discount = $request->input('discount_amount') > 0 ? 1 : 0;
+        $product->discount_amount = $request->input('discount_amount');
 
         if ($request->hasFile('image')) {
             // $images = explode(",", $product->image);
@@ -410,8 +395,6 @@ class ProductController extends Controller
         }
 
         $product->delete();
-
-        // return redirect(route($segment . '.' . 'product.index'));
         return redirect()->back();
     }
 }

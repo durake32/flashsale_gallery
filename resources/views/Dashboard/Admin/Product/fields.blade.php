@@ -22,6 +22,11 @@
                     name="sale_price" id="sale_price">
             </div>
             <div>
+                <label for="name"> With Discount Price *</label>
+                <input type="number" class="form-control" min="0" value="{{ old('discount_amount', $product->discount_amount) }}"
+                    name="discount_amount" id="discount_amount">
+            </div>
+            <div>
                 <label for="name"> Allowed Quantity *</label>
                 <input type="number" class="form-control" min="0"
                     value="{{ old('allowed_quantity', $product->allowed_quantity) }}" name="allowed_quantity"

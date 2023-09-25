@@ -24,6 +24,11 @@ class Product extends Model
         'total'=>'integer',
         'retailer_id'=>'integer',
         'status'=>'integer',
+        'best' => 'integer',
+        'latest' => 'integer',
+        'trending' => 'integer',
+        'is_discount' => 'integer',
+        'discount_amount' => 'integer',
     ];
     public function setNameAttribute($value)
     {

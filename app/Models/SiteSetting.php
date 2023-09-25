@@ -13,6 +13,9 @@ class SiteSetting extends Model
         'aplicable'=>'integer',
         'charge'=>'integer',
         'minimum_amount'=>'integer',
+        'show_discount' => 'integer',
+        'discount_from' => 'date',
+        'discount_to' => 'date'
     ];
 
     public function getSiteDefaultImageAttribute()

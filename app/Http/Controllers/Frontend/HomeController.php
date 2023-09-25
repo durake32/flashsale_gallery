@@ -25,8 +25,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        // $subCategories = SubCategory::select('name', 'slug')->latest()->get();
-
         $subCategories = SubCategory::where('status', 1)
             ->where('is_featured', 1)
             ->select('id','name', 'image', 'slug', 'status', 'is_featured', 'category_id')
@@ -49,61 +47,37 @@ class HomeController extends Controller
             ->get();
 
         $featuredProducts = Product::onlineProduct()->where('status', 1)
-            ->where('is_featured', 1)
-            ->select('id','name', 'main_image', 'image' ,'slug', 'status', 'sale_price', 'regular_price', 'is_featured', 'brand_id')
-            ->take(12)
-            ->latest()
-            ->get();
+            ->where('is_featured', 1)->take(12)->latest()->get();
+        //new arrival products
         $newProducts = Product::onlineProduct()->where('status', 1)
-
-            ->select('id','name', 'main_image','image' ,'slug', 'status', 'brand_id', 'sale_price', 'regular_price')
-            ->latest()
-            ->with('brand')
-            ->take(12)
-            ->get();
+            ->where('latest',1)->latest()->take(12)->get();
 
         $justForYou = Product::onlineProduct()->where('status', 1)
-            ->where('is_foryou', 1)
-            ->select('id','name','image','main_image', 'slug', 'status', 'brand_id', 'sale_price', 'regular_price')
-            ->inRandomOrder()
-            ->with('brand')
-            ->take(18)
-            ->get();
-            // dd($justForYou);
-
-        // dd($justForYou);
-         $section1 = Product::onlineProduct()->where('status', 1)
-            ->where('section1', 1)
-            ->select('id','name','image','main_image', 'slug', 'status', 'brand_id', 'sale_price', 'regular_price')
-            ->with('brand')
-            ->take(12)
-           ->latest()
-            ->get();
-
-          $section2 = Product::onlineProduct()->where('status', 1)
-            ->where('section2', 1)
-            ->select('id','name','image','main_image', 'slug', 'status', 'brand_id', 'sale_price', 'regular_price')
-            ->with('brand')
-            ->take(12)
-            ->latest()
-            ->get();
+            ->where('is_foryou', 1)->take(18)->latest()->get();
+        //nepali product
+        $section1 = Product::onlineProduct()->where('status', 1)
+            ->where('section1', 1)->take(12)->latest()->get();
+        //top selling product
+        $section2 = Product::onlineProduct()->where('status', 1)
+            ->where('section2', 1)->take(12)->latest()->get();
+        //flash products
+        $flash_products = Product::onlineProduct()->where('status', 1)
+            ->where('is_discount', 1)->take(12)->latest()->get();
 
         $topCategories = SubCategory::where('status', 1)
             ->where('is_featured', 1)
              ->select('id', 'name', 'image', 'slug', 'status', 'is_featured')
             ->get()
             ->sortByDesc('created_at');
-        $advertisements=Advertisement::all();
-        $advertisements1=Advertisement1::all();
-        $sectionFeatured=Advertisement2::all();
-
-
+        $advertisements = Advertisement::all();
+        $advertisements1 = Advertisement1::all();
+        $sectionFeatured = Advertisement2::all();
 
         if (Auth::check()){
-        $userId = auth()->user()->id;
-       $cartCollection = \Cart::session($userId)->getContent();
+            $userId = auth()->user()->id;
+            $cartCollection = \Cart::session($userId)->getContent();
         } else {
-       $cartCollection = '';
+            $cartCollection = '';
         }
 
         $siteSetting=SiteSetting::first();
@@ -121,7 +95,7 @@ class HomeController extends Controller
             'siteSetting'
             ,'advertisements1',
             'sectionFeatured',
-           'cartCollection'
+           'cartCollection','flash_products'
         ));
     }
 
