@@ -14,10 +14,11 @@ class AddLocationAndTypeToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('customer_type_id')
-            ->nullable()->after('apple_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('location_id')
-            ->nullable()->after('customer_type_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedInteger('customer_type_id')
+            ->nullable()->after('apple_id');
+            $table->unsignedInteger('location_id')
+            ->nullable()->after('customer_type_id');
+
         });
     }
 
