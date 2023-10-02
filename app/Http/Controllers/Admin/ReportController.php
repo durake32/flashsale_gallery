@@ -70,9 +70,11 @@ class ReportController extends Controller
         $assigned_users =  Admin::role('delivery person')->get();
         return view('Dashboard.reports.order',compact('orders','users','assigned_users','payments'));
     }  
-    
+
     public function customer_product(Request $request){
-        $query = OrderProduct::query();
+        $query = OrderProduct::query()->whereHas('order',function($q){
+                    $q->where('status',3);
+                });
         $order_products = $query
                     ->when($request->user, function($q) use ($request){
                         $q->where('user_id',$request->user);
@@ -81,6 +83,39 @@ class ReportController extends Controller
                         $q->whereHas('order', function ($query) use ($request) {
                             $query->where('random_id',$request->order);
                          });
+                    })
+                    ->when($request->product, function($q) use ($request){
+                        $q->where('product_id', $request->product);
+                    })
+                    ->when($request->from_date && $request->to_date, function($q) use ($request){
+                        $q->whereHas('order', function ($query) use ($request) {
+                            $start = Carbon::parse($request->get('from_date'))
+                                ->format('Y-m-d') ?? today();
+                            $end = Carbon::parse($request->get('to_date'))
+                                ->format('Y-m-d') ?? today();
+                            $search_by = $request->get('search_by') ?? 'order_date';
+                            $query->whereBetween($search_by,[$start,$end]);
+                         });
+                    })
+                    ->latest()->get();
+        $products = Product::where('status',1)->get();
+        $users = User::has('orders')->get();
+        return view('Dashboard.reports.customer_product',compact('users','order_products','products'));
+    }  
+    
+    public function customer_product2(Request $request){
+        $query = OrderProduct::whereHas('order')->get();
+        // $query = Order::with('order_products')
+        //         ->select('orders.*','order_products.product_name','order_products.price','order_products.quantity')
+        //         ->leftJoin('order_products','order_products.order_id','=','orders.id')
+        //         ->where('orders.status',3)->get();
+                dd($query);
+        $order_products = $query
+                    ->when($request->user, function($q) use ($request){
+                        $q->where('user_id',$request->user);
+                    })
+                    ->when($request->order, function($q) use ($request){
+                        $query->where('random_id',$request->order);
                     })
                     ->when($request->product, function($q) use ($request){
                         $q->where('product_id', $request->product);

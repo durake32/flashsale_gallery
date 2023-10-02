@@ -35,7 +35,13 @@ class AdvertisementController extends Controller
             "url"=>"required",
             "title"=>"required|max:60",
         ]);
-       $advertisement=Advertisement::create($request->all());
+       $advertisement=Advertisement::create([
+            'title' => $request->title,
+            'url' => $request->url,
+            'type' => $request->type,
+            'type_id' => $request->type_id,
+            'link' => $request->link,
+       ]);
         if($request->hasFile('url'))
         {
             if($request->file('url')){

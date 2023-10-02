@@ -12,6 +12,14 @@
                     <h4 class="card-title">Direct Orders</h4>
                 </div>
                 <div class="card-body">
+                    <div class="toolbar">
+                        <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        @can('direct-category view')
+                            <a href="{{route('admin.directCategory.index')}}" class="btn btn-success btn-sm">
+                                Direct Order Category
+                            </a>
+                        @endcan
+                    </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">

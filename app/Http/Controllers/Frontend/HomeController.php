@@ -50,7 +50,7 @@ class HomeController extends Controller
             ->where('is_featured', 1)->take(12)->latest()->get();
         //new arrival products
         $newProducts = Product::onlineProduct()->where('status', 1)
-            ->where('latest',1)->latest()->take(12)->get();
+            ->latest()->take(12)->get();
 
         $justForYou = Product::onlineProduct()->where('status', 1)
             ->where('is_foryou', 1)->take(18)->latest()->get();
@@ -58,8 +58,8 @@ class HomeController extends Controller
         $section1 = Product::onlineProduct()->where('status', 1)
             ->where('section1', 1)->take(12)->latest()->get();
         //top selling product
-        $section2 = Product::onlineProduct()->where('status', 1)
-            ->where('section2', 1)->take(12)->latest()->get();
+        $section2 = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
+                    ->take(12)->orderBy('order_products_count','desc')->get();
         //flash products
         $flash_products = Product::onlineProduct()->where('status', 1)
             ->where('is_discount', 1)->take(12)->latest()->get();

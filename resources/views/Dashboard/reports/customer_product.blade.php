@@ -56,6 +56,15 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group bmd-form-group">
+                                    <label for="search_by"> Search By</label>
+                                    <select class="browser-default custom-select" name="search_by">
+                                        <option value="order_date">Order Date</option>
+                                        <option value="delivery_date">Delivery Date</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group bmd-form-group">
                                     <label for="submit"></label>
                                     <input class="btn btn-primary btn-sm" type="submit" value="Submit">
                                     <a href="{{ route('admin.report.customer_product')}}" class="btn btn-danger btn-sm text-white">Reset</a>
@@ -122,6 +131,9 @@
                                             <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 114px;"
                                                 aria-label="Date: activate to sort column ascending">Ordered At
                                             </th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 114px;"
+                                            aria-label="Date: activate to sort column ascending">Delivered At
+                                        </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -137,6 +149,7 @@
                                                     <td>{{ $order_product->quantity }} </td>
                                                     <td>  Rs. {{ $order_product->quantity * $order_product->price }} </td>
                                                     <td>{{ !is_null($order_product->order?->order_date) ? date('M d, Y',strtotime($order_product->order->order_date)) : '---'}}</td>
+                                                    <td>{{ !is_null($order_product->order?->delivery_date) ? date('M d, Y',strtotime($order_product->order->delivery_date)) : '---'}}</td>
                                                 </tr>
                                             @endforeach
 

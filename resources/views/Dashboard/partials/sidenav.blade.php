@@ -264,10 +264,10 @@
         </li>
         @endcan
         @can('direct-category view')
-        <li class="nav-item {{ Request::is([$segment1 . '/' . 'direct-order-category*']) ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.directCategory.index') }}">
+        <li class="nav-item {{ Request::is([$segment1 . '/' . 'direct-order*']) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.direct-order.index') }}">
                 <i class="fas fa-edit"></i>
-                <p>Direct Category </p>
+                <p>Direct Order </p>
             </a>
         </li>
         @endcan

@@ -21,11 +21,11 @@ class ProductController extends Controller
     {
         if (Auth::guard('admin')->check()) {
             $products = Product::with(['brand','category','sub_category','retailer','reviews'])
-            ->latest()->paginate(10);
+            ->latest()->get();
         } elseif (Auth::guard('retailer')->check()) {
             $retailerID = Auth::guard('retailer')->user()->id;
             $products = Product::with(['brand','category','sub_category','retailer','reviews'])
-              ->where('retailer_id', $retailerID)->latest()->paginate(10);
+              ->where('retailer_id', $retailerID)->latest()->get();
         }
         return view('Dashboard.Admin.Product.index', compact('products'));
     }
@@ -133,7 +133,7 @@ class ProductController extends Controller
         $product['status'] = $request->status;
         $product['product_type'] = $request->product_type;
         $product['best'] = $request->best;
-        $product['latest'] = $request->latest;
+        $product['latest'] = 1;
         $product['trending'] = $request->trending;
         $product['is_discount'] = $request->input('discount_amount') > 0 ? 1 : 0;
         $product['discount_amount'] = $request->discount_amount;

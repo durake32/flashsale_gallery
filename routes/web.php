@@ -348,7 +348,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::resource('brand', BrandController::class)->names('admin.brand');
     Route::resource('direct-order', AdminDirectOrderController::class)->names('admin.direct-order');
 
-    Route::get('/invoice_download/{orderId}', [OrderController::class,'InvoiceDownload'])->name('admin.invoice.download');
+    Route::get('/invoice_download/{orderId}', [AdminOrderController::class,'InvoiceDownload'])->name('admin.invoice.download');
     Route::resource('order', AdminOrderController::class)->names('admin.order');
 
     //calendar events
@@ -448,7 +448,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::put('/map/update',[MapController::class,'update'])->name('admin.map.update');
 
     //Direct Order Category
-    Route::get('/direct-order-category/index',[AdminDirectOrderController::class,'index'])->name('admin.directCategory.index');
+    Route::get('/direct-order-category/index',[DirectCategoryController::class,'index'])->name('admin.directCategory.index');
     Route::get('/direct-order-category/create',[DirectCategoryController::class,'create'])->name('admin.directCategory.create');
     Route::get('/direct-order-category/{directCategory}',[DirectCategoryController::class,'edit'])->name('admin.directCategory.edit');
     Route::post('/direct-order-category',[DirectCategoryController::class,'store'])->name('admin.directCategory.store');

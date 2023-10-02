@@ -22,6 +22,10 @@
                 aria-sort="ascending" aria-label="Name: activate to sort column descending">
                 Status
             </th>
+            <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
+                aria-sort="ascending" aria-label="Name: activate to sort column descending">
+                Created At
+            </th>
             <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1"
                 colspan="1" style="width: 208px;" aria-label="Actions: activate to sort column ascending">Actions</th>
         </tr>
@@ -34,7 +38,7 @@
             <td>{{ $event->email }}</td>
             <td>{{ $event->program_name }}</td>
             <td>{{ $event->is_sent ? 'Send' : 'Pending'}}</td>
-
+            <td>{{ date('M d, Y',strtotime($event->created_at)) }}</td>
             <td class="text-right">
                 @can('calendar edit')
                 <a href="{{ route('admin.calendars.edit', $event->id) }}"
