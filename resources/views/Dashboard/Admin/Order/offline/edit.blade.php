@@ -289,16 +289,13 @@
             }
             @endforeach
         });
-        $('.removeData' + counter).on('click', function () {
-                total = (parseInt($('.totalSum').val(), 10) - parseInt($('#amountTotal' + counter).val(), 10));
-                $('input[name="total"]').val(total);
-                $(this).closest('tr').remove();
-            }
-        );
     });
 
 </script>
 <script>
+    function confirmBox(message) {
+        return window.confirm(message);
+    }
     var total = 0;
     @foreach($orderProducts as $key => $order_product)
         total1 = 0;
@@ -345,7 +342,8 @@
 
          $('.removeData' + {{$key}}).on('click', function () {
             let orderProductId = $('#orderproduct-' + {{$key}}).val();
-            $.ajax({
+            if (confirmBox('Do you really want to delete?')) {
+                $.ajax({
                 url: '/admin/offline-orders/remove-product-items/'+orderProductId,
                 type: 'GET',
                 data: {},
@@ -361,6 +359,9 @@
                 error: function (error) {
                 },
             });
+            }
+
+           
             }
         );
 
