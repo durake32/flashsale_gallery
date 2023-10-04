@@ -1,6 +1,4 @@
 @extends('Dashboard.layouts.master')
-
-
 @section('content')
     <div class="container-fluid">
         <?php $segment = Request::segment(1); ?>
@@ -28,7 +26,6 @@
                         @include('Dashboard.Admin.Product.fields')
                     </div>
                     @include('Dashboard.Admin.Product.Partials.main_image-section')
-                    @include('Dashboard.Admin.Product.Partials.image-section')
                 </div>
                 <div class="col-md-4">
 
@@ -76,8 +73,8 @@
             </div>
         </form>
     </div>
-
-    <script src="https://biomed.onvirotech.com/backend/assets/js/jquery-3.2.1.min.js"></script>
+@endsection
+@section('js')
     <script type="text/javascript">
         $(document).ready(function () {
             $('#category').on('change',function(e) {
@@ -99,13 +96,5 @@
             });
         });
     </script>
-
-<script src="https://dailomaa.com/Asset/Dashboard/js/image-uploader.min.js"></script>
- <link href="{{ asset('Asset/Dashboard/css/image-uploader.min.css') }}" rel="stylesheet" />
-
-    <script>
-      $('.input-images-1').imageUploader();
-    </script>
-
-
-      @endsection
+    
+@endsection

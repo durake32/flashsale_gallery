@@ -130,6 +130,9 @@
                 <a href="#" data-target="#modal-{{ $product->id }}" data-toggle="modal"
                     class="btn btn-link btn-warning btn-just-icon edit"><i class="fa fa-eye"></i> View
                 </a>
+
+                <a href="{{ route('admin.createProductImage',$product->id)}}" class="btn btn-link btn-warning btn-just-icon"><i class="fa fa-image"></i> Gallery
+                </a>
                 @endcan
                 @can('product edit')
                 <a href="{{ route($segment . '.' . 'product.edit', $product->id) }}"

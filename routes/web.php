@@ -420,7 +420,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
 
     Route::post('admin-page-ckeditor-image', [CkeditorController::class,'pageImage'])
         ->name('admin-ckeditor-page-image.upload');
-
+    
+    Route::get('product-image/{productId}/gallery',[AdminProductController::class,'createProductImage'])->name('admin.createProductImage');
+    Route::post('product-image/{productId}/store',[AdminProductController::class,'storeProductImage'])->name('admin.storeProductImage');
+    Route::get('product-image/{productImage}/destroy',[AdminProductController::class,'removeProductImage'])->name('admin.removeProductImage');
+    
+    Route::get('admin/product/{product}/destroy',[AdminProductController::class,'destroyProduct'])->name('admin.destroy.product');
     Route::resource('product', AdminProductController::class)->names('admin.product');
 
     Route::post('admin-ckeditor-product-image', [CkeditorController::class,'uploadProductImage'])
@@ -432,7 +437,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
 
     Route::resource('site-settings', SiteSettingController::class);
 
-    Route::get('admin/product/{product}/destroy',[AdminProductController::class,'destroyProduct'])->name('admin.destroy.product');
     Route::get('admin/brand/{brand}/destroy/',[BrandController::class,'destroyBrand'])->name('admin.destroy.brand');
 
     Route::get('admin/category/{category}/destroy/',[CategoryController::class,'destroyCategory'])->name('admin.destroy.category');

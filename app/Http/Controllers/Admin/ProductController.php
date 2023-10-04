@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Retailer;
 use App\Models\SubCategory;
 use App\Models\Category;
+use App\Models\Image as ModelsImage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +76,6 @@ class ProductController extends Controller
                 'meta_description' => 'nullable|string|max:200',
                 'main_image' => 'nullable|image',
                 'image' => 'nullable',
-                'image.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:10048',
                 'status' => 'required|boolean',
                 'product_type' => 'required|string',
             ]);
@@ -98,7 +98,6 @@ class ProductController extends Controller
                 'meta_description' => 'nullable|string|max:200',
                 'main_image' => 'nullable|image',
                 'image' => 'nullable',
-                'image.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:10048',
                 'status' => 'required|boolean',
                 'product_type' => 'required|string',
                 'discount_amount' => 'nullable|lt:regular_price',
@@ -139,23 +138,11 @@ class ProductController extends Controller
         $product['discount_amount'] = $request->discount_amount;
         $product['discount_percentage'] = ( $request->discount_amount / $request->regular_price) *100 ;
 
-
         if ($request->hasFile('main_image')) {
             $image = $request->file('main_image');
             $originalImageName = uniqid() . '-' . "500x500" . '.' . $image->getClientOriginalExtension();
             Image::make($image)->resize(500, 500)->save('Asset/Uploads/Products/' . $originalImageName);
             $product['main_image'] = $originalImageName;
-        }
-
-        if ($request->hasfile('image')) {
-            $images = $request->image;
-            foreach ($images as $image) {
-                $originalImageName = uniqid() . '-' . "500x500" . '.' . $image->getClientOriginalExtension();
-                Image::make($image)->resize(500, 500)->save('Asset/Uploads/Products/' . $originalImageName);
-                $originalImage[] = $originalImageName;
-            }
-
-            $product['image'] = json_encode($originalImage);
         }
 
         $product->save();
@@ -231,7 +218,6 @@ class ProductController extends Controller
                 'additional_information' => 'nullable', 'string', 'max:2000000',
                 'meta_description' => 'nullable|string|max:200',
                 'image' => 'nullable',
-                'image.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:10048',
                 'status' => 'required', 'boolean',
                 'product_type' => 'required|string',
                 'discount_amount' => 'nullable|lt:regular_price',
@@ -254,7 +240,6 @@ class ProductController extends Controller
                 'additional_information' => 'nullable', 'string', 'max:2000000',
                 'meta_description' => 'nullable|string|max:200',
                 'image' => 'nullable',
-                'image.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:10048',
                 'status' => 'required', 'boolean',
                 'product_type' => 'required|string',
                 'discount_amount' => 'nullable|lt:regular_price',
@@ -295,32 +280,10 @@ class ProductController extends Controller
         $product->discount_amount = $request->input('discount_amount');
         $product->discount_percentage = ( $request->input('discount_amount') / $request->input('regular_price')) *100 ;
 
-        if ($request->hasFile('image')) {
-            // $images = explode(",", $product->image);
-            if ($product->image) {
-                $images = json_decode($product->image);
-                foreach ($images as $image) {
-                    $existingImage = 'Asset/Uploads/Products/' . $image;
-                    if (file_exists($existingImage)) {
-@unlink($existingImage);
-                    }
-                }
-            }
-
-            $images = $request->image;
-            foreach ($images as $image) {
-                $originalImageName = uniqid() . '-' . "500x500" . '.' . $image->getClientOriginalExtension();
-                Image::make($image)->resize(500, 500)
-                    ->save('Asset/Uploads/Products/' . $originalImageName);
-                $originalImage[] = $originalImageName;
-                $product->image = json_encode($originalImage);
-            }
-        }
-
         if ($request->hasFile('main_image')) {
             $existingImage = 'Asset/Uploads/Products/' . $product->main_image;
             if (file_exists($existingImage)) {
-@unlink($existingImage);
+                @unlink($existingImage);
             }
 
             $originalImage = $request->file('main_image');
@@ -339,10 +302,8 @@ class ProductController extends Controller
 
             $product->main_image = $originalImageName;
         }
-
-
         $product->save();
-
+       
         return redirect(route($segment . '.' . 'product.index'))->with('success','Product updated');
     }
 
@@ -354,14 +315,11 @@ class ProductController extends Controller
      */
     public function destroy(Request $request, Product $product)
     {
-        dd($product->id);
-        $segment = $request->segment(1);
         $mainImagePath = 'Asset/Uploads/Products/' . $product->main_image;
 
         if (file_exists($mainImagePath)) {
-@unlink($mainImagePath);
+            @unlink($mainImagePath);
         }
-
 
         if ($product->image) {
             $images = json_decode($product->image);
@@ -374,17 +332,15 @@ class ProductController extends Controller
         }
 
         $product->delete();
-
-        // return redirect(route($segment . '.' . 'product.index'));
         return redirect()->back();
     }
+
     public function destroyProduct(Request $request, Product $product)
     {
-        $segment = $request->segment(1);
         $mainImagePath = 'Asset/Uploads/Products/' . $product->main_image;
 
         if (file_exists($mainImagePath)) {
-@unlink($mainImagePath);
+            @unlink($mainImagePath);
         }
 
 
@@ -401,4 +357,54 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->back();
     }
+
+    //PRODUCT IMAGE GALLERY
+
+    public function createProductImage($productId)
+    {
+        $product =  Product::findOrFail($productId);
+        return view('Dashboard.Admin.Product.Partials.gallery',compact('product'));
+        
+    }
+
+    public function storeProductImage(Request $request,$productId){
+        $this->validate($request, [
+            'image.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:10048',
+        ]);
+        $product =  Product::findOrFail($productId);
+        if ($request->hasfile('image')) {
+            $request_images = $request->image;
+            //remove all product images
+            foreach($product->images() as $image){
+                $existingImage = 'Asset/Uploads/Products/' . $image->image;
+                if (file_exists($existingImage)) {
+                    @unlink($existingImage);
+                }
+                $product->images()->delete($image);
+            }
+            foreach ($request_images as $req_image) {
+                $originalImageName = uniqid() . '-' . "500x500" . '.' . $req_image->getClientOriginalExtension();
+                Image::make($req_image)->resize(500, 500)->save('Asset/Uploads/Products/' . $originalImageName);
+                $imagedata = new ModelsImage();
+                $imagedata->image = $originalImageName;
+                $product->images()->save($imagedata);
+            }
+        }
+        return redirect()->back()->with('success','Product Images Added Successfully');
+    }
+
+    public function removeProductImage($productImage){
+
+        $image = ModelsImage::findOrFail($productImage);
+        $mainImagePath = 'Asset/Uploads/Products/' . $image->image;
+
+        if (file_exists($mainImagePath)) {
+            @unlink($mainImagePath);
+        }
+
+        $image->delete();
+        return back();
+    }
+
+
 }

@@ -1,5 +1,4 @@
 @extends('Dashboard.layouts.master')
-
 @section('content')
     <div class="container-fluid">
         <?php $segment = Request::segment(1); ?>
@@ -31,11 +30,12 @@
                             </div>
                             @include('Dashboard.Commons.breadcrum')
                         </div>
+                        <a class="col-md-3 btn btn-success btn-sm" 
+                        href="{{ route('admin.createProductImage',$product->id)}}"> Manage Product Gallery</a>
                         @include('Dashboard.Admin.Product.fields')
 
                     </div>
                         @include('Dashboard.Admin.Product.Partials.main_image-section')
-                    @include('Dashboard.Admin.Product.Partials.image-section')
 
                 </div>
                 <div class="col-md-4">
@@ -74,8 +74,8 @@
         </form>
 
     </div>
-
-    <script src="https://biomed.onvirotech.com/backend/assets/js/jquery-3.2.1.min.js"></script>
+@endsection
+@section('js')
     <script type="text/javascript">
         $(document).ready(function () {
             $('#category').on('change',function(e) {
@@ -97,28 +97,4 @@
             });
         });
     </script>
-
-<script src="https://dailomaa.com/Asset/Dashboard/js/image-uploader.min.js"></script>
- <link href="{{ asset('Asset/Dashboard/css/image-uploader.min.css') }}" rel="stylesheet" />
-
-
-<script>
-  let preloaded = [
-  @if($product->image)
-       @foreach (json_decode($product->image, true) as $image)
-      {id: {{$product->id}}, src: '{{ asset('Asset/Uploads/Products/' . $image) }}'},
-       @endforeach
-  @endif
-];
-
-$('.input-images-1').imageUploader({
-    preloaded: preloaded,
-    imagesInputName: 'photos',
-    preloadedInputName: 'old'
-});
-</script>
-
-
-
-
 @endsection
