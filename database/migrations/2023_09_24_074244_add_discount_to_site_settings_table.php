@@ -15,9 +15,9 @@ class AddDiscountToSiteSettingsTable extends Migration
     {
         Schema::table('site_settings', function (Blueprint $table) {
             $table->after('minimum_amount', function (Blueprint $table){
-                $table->boolean('show_discount')->default(false);
-                $table->date('discount_from')->nullable();
-                $table->date('discount_to')->nullable();
+                $table->boolean('enable_flash_sale')->default(false);
+                $table->date('sale_from')->nullable();
+                $table->date('sale_to')->nullable();
 
             });
         });
@@ -31,7 +31,7 @@ class AddDiscountToSiteSettingsTable extends Migration
     public function down()
     {
         Schema::table('site_settings', function (Blueprint $table) {
-            $table->dropColumn(['show_discount','discount_from','discount_to']);
+            $table->dropColumn(['enable_flash_sale','sale_from','sale_to']);
         });
     }
 }

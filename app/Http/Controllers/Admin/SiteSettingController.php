@@ -11,11 +11,9 @@ class SiteSettingController extends Controller
 {
     public function index()
     {
-        $siteSettings = SiteSetting::all();
+        $site_setting = SiteSetting::find(1);
 
-        $site_setting = $siteSettings[0]->toArray();
-
-        // dd($site_setting);
+        // $site_setting = $siteSettings[0]->toArray();
 
         return view('Dashboard.Admin.SiteSettings.index', compact('site_setting'));
     }
@@ -127,6 +125,10 @@ class SiteSettingController extends Controller
         $setting->minimum_amount = $request->input('minimum_amount');
         $setting->about = $request->input('about');
         $setting->google_maps = $request->input('google_maps');
+
+        $setting->enable_flash_sale = $request->input('enable_flash_sale');
+        $setting->sale_from = $request->input('sale_from');
+        $setting->sale_to = $request->input('sale_to');
     
         if ($request->hasFile('logo')) {
             $setting['logo'] = uniqid() . '.' . $request->logo->getClientOriginalExtension();
@@ -144,7 +146,7 @@ class SiteSettingController extends Controller
         $setting->save();
 
 
-        return redirect(route('site-settings.index'));
+        return redirect(route('site-settings.index'))->with('success','Site Setting updated');
     }
 
     /**

@@ -17,8 +17,9 @@ class AddExtraFieldsToProductsTable extends Migration
             $table->after('shipping_price', function (Blueprint $table){
                 $table->boolean('best')->default(false);
                 $table->boolean('trending')->default(false);
-                $table->boolean('latest')->default(false);
+                $table->boolean('latest')->default(true);
                 $table->boolean('is_discount')->default(false);
+                $table->integer('discount_percentage')->default(0);
                 $table->bigInteger('discount_amount')->default(0);
             });
         });

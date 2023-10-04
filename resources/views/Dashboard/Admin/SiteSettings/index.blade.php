@@ -50,19 +50,21 @@
 
                         <div class="form-group bmd-form-group">
                             <label for="exampleEmails"> Meta Keywords *</label>
-                            <textarea class="form-control" name="meta_keywords" id="meta_keywords" rows="10"
+                            <textarea class="form-control" name="meta_keywords" id="meta_keywords" rows="3"
                                 required="true" aria-required="true">{{$site_setting['meta_keywords']}}</textarea>
                         </div>
 
                         <div class="form-group bmd-form-group">
                             <label for="exampleEmails"> Meta Description *</label>
-                            <textarea class="form-control" name="meta_description" id="meta_description" rows="10"
+                            <textarea class="form-control" name="meta_description" id="meta_description" rows="3"
                                 required="true" aria-required="true">{{$site_setting['meta_description']}}</textarea>
                         </div>
 
                     </div>
 
                 </div>
+                @include('Dashboard.Admin.SiteSettings.delivery')
+                @include('Dashboard.Admin.SiteSettings.flash')
 
                 <div class="card">
                     <div class="card-body">

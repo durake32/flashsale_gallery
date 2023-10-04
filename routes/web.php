@@ -96,7 +96,7 @@ Route::get('/migrate', function(){
     echo ' migrate';
 });
 
-Route::get('/check', [HomeController::class,'check'])->name('check');
+Route::get('/flash-products', [HomeController::class,'flashSaleProducts'])->name('flashSaleProducts');
 
 Route::post('/esewa/process', [EsewaController::class, 'esewaPay'])->name('checkout.esewa.process');
 Route::get('/success', [EsewaController::class, 'esewaPaySuccess']);

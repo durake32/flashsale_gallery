@@ -19,10 +19,6 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-    public function check(){
-      return view('check');
-    }
-
     public function index()
     {
         $subCategories = SubCategory::where('status', 1)
@@ -103,6 +99,17 @@ class HomeController extends Controller
         $data['subcategories'] = SubCategory::where("category_id", $request->category_id)
             ->get(["name", "id"]);
         return response()->json($data);
+    }
+
+    public function flashSaleProducts()
+    {
+        $setting = SiteSetting::find(1);
+        if(!$setting->enable_flash_sale && $setting->sale_from < today()){
+            return 'Not Flash Product Available';
+        }
+        $products = Product::onlineProduct()->where('status',1)
+                    ->where('is_discount',1)->whereNotNull('discount_amount')->get();
+        dd($products);
     }
 
 

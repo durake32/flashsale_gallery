@@ -101,7 +101,7 @@ class ProductController extends Controller
                 'image.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:10048',
                 'status' => 'required|boolean',
                 'product_type' => 'required|string',
-
+                'discount_amount' => 'nullable|lt:regular_price',
             ]);
         }
 
@@ -137,6 +137,8 @@ class ProductController extends Controller
         $product['trending'] = $request->trending;
         $product['is_discount'] = $request->input('discount_amount') > 0 ? 1 : 0;
         $product['discount_amount'] = $request->discount_amount;
+        $product['discount_percentage'] = ( $request->discount_amount / $request->regular_price) *100 ;
+
 
         if ($request->hasFile('main_image')) {
             $image = $request->file('main_image');
@@ -158,7 +160,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect(route($segment . '.' . 'product.index'));
+        return redirect(route($segment . '.' . 'product.index'))->with('success','Product Added');
     }
 
     /**
@@ -231,9 +233,8 @@ class ProductController extends Controller
                 'image' => 'nullable',
                 'image.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:10048',
                 'status' => 'required', 'boolean',
-                'product_type' => 'required',
                 'product_type' => 'required|string',
-
+                'discount_amount' => 'nullable|lt:regular_price',
             ]);
         } elseif ($segment == 'retailer') {
             $this->validate($request, [
@@ -256,6 +257,8 @@ class ProductController extends Controller
                 'image.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:10048',
                 'status' => 'required', 'boolean',
                 'product_type' => 'required|string',
+                'discount_amount' => 'nullable|lt:regular_price',
+
             ]);
         }
 
@@ -269,8 +272,8 @@ class ProductController extends Controller
         $brandID = $request->input('brand_id');
         $product->name = $request->input('name');
         $product->brand_id = $brandID;
-        $product['category_id'] = $request->category_id;
-        $product['sub_category_id'] = $request->sub_category_id;
+        $product->category_id = $request->category_id;
+        $product->sub_category_id = $request->sub_category_id;
         $product->is_featured = $request->input('is_featured');
         $product->is_foryou = $request->input('is_foryou');
         $product->section1 = $request->input('section1');
@@ -290,6 +293,7 @@ class ProductController extends Controller
         $product->trending = $request->input('trending');
         $product->is_discount = $request->input('discount_amount') > 0 ? 1 : 0;
         $product->discount_amount = $request->input('discount_amount');
+        $product->discount_percentage = ( $request->input('discount_amount') / $request->input('regular_price')) *100 ;
 
         if ($request->hasFile('image')) {
             // $images = explode(",", $product->image);
@@ -339,7 +343,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect(route($segment . '.' . 'product.index'));
+        return redirect(route($segment . '.' . 'product.index'))->with('success','Product updated');
     }
 
     /**
