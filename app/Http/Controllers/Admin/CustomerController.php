@@ -120,8 +120,8 @@ class CustomerController extends Controller
                     'is_wholesaler' => 'required', 'boolean',
                     'contact_no' => 'nullable', 'string', 'max:255',
                     'image' => 'nullable', 'image', 'max:255',
-                    'location_id' =>'required',
-                    'customer_type_id' =>'required',
+                    'location_id' =>'nullable',
+                    'customer_type_id' =>'nullable',
                 ]);
                 $user['name'] = $request->name;
                 $user['email'] = $request->email;

@@ -43,7 +43,7 @@ use App\Http\Controllers\Admin\CkeditorController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\CustomerTypeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\admin\DirectCategoryController;
+use App\Http\Controllers\Admin\DirectCategoryController;
 use App\Http\Controllers\Admin\DirectOrderController as AdminDirectOrderController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\MapController;
