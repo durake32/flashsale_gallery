@@ -46,7 +46,7 @@ class AdvertisementController extends Controller
             if($request->file('url')){
                 $file= $request->file('url');
                 $filename= date('YmdHi').$file->getClientOriginalName();
-                $file-> move(public_path('Asset/Uploads/advertisements'), $filename);
+                $file-> move('Asset/Uploads/advertisements', $filename);
                 $advertisement->url= $filename;
                 $advertisement->type = $request->type;
                 $advertisement->type_id = $request->type_id;
@@ -80,7 +80,7 @@ class AdvertisementController extends Controller
             if($request->file('url')){
                 $file= $request->file('url');
                 $filename= date('YmdHi').$file->getClientOriginalName();
-                $file-> move(public_path('Asset/Uploads/advertisements'), $filename);
+                $file-> move('Asset/Uploads/advertisements', $filename);
                 $advertisement->url= $filename;
                 $advertisement->type = $request->type;
                 $advertisement->type_id = $request->type_id;

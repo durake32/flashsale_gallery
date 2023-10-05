@@ -192,12 +192,9 @@ class OrderController extends Controller
             ->join('users', 'orders.user_id', '=', 'users.id')
             ->first();
         $orderItem = OrderProduct::where('order_id',$orderId)->orderBy('id','DESC')->get();
-        $pdf = PDF::loadView('Dashboard.Admin.Order.order_invoice',compact('order','orderItem'))->setPaper('a4')->setOptions([
-            'tempDir' => public_path(),
-            'chroot' => public_path(),
-        ]);
+        $pdf = PDF::loadView('Dashboard.Admin.Order.order_invoice',compact('order','orderItem'));
         return $pdf->download('invoice.pdf');
-    } // end mehtod
+    } // end 
 
 
 }

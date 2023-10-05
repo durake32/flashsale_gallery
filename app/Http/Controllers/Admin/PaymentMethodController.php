@@ -47,7 +47,7 @@ class PaymentMethodController extends Controller
         if ($request->hasFile('image')) {
             $extension = $request->image->getClientOriginalExtension();
             $paymentMethod['image'] =  uniqid() . '.' . $extension;
-            $request->image->move(public_path('Asset/Uploads/Payment-Methods'), $paymentMethod['image']);
+            $request->image->move('Asset/Uploads/Payment-Methods', $paymentMethod['image']);
         }
 
         $paymentMethod->save();
