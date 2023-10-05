@@ -375,12 +375,14 @@ class ProductController extends Controller
         if ($request->hasfile('image')) {
             $request_images = $request->image;
             //remove all product images
-            foreach($product->images() as $image){
-                $existingImage = 'Asset/Uploads/Products/' . $image->image;
-                if (file_exists($existingImage)) {
-                    @unlink($existingImage);
+            if($product->images()->count() > 0) {
+                foreach($product->images() as $image){
+                    $existingImage = 'Asset/Uploads/Products/' . $image->image;
+                    if (file_exists($existingImage)) {
+                        @unlink($existingImage);
+                    }
+                    $product->images()->delete($image);
                 }
-                $product->images()->delete($image);
             }
             foreach ($request_images as $req_image) {
                 $originalImageName = uniqid() . '-' . "500x500" . '.' . $req_image->getClientOriginalExtension();

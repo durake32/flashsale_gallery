@@ -8,6 +8,7 @@ use App\Models\Advertisement1;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Brand;
+use App\Models\Product;
 use Illuminate\Support\Facades\File;
 
 class Advertisement1Controller extends Controller
@@ -19,13 +20,11 @@ class Advertisement1Controller extends Controller
     }
     public function create()
     {
-       $categories = Category::latest()
-            ->get();
-     $subcategories = SubCategory::latest()
-            ->get();
-       $brands = Brand::latest()
-            ->get();
-        return view('Dashboard.Admin.advertisement1.create',compact('categories','subcategories','brands'));
+        $categories = Category::latest()->get();
+        $subcategories = SubCategory::latest()->get();
+        $brands = Brand::latest()->get();
+        $products = Product::onlineProduct()->where('status',1)->latest()->get();
+        return view('Dashboard.Admin.advertisement1.create',compact('categories','subcategories','brands','products'));
     }
     public function store(Request $request)
     {
@@ -51,13 +50,11 @@ class Advertisement1Controller extends Controller
     public function edit($id)
     {
         $advertisement = Advertisement1::findOrFail($id);
-       $categories = Category::latest()
-            ->get();
-       $subcategories = SubCategory::latest()
-            ->get();
-       $brands = Brand::latest()
-            ->get();
-        return view('Dashboard.Admin.advertisement1.edit',compact('advertisement','categories','subcategories','brands'));
+        $categories = Category::latest()->get();
+        $subcategories = SubCategory::latest()->get();
+        $brands = Brand::latest()->get();
+        $products = Product::onlineProduct()->where('status',1)->latest()->get();
+        return view('Dashboard.Admin.advertisement1.edit',compact('advertisement','categories','subcategories','brands','products'));
     }
 
     public function update(Request $request,$id)

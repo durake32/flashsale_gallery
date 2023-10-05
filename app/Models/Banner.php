@@ -18,7 +18,7 @@ class Banner extends Model
         'slug',
         'url',
         'image',
-        'status'
+        'status','type','type_id'
     ];
 
     public function setTitleAttribute($value)

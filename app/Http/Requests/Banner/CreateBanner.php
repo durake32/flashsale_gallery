@@ -25,7 +25,7 @@ class CreateBanner extends FormRequest
     {
         return [
             'title' => 'required|string|min:5|max:200|unique:banners',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required|boolean',
         ];

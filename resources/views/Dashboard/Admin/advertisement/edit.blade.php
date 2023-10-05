@@ -98,6 +98,9 @@
                                     SubCategory</option>
                                 <option value="brand" {{ $advertisement->type == 'brand'  ? 'selected' : ''}}>Brand
                                 </option>
+                                <option value="product" {{ $advertisement->type == 'product'  ? 'selected' : ''}}>Product
+                                </option>
+
                             </select>
                         </div>
                     </div>
@@ -136,6 +139,20 @@
                             <label for="type_id"> Select Brand*</label>
                             <select class="browser-default custom-select" name="type_id">
                                 @foreach($brands as $cat)
+                                <option value="{{$cat->id}}" {{$cat->id == $advertisement->type_id  ? 'selected' : ''}}>
+                                    {{$cat->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($advertisement->type == 'product')
+                    <div class="col-md-12">
+                        <div class="form-group bmd-form-group">
+                            <label for="type_id"> Select Product*</label>
+                            <select class="browser-default custom-select" name="type_id">
+                                @foreach($products as $cat)
                                 <option value="{{$cat->id}}" {{$cat->id == $advertisement->type_id  ? 'selected' : ''}}>
                                     {{$cat->name}}</option>
                                 @endforeach

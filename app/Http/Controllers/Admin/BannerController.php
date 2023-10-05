@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Banner\CreateBanner;
 use App\Http\Requests\Banner\UpdateBanner;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
@@ -32,15 +33,12 @@ class BannerController extends Controller
      */
     public function create(Banner $banner)
     {
-      
-            
-      $categories = Category::latest()
-            ->get();
-     $subcategories = SubCategory::latest()
-            ->get();
-       $brands = Brand::latest()
-            ->get();
-        return view('Dashboard.Admin.Banner.create', compact('banner','categories','subcategories','brands'));
+        $categories = Category::latest()->get();
+        $subcategories = SubCategory::latest()->get();
+        $brands = Brand::latest()->get();
+        $products = Product::onlineProduct()->where('status',1)->latest()->get();
+
+        return view('Dashboard.Admin.Banner.create', compact('banner','categories','subcategories','brands','products'));
     }
 
     /**
@@ -74,7 +72,7 @@ class BannerController extends Controller
 
         $banner->save();
 
-        return redirect(route('banner.index'));
+        return redirect(route('banner.index'))->with('success','Banner Added');
     }
 
     /**
@@ -96,13 +94,11 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-            $categories = Category::latest()
-            ->get();
-     $subcategories = SubCategory::latest()
-            ->get();
-       $brands = Brand::latest()
-            ->get();
-        return view('Dashboard.Admin.Banner.edit', compact('banner','categories','subcategories','brands'));
+        $categories = Category::latest()->get();
+        $subcategories = SubCategory::latest()->get();
+        $brands = Brand::latest()->get();
+        $products = Product::onlineProduct()->where('status',1)->latest()->get();
+        return view('Dashboard.Admin.Banner.edit', compact('banner','categories','subcategories','brands','products'));
     }
 
     /**
@@ -114,8 +110,6 @@ class BannerController extends Controller
      */
     public function update(UpdateBanner $request, Banner $banner)
     {
-      
-      
         $banner->title = $request->input('title');
         $banner->description = $request->input('description');
         $banner->url = $request->input('url');
@@ -153,7 +147,7 @@ class BannerController extends Controller
 
         $banner->save();
 
-        return redirect(route('banner.index'));
+        return redirect(route('banner.index'))->with('success','Banner Updated');
     }
 
 

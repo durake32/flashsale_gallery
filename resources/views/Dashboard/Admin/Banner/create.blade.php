@@ -23,6 +23,8 @@
                     </div>
                      @include('Dashboard.Admin.Banner.fields')
                 </div>
+                @include('Dashboard.Admin.advertisement.link')
+
                 @include('Dashboard.Admin.Banner.image-section')
             </div>
             <div class="col-md-4">

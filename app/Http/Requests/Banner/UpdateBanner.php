@@ -25,7 +25,7 @@ class UpdateBanner extends FormRequest
     {
         return [
             'title' => 'required', 'string', 'min:5', 'max:200', 'unique:banners', 'title,' . $this->id,
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'url' => 'nullable|string',
             'image' => 'nullable|image',
             'status' => 'required|integer',

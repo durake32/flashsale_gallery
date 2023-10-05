@@ -49,7 +49,7 @@ class HomeController extends Controller
             ->latest()->take(12)->get();
 
         $justForYou = Product::onlineProduct()->where('status', 1)
-            ->where('is_foryou', 1)->take(18)->latest()->get();
+            ->where('is_foryou', 1)->inRandomOrder()->take(18)->latest()->get();
         //nepali product
         $section1 = Product::onlineProduct()->where('status', 1)
             ->where('section1', 1)->take(12)->latest()->get();

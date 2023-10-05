@@ -31,6 +31,83 @@
                     </div>
                     @include('Dashboard.Admin.Banner.fields')
                 </div>
+
+                <div class="card">
+
+                    <div class="col-md-12">
+                        <div class="form-group bmd-form-group">
+                            <label for="type"> Type select</label>
+                            <select class="browser-default custom-select" name="type" id="type">
+                                <option disabled selected>Please Type</option>
+                                <option value="category" {{ $banner->type == 'category'  ? 'selected' : ''}}>
+                                    Category</option>
+                                <option value="subcategory"
+                                    {{ $banner->type == 'subcategory'  ? 'selected' : ''}}>
+                                    SubCategory</option>
+                                <option value="brand" {{ $banner->type == 'brand'  ? 'selected' : ''}}>Brand
+                                </option>
+                                <option value="product" {{ $banner->type == 'product'  ? 'selected' : ''}}>Product
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    @if($banner->type == 'category')
+                    <div class="col-md-12">
+                        <div class="form-group bmd-form-group">
+                            <label for="type_id"> Select Category *</label>
+                            <select class="browser-default custom-select" name="type_id">
+                                @foreach($categories as $cat)
+                                <option value="{{$cat->id}}" {{$cat->id == $banner->type_id  ? 'selected' : ''}}>
+                                    {{$cat->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($banner->type == 'subcategory')
+                    <div class="col-md-12">
+                        <div class="form-group bmd-form-group">
+                            <label for="type_id"> Select Sub Category *</label>
+                            <select class="browser-default custom-select" name="type_id">
+                                @foreach($subcategories as $cat)
+                                <option value="{{$cat->id}}" {{$cat->id == $banner->type_id  ? 'selected' : ''}}>
+                                    {{$cat->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($banner->type == 'brand')
+                    <div class="col-md-12">
+                        <div class="form-group bmd-form-group">
+                            <label for="type_id"> Select Brand*</label>
+                            <select class="browser-default custom-select" name="type_id">
+                                @foreach($brands as $cat)
+                                <option value="{{$cat->id}}" {{$cat->id == $banner->type_id  ? 'selected' : ''}}>
+                                    {{$cat->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($banner->type == 'product')
+                    <div class="col-md-12">
+                        <div class="form-group bmd-form-group">
+                            <label for="type_id"> Select Product*</label>
+                            <select class="browser-default custom-select" name="type_id">
+                                @foreach($products as $cat)
+                                <option value="{{$cat->id}}" {{$cat->id == $banner->type_id  ? 'selected' : ''}}>
+                                    {{$cat->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+                </div>
                 @include('Dashboard.Admin.Banner.image-section')
             </div>
             <div class="col-md-4">
