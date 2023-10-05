@@ -11,12 +11,9 @@ use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as ProviderUser;
 use App\Models\CalendarEvent;
 use App\Models\User;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
-use GuzzleHttp\Exception\ClientException;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 
 
 class AuthController extends Controller
@@ -161,7 +158,7 @@ class AuthController extends Controller
             'new_password' => 'required|min:6',
             'confirm_password' => 'required|same:new_password',
         );
-        $validator = \Illuminate\Support\Facades\Validator::make($input, $rules);
+        $validator = Validator::make($input, $rules);
         if ($validator->fails()) {
             $arr = array("status" => false, "message" => $validator->errors()->first(), "data" => array());
         } else {
@@ -175,15 +172,11 @@ class AuthController extends Controller
                     $arr = array("status" => true, "message" => "Password updated successfully.", "data" => array());
                 }
             } catch (\Exception $ex) {
-                if (isset($ex->errorInfo[2])) {
-                    $msg = $ex->errorInfo[2];
-                } else {
-                    $msg = $ex->getMessage();
-                }
+                $msg = $ex->getMessage();
                 $arr = array("status" => true, "message" => $msg, "data" => array());
             }
         }
-        return \Response::json($arr);
+        return response()->json($arr);
     }
 
 
@@ -268,17 +261,17 @@ class AuthController extends Controller
                 });
                 switch ($response) {
                     case Password::RESET_LINK_SENT:
-                        return \Response::json(array("status" => 200, "message" => trans($response), "data" => array()));
+                        return response()->json(array("status" => 200, "message" => trans($response), "data" => array()));
                     case Password::INVALID_USER:
-                        return \Response::json(array("status" => 400, "message" => trans($response), "data" => array()));
+                        return response()->json(array("status" => 400, "message" => trans($response), "data" => array()));
                 }
             } catch (\Swift_TransportException $ex) {
                 $arr = array("status" => 400, "message" => $ex->getMessage(), "data" => []);
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 $arr = array("status" => 400, "message" => $ex->getMessage(), "data" => []);
             }
         }
-        return \Response::json($arr);
+        return response()->json($arr);
     }
 
     public function calendar()

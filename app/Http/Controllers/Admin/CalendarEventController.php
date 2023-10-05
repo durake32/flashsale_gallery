@@ -52,7 +52,7 @@ class CalendarEventController extends Controller
         $event->event_date = $request->event_date;
         $event->email = $request->email;
         $event->save();
-        Session::flash('success', 'Program Created Sucessfully !!');
+        Session::flash('success', 'Program Created Successfully !!');
         return redirect()->route('admin.calendars.index');
     }
 
@@ -101,7 +101,7 @@ class CalendarEventController extends Controller
         $event->event_date = $request->event_date;
         $event->email = $request->email;
         $event->save();
-        Session::flash('success', 'Program updated Sucessfully !!');
+        Session::flash('success', 'Program updated Successfully !!');
         return redirect()->route('admin.calendars.index');
     }
 
@@ -115,7 +115,7 @@ class CalendarEventController extends Controller
     {
         $event = CalendarEvent::findOrFail($id);
         $event->delete();
-        Session::flash('success', 'Program deleted Sucessfully !!');
+        Session::flash('success', 'Program deleted Successfully !!');
         return redirect()->route('admin.calendars.index');
     }
 }
