@@ -28,6 +28,18 @@ class PermissionTableSeeder extends Seeder
                 'guard_name' => 'admin'
             ],
             [
+                'name' => 'location create',
+                'guard_name' => 'admin'
+            ],
+            [
+                'name' => 'location edit',
+                'guard_name' => 'admin'
+            ],
+            [
+                'name' => 'location delete',
+                'guard_name' => 'admin'
+            ],
+            [
                 'name' => 'gallery view',
                 'guard_name' => 'admin'
             ],
