@@ -72,8 +72,6 @@ class OrderController extends Controller
         } else {
             redirect()->back();
         }
-
-
         return view('Dashboard.Admin.Order.index', compact('orders','pendingorders','cancelledorders','deliveredorders','outForDelivery','directorders','confirmedorders','paymentFail'));
     }
 
@@ -85,7 +83,7 @@ class OrderController extends Controller
             ->with('order_products.product')
             ->orderBy('updated_at','desc')
             ->get();
-            $directorders = DirectOrder::where('status', 1)
+        $directorders = DirectOrder::where('status', 1)
             ->count();
         $cancelledorders = Order::where('status', 2)
            ->where('order_type','customer_added')
@@ -125,15 +123,12 @@ class OrderController extends Controller
            ->orderBy('updated_at','desc')
             ->count();
 
-
-
-
       $outForDelivery = Order::where('status', 4)
         ->where('order_type','customer_added')
             ->with('order_products.user')
             ->with('order_products.product')
            ->orderBy('updated_at','desc')
-            ->count();
+            ->count();  
 
         return view('Dashboard.Admin.Order.index', compact('orders','pendingorders','cancelledorders','deliveredorders','outForDelivery','directorders','confirmedorders','paymentFail'));
     }

@@ -147,31 +147,17 @@ Route::post('/checkout/cod', [OrderController::class,'cod'])
 // End for cash on delivery
 
 // Start for CellPay
+Route::post('checkout/payment/cellpay/process', [CellPayController::class,'process'])
+->name('checkout.payment.cellpay.process');
 
-Route::get('/checkout/payment/cellpay/process', [
-    'name' => 'CellPay Checkout Process',
-    'as' => 'checkout.payment.cellpay.process',
-    'uses' => [CellPayController::class,'process'],
-]);
+Route::post('checkout/payment/cellpay/completed/{random_order_id}', [CellPayController::class,'paymentCompleted'])
+->name('checkout.payment.cellpay.completed');
 
-Route::post('/checkout/payment/cellpay/completed/{random_order_id}', [
-    'name' => 'CellPay Payment Completed',
-    'as' => 'checkout.payment.cellpay.completed',
-    'uses' => [CellPayController::class,'paymentCompleted'],
-]);
+Route::post('checkout/payment/cellpay/failed/{random_order_id}', [CellPayController::class,'paymentFailed'])
+->name('checkout.payment.cellpay.failed');
 
-Route::get('/checkout/payment/cellpay/failed/{random_order_id}', [
-    'name' => 'CellPay Payment Failed',
-    'as' => 'checkout.payment.cellpay.failed',
-    'uses' => [CellPayController::class,'paymentFailed'],
-]);
-
-Route::get('/checkout/payment/cellpay/cancelled/{random_order_id}', [
-    'name' => 'CellPay Payment Cancelled',
-    'as' => 'checkout.payment.cellpay.cancelled',
-    'uses' => [CellPayController::class,'paymentCancelled'],
-]);
-
+Route::post('checkout/payment/cellpay/cancelled/{random_order_id}', [CellPayController::class,'paymentCancelled'])
+->name('checkout.payment.cellpay.cancelled');
 
 Route::post('review', [ReviewController::class,'store'])->name('review');
 Auth::routes();
@@ -297,21 +283,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::get('change-password', [ProfileController::class,'changePassword']);
     Route::put('update-password', [ProfileController::class,'updatePassword']);
 
-    // For menucategory
+    // For menu category
     Route::resource('menu-category', MenuCategoryController::class)->names('admin.menu-category');
 
     Route::get('menu-category/menu/{id}', [MenuCategoryController::class,'categoryWiseMenus'])
         ->name('admin-menu-category-wise-menus');
 
     // For menu
-    // Route::resource('menu', 'Admin\MenuController', ['as' => 'admin']);
     Route::resource('menu',MenuController::class)->names('admin.menu');
 
     //  For updating menu order
     Route::post('update-menu', [MenuController::class,'updateOrder'])->name('update-menu');
 
     // For menu items
-    // Route::resource('menu-item', 'Admin\MenuItemsController', ['as' => 'admin']);
     Route::resource('menu-item', MenuItemsController::class)->names('admin.menu-item');
 
 
@@ -321,7 +305,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     //  For updating menu item order
     Route::post('update-menu-item', [MenuItemsController::class,'updateOrder'])->name('update-menu-item');
 
-    // Route::resource('product-wise-reviews', 'Admin\ProductWiseReviewsController', ['as' => 'admin']);
     Route::resource('product-wise-reviews', ProductWiseReviewsController::class);
 
     Route::get('product/reviews/{id}', [AdminProductController::class,'productWiseReviews'])
@@ -360,33 +343,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::get('offline-orders/remove-product-items/{id}', [OfflineOrderController::class,'removeOrderProductItem'])->name('admin.offlineorders.removeProduct');
     Route::resource('offline-orders', OfflineOrderController::class)->names('admin.offlineorders');
 
-    Route::get('pending-orders', [
-        'as' => 'admin.pending',
-        'uses' => [AdminOrderController::class,'pendingOrders']
-    ]);
-
-    Route::get('cancelled-orders', [
-        'as' => 'admin.cancelled',
-        'uses' => [AdminOrderController::class,'cancelledOrders']
-    ]);
-      Route::get('confirmed-orders', [
-        'as' => 'admin.confirm',
-        'uses' => [AdminOrderController::class,'confirmedOrders']
-    ]);
-    Route::get('delivered-orders', [
-        'as' => 'admin.delivered',
-        'uses' => [AdminOrderController::class,'deliveredOrders']
-    ]);
-
-    Route::get('out-for-delivery', [
-        'as' => 'admin.out-for-delivery',
-        'uses' => [AdminOrderController::class,'outForDelivery']
-    ]);
-
-      Route::get('payment-fail', [
-        'as' => 'admin.payment-fail',
-        'uses' => [AdminOrderController::class,'paymentFail']
-    ]);
+    Route::get('pending-orders', [AdminOrderController::class,'pendingOrders'])->name('admin.pending');
+    Route::get('cancelled-orders', [AdminOrderController::class,'cancelledOrders'])->name('admin.cancelled');
+    Route::get('confirmed-orders', [AdminOrderController::class,'confirmedOrders'])->name('admin.confirm');
+    Route::get('delivered-orders', [AdminOrderController::class,'deliveredOrders'])->name('admin.delivered');
+    Route::get('out-for-delivery', [AdminOrderController::class,'outForDelivery'])->name('admin.out-for-delivery');
+    Route::get('payment-fail', [AdminOrderController::class,'paymentFail'])->name('admin.payment-fail');
 
     Route::post('customer/paymentfail/update/order/{orderId}',[CustomerOrderController::class,'paymentFail'])
     ->name('paymentFail');
@@ -403,18 +365,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::resource('sub-category', SubCategoryController::class)->names('admin.sub-category');
     Route::resource('sub-category-wise-brands', SCWiseBrandsController::class)->names('admin.sub-category-wise-brands');
 
-    Route::get('sub-category-wise-brands/create/{slug}', [
-        'as' => 'admin.sub-category-wise-brands.create',
-        'uses' => [SCWiseBrandsController::class,'create']
-    ]);
+    Route::get('sub-category-wise-brands/create/{slug}', [SCWiseBrandsController::class,'create'])
+    ->name('admin.sub-category-wise-brands.create');
 
     Route::resource('brand-wise-products', BrandWiseProducts::class)
         ->names('admin.brand-wise-products');
 
-    Route::get('brand-wise-products/create/{slug}', [
-        'as' => 'admin.brand-wise-products.create',
-        'uses' => [BrandWiseProducts::class,'create']
-    ]);
+    Route::get('brand-wise-products/create/{slug}', [BrandWiseProducts::class,'create'])
+        ->name('admin.brand-wise-products.create');
 
     Route::resource('payment-method', PaymentMethodController::class)->names('admin.payment-method');
 
