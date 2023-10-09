@@ -254,6 +254,35 @@
                 </ul>
             </div>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#gallery" aria-expanded="true">
+                <i class="fa fa-images"></i>
+                <p> Gallery <b class="caret"></b>
+                </p>
+            </a>
+
+            <div class="collapse" id="gallery" style="">
+                <ul class="nav">
+                    @can('gallery view')
+                    <li class="nav-item {{ Request::is([$segment1 . '/' . 'gallery*']) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url(Request::segment(1), 'gallery') }}">
+                            <span class="sidebar-mini"> Img </span>
+                            <span class="sidebar-normal"> Image </span>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('video view')
+                    <li class="nav-item {{ Request::is([$segment1 . '/' . 'admin/customer-product*']) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url(Request::segment(1), 'admin/customer-product') }}">
+                            <span class="sidebar-mini"> Vid </span>
+                            <span class="sidebar-normal"> Video </span>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </div>
+        </li>
         @can('menu view')
         <li class="nav-item {{ Request::is([$segment1 . '/' . 'menu-category']) ? 'active' : '' }}">
 

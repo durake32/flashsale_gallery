@@ -45,6 +45,7 @@ use App\Http\Controllers\Admin\CustomerTypeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DirectCategoryController;
 use App\Http\Controllers\Admin\DirectOrderController as AdminDirectOrderController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\MapController;
 use App\Http\Controllers\Admin\MenuCategoryController;
@@ -471,5 +472,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
         Route::get('customer-product',[ReportController::class,'customer_product'])->name('admin.report.customer_product');
     });
     
+    Route::get('gallery-image/{id}/remove',[GalleryController::class,'removeGalleryImage'])->name('admin.gallery.removeImage');
+    Route::resource('gallery',GalleryController::class)->names('admin.gallery');
 
 });
