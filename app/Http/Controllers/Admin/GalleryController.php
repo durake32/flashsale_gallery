@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
-use App\Models\GalleryCategory;
+use App\Models\Gallery;
 use App\Models\Image as ModelsImage;
 use Illuminate\Http\Request;
 use Image;
@@ -13,7 +13,7 @@ class GalleryController extends Controller
 {
     public function index()
     {
-        $categories = GalleryCategory::get();
+        $categories = Gallery::get();
         return view('Dashboard.Admin.gallery.images.index',compact('categories'));
     }
 
@@ -26,7 +26,7 @@ class GalleryController extends Controller
         $this->validate($request,[
             'name' => 'required|string'
         ]);
-        $gallery = GalleryCategory::create([
+        $gallery = Gallery::create([
             'name' => $request->get('name'),
             'slug'  => Str::slug($request->get('name')),
         ]);
@@ -48,7 +48,7 @@ class GalleryController extends Controller
 
     public function edit($id)
     {
-        $cate = GalleryCategory::findOrFail($id);
+        $cate = Gallery::findOrFail($id);
         return view('Dashboard.Admin.gallery.images.edit',compact('cate'));
     }
     public function update(Request $request, string $id)
@@ -56,7 +56,7 @@ class GalleryController extends Controller
         $this->validate($request,[
             'name' => 'required|string'
         ]);
-        $gallery = GalleryCategory::findOrFail($id);
+        $gallery = Gallery::findOrFail($id);
         $gallery->update([
             'name' => $request->get('name'),
             'slug'  => Str::slug($request->get('name')),
@@ -87,7 +87,7 @@ class GalleryController extends Controller
 
     public function destroy($id)
     {
-        $gallery = GalleryCategory::findOrFail($id);
+        $gallery = Gallery::findOrFail($id);
         if($gallery->images()->count() > 0) {
             foreach($gallery->images as $image){
                 $existingImage = 'Asset/Uploads/Gallery/' . $image->image;
