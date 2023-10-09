@@ -273,8 +273,8 @@
                     </li>
                     @endcan
                     @can('video view')
-                    <li class="nav-item {{ Request::is([$segment1 . '/' . 'admin/customer-product*']) ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url(Request::segment(1), 'admin/customer-product') }}">
+                    <li class="nav-item {{ Request::is([$segment1 . '/' . 'video*']) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url(Request::segment(1), 'video') }}">
                             <span class="sidebar-mini"> Vid </span>
                             <span class="sidebar-normal"> Video </span>
                         </a>

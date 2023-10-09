@@ -64,6 +64,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SCWiseBrandsController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\WholesalerController;
 use App\Http\Controllers\Commons\ProfileController;
 use App\Http\Controllers\PushNotificationController;
@@ -474,5 +475,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     
     Route::get('gallery-image/{id}/remove',[GalleryController::class,'removeGalleryImage'])->name('admin.gallery.removeImage');
     Route::resource('gallery',GalleryController::class)->names('admin.gallery');
+    Route::resource('video',VideoController::class)
+    ->only(['index','store','update','destroy'])->names('admin.video');
+
 
 });
