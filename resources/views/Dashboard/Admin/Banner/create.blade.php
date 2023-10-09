@@ -23,7 +23,7 @@
                     </div>
                      @include('Dashboard.Admin.Banner.fields')
                 </div>
-                @include('Dashboard.Admin.advertisement.link')
+                @include('Dashboard.Admin.Banner.link')
 
                 @include('Dashboard.Admin.Banner.image-section')
             </div>

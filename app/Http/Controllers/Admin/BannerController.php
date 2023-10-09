@@ -36,7 +36,6 @@ class BannerController extends Controller
         $subcategories = SubCategory::latest()->get();
         $brands = Brand::latest()->get();
         $products = Product::onlineProduct()->where('status',1)->latest()->get();
-
         return view('Dashboard.Admin.Banner.create', compact('banner','categories','subcategories','brands','products'));
     }
 
