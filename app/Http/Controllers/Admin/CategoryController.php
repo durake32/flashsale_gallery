@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('sub_categories')->get();
+        $categories = Category::with('sub_categories')->latest()->get();
 
         return view('Dashboard.Admin.Category.index', compact('categories'));
     }

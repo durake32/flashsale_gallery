@@ -17,7 +17,7 @@ class CalendarEventController extends Controller
      */
     public function index()
     {
-        $events = CalendarEvent::get();
+        $events = CalendarEvent::latest()->get();
         return view('Dashboard.Admin.calendar.index',compact('events'));
     }
 

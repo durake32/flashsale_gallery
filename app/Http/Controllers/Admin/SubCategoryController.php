@@ -13,7 +13,7 @@ class SubCategoryController extends Controller
 {
     public function index()
     {
-        $subCategories = SubCategory::with('category')->where('is_featured', 1)->with('brands')->get();
+        $subCategories = SubCategory::with(['category','brands'])->where('is_featured', 1)->latest()->get();
       
         return view('Dashboard.Admin.Sub-Category.index', compact('subCategories'));
     }

@@ -19,8 +19,7 @@ class BannerController extends Controller
 {
     public function index()
     {
-        $banner = Banner::latest()
-            ->get();
+        $banner = Banner::latest()->get();
 
         return view('Dashboard.Admin.Banner.index', compact('banner'));
     }

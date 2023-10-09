@@ -32,10 +32,7 @@ class BrandWiseProducts extends Controller
      */
     public function create(Product $product, $slug)
     {
-        // dd($slug);
         $oldBrand = Brand::where('slug', $slug)->firstOrFail()->toArray();
-
-        // dd($oldBrand['id']);
         $brands = Brand::select('id', 'name')->get();
         $retailers = Retailer::select('id', 'name')->get();
 

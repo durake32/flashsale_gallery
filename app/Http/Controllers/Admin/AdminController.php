@@ -15,7 +15,7 @@ class AdminController extends Controller
     public function index()
     {
         if (Gate::allows('is_super_admin')) {
-            $admins = Admin::all();
+            $admins = Admin::latest()->get();
             return view('Dashboard.Admin.Admin.index', compact('admins'));
         }
         else{

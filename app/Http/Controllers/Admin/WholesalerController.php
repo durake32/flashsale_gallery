@@ -12,7 +12,7 @@ class WholesalerController extends Controller
 {
     public function index()
     {
-        $users = User::where('is_wholesaler',1)->get();
+        $users = User::where('is_wholesaler',1)->latest()->get();
 
         return view('Dashboard.Admin.Wholesaler.index', compact('users'));
     }

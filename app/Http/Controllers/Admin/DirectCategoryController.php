@@ -11,7 +11,7 @@ class DirectCategoryController extends Controller
 {
     public function index()
     {
-        $directCategories=DirectCategory::all();
+        $directCategories=DirectCategory::latest()->get();;
         return view('Dashboard.Admin.Direct-Category.index',compact('directCategories'));
     }
     public function create()

@@ -11,7 +11,7 @@ class CustomerTypeController extends Controller
 {
     public function index()
     {
-        $types = CustomerType::get();
+        $types = CustomerType::latest()->get();
         return view('Dashboard.Admin.Customer.customer_type.index',compact('types'));
     }
 

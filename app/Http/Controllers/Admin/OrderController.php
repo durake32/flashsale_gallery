@@ -26,7 +26,7 @@ class OrderController extends Controller
        $orders = Order::orderType('customer_added')->with('order_products.product')
                 ->where('order_type','customer_added')
                 ->orderBy('order_date','desc')
-                ->get();
+                ->latest()->get();
         $directorders = DirectOrder::where('status', 1)
             ->count();
         $cancelledorders = Order::where('status', 2)
@@ -82,7 +82,7 @@ class OrderController extends Controller
             ->with('order_products.user')
             ->with('order_products.product')
             ->orderBy('updated_at','desc')
-            ->get();
+            ->latest()->get();
         $directorders = DirectOrder::where('status', 1)
             ->count();
         $cancelledorders = Order::where('status', 2)
@@ -142,7 +142,7 @@ class OrderController extends Controller
             ->with('order_products.user')
             ->with('order_products.product')
             ->orderBy('updated_at','desc')
-            ->get();
+            ->latest()->get();
             $directorders = DirectOrder::where('status', 1)
             ->count();
         $cancelledorders = Order::where('status', 2)
@@ -204,7 +204,7 @@ class OrderController extends Controller
             ->with('order_products.user')
             ->with('order_products.product')
             ->orderBy('updated_at','desc')
-            ->get();
+            ->latest()->get();
             $directorders = DirectOrder::where('status', 1)
             ->count();
         $cancelledorders = Order::where('status', 2)
@@ -260,7 +260,7 @@ class OrderController extends Controller
             ->with('order_products.user')
             ->with('order_products.product')
             ->orderBy('updated_at','desc')
-            ->get();
+            ->latest()->get();
             $directorders = DirectOrder::where('status', 1)
             ->count();
         $cancelledorders = Order::where('status', 2)
@@ -316,7 +316,7 @@ class OrderController extends Controller
             ->with('order_products.user')
             ->with('order_products.product')
             ->orderBy('updated_at','desc')
-            ->get();
+            ->latest()->get();
             $directorders = DirectOrder::where('status', 1)
             ->count();
         $cancelledorders = Order::where('status', 2)
@@ -373,7 +373,7 @@ class OrderController extends Controller
             ->with('order_products.user')
             ->with('order_products.product')
            ->orderBy('updated_at','desc')
-            ->get();
+            ->latest()->get();
 
             $directorders = DirectOrder::where('status', 1)
             ->count();
@@ -461,7 +461,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $users = Admin::role('delivery person')->get();
+        $users = Admin::role('delivery person')->latest()->get();
         if (Auth::guard('admin')->check()) {
             $order = Order::where('id', $id)
                 ->with('order_products.product')

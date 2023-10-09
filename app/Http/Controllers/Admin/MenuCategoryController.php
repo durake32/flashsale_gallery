@@ -16,7 +16,7 @@ class MenuCategoryController extends Controller
             'status',
             'order',
             'created_at'
-        )->get();
+        )->latest()->get();
 
         return view('Dashboard/Admin/Menu-Category.index', compact('menuCategory'));
     }

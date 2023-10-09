@@ -11,7 +11,7 @@ class VideoController extends Controller
 {
     public function index()
     {
-        $videos = Video::get();
+        $videos = Video::latest()->get();
         return view('Dashboard.Admin.gallery.videos.index',compact('videos'));
     }
 

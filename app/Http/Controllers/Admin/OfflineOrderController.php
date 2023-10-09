@@ -25,8 +25,7 @@ class OfflineOrderController extends Controller
         if (Auth::guard('admin')->check()) {
             $orders = Order::with('order_products.product')
                      ->where('order_type','admin_added')
-                     ->orderBy('updated_at','desc')
-                     ->get();
+                     ->latest()->get();
         }else {
             redirect()->back();
         }

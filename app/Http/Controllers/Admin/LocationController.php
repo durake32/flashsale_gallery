@@ -11,7 +11,7 @@ class LocationController extends Controller
 {
     public function index()
     {
-        $locations = Location::get();
+        $locations = Location::latest()->get();
         return view('Dashboard.Admin.locations.index',compact('locations'));
     }
 

@@ -14,8 +14,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $page = Page::latest()
-            ->get();
+        $page = Page::latest()->get();
 
         return view('Dashboard.Admin.Page.index', compact('page'));
     }

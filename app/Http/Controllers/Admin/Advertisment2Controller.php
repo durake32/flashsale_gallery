@@ -15,7 +15,7 @@ class Advertisment2Controller extends Controller
 {
     public function index()
     {
-        $advertisements=Advertisement2::all();
+        $advertisements=Advertisement2::latest()->get();
         $advertisementCount=Advertisement2::count();
         return view('Dashboard.Admin.advertisement2.index',compact('advertisements','advertisementCount'));
     }

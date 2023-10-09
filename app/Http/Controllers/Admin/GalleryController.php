@@ -13,7 +13,7 @@ class GalleryController extends Controller
 {
     public function index()
     {
-        $categories = Gallery::get();
+        $categories = Gallery::latest()->get();
         return view('Dashboard.Admin.gallery.images.index',compact('categories'));
     }
 

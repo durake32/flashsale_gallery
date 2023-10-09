@@ -13,8 +13,6 @@ class SiteSettingController extends Controller
     {
         $site_setting = SiteSetting::find(1);
 
-        // $site_setting = $siteSettings[0]->toArray();
-
         return view('Dashboard.Admin.SiteSettings.index', compact('site_setting'));
     }
 

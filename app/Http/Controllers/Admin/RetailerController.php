@@ -13,7 +13,7 @@ class RetailerController extends Controller
 {
     public function index()
     {
-        $retailers = Retailer::with('products')->get();
+        $retailers = Retailer::with('products')->latest()->get();
 
         return view('Dashboard.Admin.Retailer.index', compact('retailers'));
     }

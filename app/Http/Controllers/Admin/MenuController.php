@@ -22,7 +22,7 @@ class MenuController extends Controller
             'url',
             'status',
             'order'
-        )->get();
+        )->latest()->get();
 
         // dd($menu->toArray());
         return view('Dashboard/Admin/Menu.index', compact('menu'));

@@ -15,7 +15,7 @@ class BrandController extends Controller
 {
     public function index()
     {
-        $brands = Brand::with('category')->with('sub_category')->with('products')->get();
+        $brands = Brand::with(['category','sub_category','products'])->latest()->get();
 
         return view('Dashboard.Admin.Brand.index', compact('brands'));
     }

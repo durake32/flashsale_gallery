@@ -20,7 +20,8 @@ class MenuItemsController extends Controller
      */
     public function index()
     {
-        $menuItems = MenuItem::orderBy('order', 'ASC')->select('id', 'menu_item_title', 'menu_id', 'url', 'status', 'order')->get();
+        $menuItems = MenuItem::orderBy('order', 'ASC')->select('id', 'menu_item_title', 'menu_id', 'url', 'status', 'order')
+        ->latest()->get();
 
         return view('Dashboard.Admin.Menu-Items.index', compact('menuItems'));
     }

@@ -15,7 +15,7 @@ class Advertisement1Controller extends Controller
 {
     public function index()
     {
-        $advertisements = Advertisement1::all();
+        $advertisements = Advertisement1::latest()->get();
         return view('Dashboard.Admin.advertisement1.index',compact('advertisements'));
     }
     public function create()
