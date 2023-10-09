@@ -227,11 +227,11 @@ Route::post('contact', [ContactController::class,'contact'])->name('contact-stor
 Route::post('/index/cart',[CartController::class,'addindexPageCart'])->name('index.cart.store');
 
 // view all
-Route::get('view/just-for-you',[ProductController::class,'viewAllJustForYou'])->name('just.for.you');
-Route::get('view/featured-product',[ProductController::class,'viewAllFeaturedProduct'])->name('featured.product');
-Route::get('view/new-arrival',[ProductController::class,'viewAllNewArrival'])->name('new.arrival.product');
-Route::get('view/top-selling',[ProductController::class,'viewAllTopSelling'])->name('top.selling.product');
-Route::get('view/nepali-selling',[ProductController::class,'viewAllNepaliSelling'])->name('nepali.selling.product');
+Route::get('just-for-you',[ProductController::class,'viewAllJustForYou'])->name('just.for.you');
+Route::get('featured-product',[ProductController::class,'viewAllFeaturedProduct'])->name('featured.product');
+Route::get('new-arrival',[ProductController::class,'viewAllNewArrival'])->name('new.arrival.product');
+Route::get('top-selling',[ProductController::class,'viewAllTopSelling'])->name('top.selling.product');
+Route::get('nepali-selling',[ProductController::class,'viewAllNepaliSelling'])->name('nepali.selling.product');
 
 // mail/contact
 Route::get('contact/us',[MailController::class,'index'])->name('user.contact.us');

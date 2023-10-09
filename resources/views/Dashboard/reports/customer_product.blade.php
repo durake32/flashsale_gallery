@@ -89,6 +89,9 @@
                         <p class="btn btn-success btn-sm">
                             Total Orders: {{ $order_products->count() }}
                         </p>
+                        <p class="btn btn-info btn-sm">
+                            Total Amount: Rs. {{ $total_amt }}
+                        </p>
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">

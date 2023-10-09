@@ -472,15 +472,13 @@ class ProductController extends Controller
 
     }
 
-
-      public function viewAllTopSelling()
+    public function viewAllTopSelling()
     {
-        $topProducts = Product::onlineProduct()->where('status', 1)
-        ->where('section2', 1)
-        ->with('brand')
-        ->take(6)
-        ->paginate(24);
-            return view('Frontend.Product.View-all.top-selling',compact('topProducts'));
+        $topProducts = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
+                    ->orderBy('order_products_count','desc')
+                    ->take(6)
+                    ->paginate(24);
+        return view('Frontend.Product.View-all.top-selling',compact('topProducts'));
 
     }
 

@@ -128,19 +128,19 @@
             <td class="text-right">
                 @can('product view')
                 <a href="#" data-target="#modal-{{ $product->id }}" data-toggle="modal"
-                    class="btn btn-link btn-warning btn-just-icon edit"><i class="fa fa-eye"></i> View
+                    class="btn btn-link btn-warning btn-just-icon edit"><i class="fa fa-eye"></i> 
                 </a>
 
-                <a href="{{ route('admin.createProductImage',$product->id)}}" class="btn btn-link btn-warning btn-just-icon"><i class="fa fa-image"></i> Gallery
+                <a href="{{ route('admin.createProductImage',$product->id)}}" class="btn btn-link btn-warning btn-just-icon"><i class="fa fa-image"></i> 
                 </a>
                 @endcan
                 @can('product edit')
                 <a href="{{ route($segment . '.' . 'product.edit', $product->id) }}"
-                    class="btn btn-link btn-info btn-just-icon like"><i class="fa fa-edit"></i> Edit</a>
+                    class="btn btn-link btn-info btn-just-icon like"><i class="fa fa-edit"></i> </a>
                 @endcan
                 @can('product delete')
                 <a class="btn btn-link btn-danger btn-just-icon remove" onclick="return confirm('Are you sure?')"
-                    href="{{ route('admin.destroy.product', $product->id) }}"><i class="fa fa-trash"></i> Delete</a>
+                    href="{{ route('admin.destroy.product', $product->id) }}"><i class="fa fa-trash"></i> </a>
                 @endcan
             </td>
             @include('Dashboard.Admin.Product.Partials.modal')

@@ -63,7 +63,6 @@ class ProductController extends Controller
                 'is_featured' => 'required|boolean',
                 'is_foryou' => 'required|boolean',
                 'section1' => 'required|boolean',
-                 'section2' => 'required|boolean',
                 'regular_price' => 'required|integer',
                 'category_id' => 'required|integer',
                 'sub_category_id' => 'required|integer',
@@ -86,7 +85,6 @@ class ProductController extends Controller
                 'is_featured' => 'required|boolean',
                 'is_foryou' => 'required|boolean',
                  'section1' => 'required|boolean',
-                'section2' => 'required|boolean',
                 'category_id' => 'required|integer',
                 'sub_category_id' => 'required|integer',
                 'regular_price' => 'required|integer',
@@ -120,7 +118,6 @@ class ProductController extends Controller
         $product['is_featured'] = $request->input('is_featured');
         $product['is_foryou'] = $request->input('is_foryou');
         $product['section1'] = $request->input('section1');
-        $product['section2'] = $request->input('section2');
         $product['regular_price'] = $request->regular_price;
         $product['sale_price'] = $request->sale_price;
         $product['wholesaler_price'] = $request->wholesaler_price;
@@ -206,7 +203,6 @@ class ProductController extends Controller
                  'is_featured' => 'required', 'boolean',
                  'is_foryou' => 'required|boolean',
                  'section1' => 'required|boolean',
-                'section2' => 'required|boolean',
                 'category_id' => 'required|integer',
                 'sub_category_id' => 'required|integer',
                 'regular_price' => 'required', 'integer',
@@ -229,7 +225,6 @@ class ProductController extends Controller
                 'is_featured' => 'required', 'boolean',
                  'is_foryou' => 'required|boolean',
                  'section1' => 'required|boolean',
-                'section2' => 'required|boolean',
                 'category_id' => 'required|integer',
                 'sub_category_id' => 'required|integer',
                 'regular_price' => 'required', 'integer',
@@ -262,7 +257,6 @@ class ProductController extends Controller
         $product->is_featured = $request->input('is_featured');
         $product->is_foryou = $request->input('is_foryou');
         $product->section1 = $request->input('section1');
-        $product->section2 = $request->input('section2');
         $product->regular_price = $request->input('regular_price');
         $product->sale_price = $request->input('sale_price');
         $product->wholesaler_price = $request->input('wholesaler_price');

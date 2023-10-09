@@ -543,7 +543,8 @@ class OrderController extends Controller
             ->join('users', 'orders.user_id', '=', 'users.id')
             ->first();
         $orderItem = OrderProduct::where('order_id',$orderId)->orderBy('id','DESC')->get();
-        $pdf = PDF::loadView('Dashboard.Admin.Order.order_invoice',compact('order','orderItem'))->setPaper('a4')
+        $pdf = PDF::loadView('Dashboard.Admin.Order.order_invoice',compact('order','orderItem'))
+        ->setPaper('a4');
         return $pdf->download('invoice.pdf');
     }
 }

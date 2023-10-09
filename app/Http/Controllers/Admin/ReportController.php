@@ -68,13 +68,16 @@ class ReportController extends Controller
         $users = User::has('orders')->get();
         $payments = PaymentMethod::where('status',1)->get();
         $assigned_users =  Admin::role('delivery person')->get();
-        return view('Dashboard.reports.order',compact('orders','users','assigned_users','payments'));
+        $total_amt = $query->selectRaw('SUM(total_amount - delivery_charge) as total_amount')
+        ->groupBy('total_amount')->get()->sum('total_amount');
+        return view('Dashboard.reports.order',compact('orders','users','assigned_users','payments','total_amt'));
     }  
 
     public function customer_product(Request $request){
         $query = OrderProduct::query()->whereHas('order',function($q){
                     $q->where('status',3);
                 });
+       
         $order_products = $query
                     ->when($request->user, function($q) use ($request){
                         $q->whereHas('order',function($query) use ($request){
@@ -102,6 +105,8 @@ class ReportController extends Controller
                     ->latest()->get();
         $products = Product::where('status',1)->get();
         $users = User::has('orders')->get();
-        return view('Dashboard.reports.customer_product',compact('users','order_products','products'));
+        $total_amt = $query->selectRaw('price * quantity as total_amount')
+        ->groupBy('total_amount')->get()->sum('total_amount');
+        return view('Dashboard.reports.customer_product',compact('users','order_products','products','total_amt'));
     }  
 }

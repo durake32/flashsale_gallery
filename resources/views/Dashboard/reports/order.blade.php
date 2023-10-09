@@ -118,6 +118,9 @@
                         <p class="btn btn-success btn-sm">
                             Total Orders: {{ $orders->count()}}
                         </p>
+                        <p class="btn btn-info btn-sm">
+                            Total Amount: Rs. {{ $total_amt }}
+                        </p>
                     </div>
                     <div class="material-datatables">
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -144,6 +147,9 @@
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 100px;"
                                                 aria-label="Position: activate to sort column ascending">Delivery Charge
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 100px;"
+                                                aria-label="Position: activate to sort column ascending">Total without Charge
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 100px;"
                                                 aria-label="Position: activate to sort column ascending">Total
@@ -173,6 +179,7 @@
                                             <td>{{ $order->user->name ?? '' }}</td>
                                             <td>{{ $order->adminUser->name ?? '---' }}</td>
                                             <td>Rs. {{ $order->delivery_charge }} </td>
+                                            <td>  Rs. {{ ($order->total_amount - $order->delivery_charge) }} </td>
                                             <td>  Rs. {{ $order->total_amount }} </td>
                                             <td> {{ $order->order_details['payment'] }}</td>
                                             <td>{{ $order->my_order_status['message'] }}</td>
