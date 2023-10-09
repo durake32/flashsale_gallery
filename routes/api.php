@@ -62,6 +62,8 @@ use App\Http\Controllers\AuthController;
 
    Route::get('/foryou/all', [ProductController::class, 'allForyouProducts']);
 
+   Route::get('/flash-products', [ProductController::class, 'allFlashProducts']);
+
    Route::get('/brand/all/{id}', [ProductController::class, 'allBrandProducts']);
 
    Route::get('/category/all/{id}', [ProductController::class, 'allCategoryProducts']);
