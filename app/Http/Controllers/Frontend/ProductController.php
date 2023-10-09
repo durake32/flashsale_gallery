@@ -21,14 +21,6 @@ class ProductController extends Controller
     {
         $product = Product::where('status', 1)
             ->where('slug', $slug)
-            // ->with(
-            //     [
-            //         'reviews' => function ($comments) {
-            //             $comments->where('status', 1)
-            //                 ->latest();
-            //         },
-            //     ]
-            // )
             ->with('reviews')
             ->with('brand')
             ->with('brand.sub_category')
@@ -64,8 +56,6 @@ class ProductController extends Controller
             ->latest()
             ->take(6)
             ->get();
-
-
         return view('Frontend.Product.Individual.index', compact(
             'product',
             'similarProducts'
@@ -83,18 +73,14 @@ class ProductController extends Controller
         )->first() ?? abort('404');
 
         $brands = Brand::where('status', 1)->get()->toArray();
-            // dd($brands);
         $categories = Category::where('status', 1)->where('is_featured', 1)->select('id', 'slug', 'name', 'status', 'image')->with('sub_categories')->with('sub_categories.products')->get();
         $subCategories = SubCategory::where('status', 1)->where('is_featured', 1)->select('id', 'slug', 'name', 'status', 'image')->get();
-            // $subcat=SubCategory::where('category_id',$categories)
-        // dd($categories[6]['brands'][0]->products->count());
-            $cat=Category::where('slug',$slug)->first();
-            $subCat=SubCategory::where('category_id',$cat->id)->select('id')->where('is_featured', 1)->get();
-            $subCatFilter=[];
-                foreach ($subCat as $c) {
-                    array_push($subCatFilter,$c->id);
-                }
-                // dd($zz);
+        $cat=Category::where('slug',$slug)->first();
+        $subCat=SubCategory::where('category_id',$cat->id)->select('id')->where('is_featured', 1)->get();
+        $subCatFilter=[];
+            foreach ($subCat as $c) {
+                array_push($subCatFilter,$c->id);
+            }
         if (Str::contains($segment,'sort_by=name-ascending')) {
             $products = Product::onlineProduct()->active()->select(
                 'id',
@@ -173,10 +159,6 @@ class ProductController extends Controller
                 ->paginate(15);
         }
 
-        // dd($products);
-
-
-
         $siteSEO = SiteSetting::select('title', 'meta_title', 'site_url', 'meta_description', 'twitter', 'default_image')->get()->toArray();
 
         SEOMeta::setTitle($category['name'] . ' &#8211; ' . $siteSEO[0]['title']);
@@ -205,20 +187,14 @@ class ProductController extends Controller
         ));
     }
 
-
-
     public function subWiseCategory($slug, Request $request)
     {
         $segment = $request->fullurl();
 
         $subCategory = SubCategory::where('status', 1)->where('slug', $slug)->first() ?? abort('404');
         $brands = Brand::where('status', 1)->get()->toArray();
-                // dd($brands);
         $categories = Category::where('status', 1)->where('is_featured', 1)->select('id', 'slug', 'name', 'status', 'image')->get();
         $subCategories = SubCategory::where('status', 1)->where('is_featured', 1)->select('id', 'slug', 'name', 'status', 'category_id', 'image')->with('products')->get();
-
-        // dd($categories[6]['brands'][0]->products->count());
-
 
         if (Str::contains($segment, 'sort_by=name-ascending')) {
             $products = Product::onlineProduct()->active()->select(
@@ -281,15 +257,10 @@ class ProductController extends Controller
                 ->orderBy('regular_price', 'DESC')
                 ->paginate(15);
         } else {
-            // $products = Product::with('brand')->active()->where('sub_category_id', $subCategory)
-            //     ->latest()
-            //     ->paginate(6);
             $products = Product::onlineProduct()->with('brand')->active()->where('sub_category_id', $subCategory->id)
             ->latest()
             ->paginate(15);
             }
-            // dd($products);
-            // dd($subCategory);
 
         $siteSEO = SiteSetting::select('title', 'meta_title', 'site_url', 'meta_description', 'twitter', 'default_image')->get()->toArray();
 
@@ -325,12 +296,8 @@ class ProductController extends Controller
 
         $subCategory = SubCategory::where('status', 1)->where('slug', $slug)->first() ?? abort('404');
         $brands = Brand::where('status', 1)->get()->toArray();
-                // dd($brands);
         $categories = Category::where('status', 1)->where('is_featured', 1)->select('id', 'slug', 'name', 'status', 'image')->get();
         $subCategories = SubCategory::where('status', 1)->where('is_featured', 1)->select('id', 'slug', 'name', 'status', 'category_id', 'image')->with('products')->get();
-
-        // dd($categories[6]['brands'][0]->products->count());
-
 
         if (Str::contains($segment, 'sort_by=name-ascending')) {
             $products = Product::onlineProduct()->active()->select(
@@ -393,15 +360,10 @@ class ProductController extends Controller
                 ->orderBy('regular_price', 'DESC')
                 ->paginate(15);
         } else {
-            // $products = Product::with('brand')->active()->where('sub_category_id', $subCategory)
-            //     ->latest()
-            //     ->paginate(6);
             $products = Product::onlineProduct()->with('brand')->active()->where('sub_category_id', $subCategory->id)
             ->latest()
             ->paginate(15);
             }
-            // dd($products);
-            // dd($subCategory);
 
         $siteSEO = SiteSetting::select('title', 'meta_title', 'site_url', 'meta_description', 'twitter', 'default_image')->get()->toArray();
 
@@ -433,53 +395,70 @@ class ProductController extends Controller
 
     public function viewAllJustForYou()
     {
-        $justForYou=Product::onlineProduct()->where('status', 1)
+        $pageTitle = 'JUST FOR YOU';
+        $products=Product::onlineProduct()->where('status', 1)
           ->where('is_foryou', 1)
         ->latest()
         ->paginate(24);
-        return view('Frontend.Product.View-all.just-for-you',compact('justForYou'));
+        return view('Frontend.Product.View-all.product-list',compact('products','pageTitle'));
     }
 
     public function viewAllFeaturedProduct()
     {
-        $featuredProducts=Product::onlineProduct()->where('status', 1)
+        $pageTitle = 'Featured Products';
+        $products=Product::onlineProduct()->where('status', 1)
         ->where('is_featured',1)
         ->latest()
         ->paginate(24);
-        return view('Frontend.Product.View-all.featured',compact('featuredProducts'));
+        return view('Frontend.Product.View-all.product-list',compact('products','pageTitle'));
     }
 
     public function viewAllNewArrival()
     {
-        $newProducts = Product::onlineProduct()->where('status', 1)
+        $pageTitle = 'New Arrival Products';
+        $products = Product::onlineProduct()->where('status', 1)
         ->latest()
         ->with('brand')
         ->take(6)
         ->paginate(24);
-            return view('Frontend.Product.View-all.new-arrival',compact('newProducts'));
-
+            return view('Frontend.Product.View-all.product-list',compact('products','pageTitle'));
     }
 
 
-        public function viewAllNepaliSelling()
+    public function viewAllNepaliSelling()
     {
-        $nepaliProducts = Product::onlineProduct()->where('status', 1)
+        $pageTitle = 'Nepali Products';
+        $products = Product::onlineProduct()->where('status', 1)
         ->where('section1', 1)
         ->with('brand')
         ->take(6)
         ->paginate(24);
-            return view('Frontend.Product.View-all.nepali-selling',compact('nepaliProducts'));
+            return view('Frontend.Product.View-all.product-list',compact('products','pageTitle'));
 
     }
 
     public function viewAllTopSelling()
     {
-        $topProducts = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
+        $pageTitle = 'Top Products';
+        $products = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
                     ->orderBy('order_products_count','desc')
                     ->take(6)
                     ->paginate(24);
-        return view('Frontend.Product.View-all.top-selling',compact('topProducts'));
+        return view('Frontend.Product.View-all.product-list',compact('products','pageTitle'));
 
+    }
+
+    public function flashSaleProducts()
+    {
+        $setting = SiteSetting::find(1);
+        $today = today();
+        $pageTitle = 'Flash Products';
+        $products = null;
+        if($setting->enable_flash_sale && $today->isBetween($setting->sale_from, $setting->sale_to)){
+            $products = Product::onlineProduct()->where('status',1)
+            ->where('is_discount',1)->whereNotNull('discount_amount')->latest()->paginate(24);
+        }
+        return view('Frontend.Product.View-all.product-list',compact('products','pageTitle'));
     }
 
    public function brandWise($slug, Request $request)

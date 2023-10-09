@@ -98,8 +98,6 @@ Route::get('/migrate', function(){
     echo ' migrate';
 });
 
-Route::get('/flash-products', [HomeController::class,'flashSaleProducts'])->name('flashSaleProducts');
-
 Route::post('/esewa/process', [EsewaController::class, 'esewaPay'])->name('checkout.esewa.process');
 Route::get('/success', [EsewaController::class, 'esewaPaySuccess']);
 Route::get('/failure', [EsewaController::class, 'esewaPayFailed']);
@@ -113,9 +111,7 @@ Route::post('/update', [CartController::class,'update'])->name('cart.update');
 Route::post('/remove', [CartController::class,'remove'])->name('cart.remove');
 Route::post('/clear', [CartController::class,'clear'])->name('cart.clear');
 
-
 Route::post('/subCategory', [HomeController::class,'fetchSubCategory'])->name('subCategory');
-
 
 Route::get('/direct-order', [DirectOrderController::class,'index'])->name('direct-order.index')->middleware('auth');
 Route::post('direct-order', [DirectOrderController::class,'store'])->name('direct-order.store');
@@ -218,6 +214,7 @@ Route::get('featured-product',[ProductController::class,'viewAllFeaturedProduct'
 Route::get('new-arrival',[ProductController::class,'viewAllNewArrival'])->name('new.arrival.product');
 Route::get('top-selling',[ProductController::class,'viewAllTopSelling'])->name('top.selling.product');
 Route::get('nepali-selling',[ProductController::class,'viewAllNepaliSelling'])->name('nepali.selling.product');
+Route::get('flash-products', [ProductController::class,'flashSaleProducts'])->name('flashSaleProducts');
 
 // mail/contact
 Route::get('contact/us',[MailController::class,'index'])->name('user.contact.us');

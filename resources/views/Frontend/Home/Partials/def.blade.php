@@ -3,100 +3,6 @@
       <div class="category-header">
         <h2>Top Selling Products</h2>
       </div>
-        {{-- <div class="product-det">
-            <div class="row">
-                @foreach ($section2 as $newProduct)
-                    <div class="col-2 col-sm-2 col-md-2">
-                        <div class="indi-prod">
-                            <div class="product-img">
-                                <a href="{{ route('product-details', $newProduct->slug) }}">
-                                    <img src="{{ asset('Asset/Uploads/Products/' . $newProduct->main_image) }}">
-                                </a>
-                            </div>
-                            <div class="pro-detail">
-                                <span class="p-tag">{{ $newProduct->brand->name }}</span>
-                                <span class="abt-pro">
-                                    <a href="{{ route('product-details', $newProduct->slug) }}">
-                                        {{ $newProduct->name }}
-                                    </a>
-                                </span>
-                                <span class="p-rate">
-                                    @if ($newProduct->sale_price)
-                                        <del>NRS {{ $newProduct->regular_price }}</del>
-                                        NRS {{ $newProduct->sale_price }}
-                                    @else
-                                        NRS {{ $newProduct->regular_price }}
-                                    @endif
-                                </span>
-                                <a href="{{ route('product-details', $newProduct->slug) }}">
-                                    <span class="p-view text-center">
-
-                                        View Details
-
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                @endforeach
-            </div>
-        </div> --}}
-        {{-- commented by anup --}}
-        {{-- <div class="feature-catogory home-page-fc lazyload animated fadeIn">
-            <div class="row">
-                   @foreach ($section2 as $newProduct)
-                    <div class="col-md-2 col-sm-6 cato-box text-center pb-2"style="background: #FFF;">
-                        <div class=" agile_ecommerce_tab_left">
-                            <div class="hs-wrapper">
-                                <img src="{{ asset('Asset/Uploads/Products/' . $newProduct->main_image) }}" alt=" "
-                                    width="100%" height="100%">
-                                @if (!empty($newProduct->image))
-                                    @foreach (json_decode($newProduct->image, true) as $image)
-                                        <img src="{{ asset('Asset/Uploads/Products/' . $image) }}" width="100%"
-                                            height="100%">
-                                    @endforeach
-                                @endif
-                                <div class="hs_bottom">
-                                    <div class="simpleCart_shelfItem" style="color: #FFF; text-align:center;">
-                                        <strong>
-                                            <h5>
-                                                @if ($newProduct->sale_price)
-                                                    NRS <del>{{ $newProduct->regular_price }}</del>
-                                                    {{ $newProduct->sale_price }}
-                                                @else
-                                                    NRS {{ $newProduct->regular_price }}
-                                                @endif
-                                            </h5>
-                                        </strong>
-                                    </div>
-                                    <ul style="margin-top:50px; margin-right:15%;">
-                                        <li>
-                                            <a href="{{ route('product-details', $newProduct->slug) }}"><span
-                                                    class="fa fa-eye" aria-hidden="true"></span></a>
-                                        </li>
-                                        <li>
-                                            <form class="cart mt-3" role="form"
-                                                action="{{ route('index.cart.store') }}" method="POST"
-                                                enctype="multipart/form-data">
-                                                @csrf
-                                                <input type="hidden" id="number" name="quantity" value="1" />
-                                                <input type="hidden" id="id" name="id"
-                                                    value="{{ $newProduct->id }}" />
-                                                <button type="submit" class="AddtoCartbtn button alt"
-                                                    style="background-color:white;padding:6px"><span
-                                                        class="fa fa-shopping-cart" aria-hidden="true"></span></button>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="f-category-name">{{ $newProduct->name }} <span class="offer-tag-main"></span></div>
-                    </div>
-                @endforeach
-            </div>
-        </div> --}}
 
         <div class="feature-catogory home-page-fc lazyload animated fadeIn">
             <div class="row">
@@ -138,6 +44,9 @@
                                                 @endif
                                             </b>
                                         </h5>
+                                        @if($flash && $forYou->is_discount)
+                                            <span style="color: #f30404;"> Off {{ $forYou->discount_percentage }} %</span>
+                                        @endif
                                     </strong>
                                 </div>
 

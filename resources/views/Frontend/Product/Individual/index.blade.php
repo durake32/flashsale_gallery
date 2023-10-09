@@ -107,6 +107,9 @@
                                         </ins>
                                     @endif
                                 @endcan
+                                @if($flash && $product->is_discount)
+                                    <span style="color: #f30404;"> Off {{ $product->discount_percentage }} %</span>
+                                @endif
                             </p>
                             <p>Delivery in 2-5 Business Days</p>
                             <p>Price Inclusive of all taxes</p>

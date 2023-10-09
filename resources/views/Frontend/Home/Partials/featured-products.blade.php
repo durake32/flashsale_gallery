@@ -44,6 +44,9 @@
                                                 @endif
                                             </b>
                                         </h5>
+                                        @if($flash && $forYou->is_discount)
+                                            <span style="color: #f30404;"> Off {{ $forYou->discount_percentage }} %</span>
+                                        @endif
                                     </strong>
                                 </div>
 

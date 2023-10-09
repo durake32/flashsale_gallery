@@ -101,16 +101,4 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
-    public function flashSaleProducts()
-    {
-        $setting = SiteSetting::find(1);
-        if(!$setting->enable_flash_sale && $setting->sale_from < today()){
-            return 'Not Flash Product Available';
-        }
-        $products = Product::onlineProduct()->where('status',1)
-                    ->where('is_discount',1)->whereNotNull('discount_amount')->get();
-        dd($products);
-    }
-
-
 }

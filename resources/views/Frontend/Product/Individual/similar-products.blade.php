@@ -24,6 +24,9 @@
                                         NRS {{ $similarProduct->regular_price }}
                                     @endif
                                 </span>
+                                @if($flash && $similarProduct->is_discount)
+                                    <span style="color: #f30404;"> Off {{ $similarProduct->discount_percentage }} %</span>
+                                @endif
                                 <a href="{{ route('product-details', $similarProduct->slug) }}">
                                     <span class="p-view text-center">
 

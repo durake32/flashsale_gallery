@@ -10,31 +10,30 @@
             }
         </script>
     @endif
-
     <div class="nav-info mb-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    {{--  <h3>Art Kit</h3>  --}}
                     <nav class="breadcrumbs">
                         <a href="/">Home</a>
                         <span class="divider">/</span>
-                        <a> New Arrival </a>
+                        <a>{{ $pageTitle}} </a>
                     </nav>
                 </div>
                 <!--aside-->
                 <div class="col-md-4">
-                    {{--  @include('Frontend.Product.Category-Wise.Partials.sort-by')  --}}
                 </div>
                 <!--aside-->
             </div>
         </div>
     </div>
+
     <section class="main-body">
         <div class="container">
+            @if(!is_null($products) && $products->count() > 0)
             <div class="feature-catogory home-page-fc lazyload animated fadeIn">
                 <div class="row">
-                    @foreach ($newProducts as $forYou)
+                    @foreach ($products as $forYou)
                         <div class="col-md-3 col-sm-6 cato-box text-center pb-2"style="background: #FFF;">
                             <div class=" agile_ecommerce_tab_left">
                                 <div class="hs-wrapper">
@@ -73,6 +72,9 @@
                                                     @endif
                                                 </b>
                                             </h5>
+                                            @if($flash && $forYou->is_discount)
+                                                <span style="color: #f30404;"> Off {{ $forYou->discount_percentage }} %</span>
+                                            @endif
                                         </strong>
                                     </div>
 
@@ -94,13 +96,20 @@
                 </div>
             </div>
             <div class="mt-4">
-                {{ $newProducts->links() }}
+                {{ $products->links() }}
             </div>
+            @else
+            <div class="row">
+                <p class="text-center">
+                    Product Not Available
+                </p>
+            </div>
+            @endif
         </div>
     </section>
-    @if ($errors->any())
+    @if($errors->any())
         <script>
-            modal.style.display = "block";
+             modal.style.display = "block";
         </script>
     @endif
 @endsection
