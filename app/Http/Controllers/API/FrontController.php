@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Gallery\ImageResource;
+use App\Http\Resources\Gallery\VideoResource;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Brand;
@@ -11,6 +13,8 @@ use App\Models\Product;
 use App\Models\Advertisement;
 use App\Models\Advertisement1;
 use App\Models\Advertisement2;
+use App\Models\Gallery;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -350,5 +354,24 @@ class FrontController extends Controller
                 return response()->json($data, 200);
             }
     }
+
+    public function galleryList(){
+        $gallery = Gallery::latest()->get();
+        return response()->json([
+            'message' => 'Image Gallery List',
+            'total' => $gallery->count() ?? 0,
+            'data' => ImageResource::collection($gallery)
+        ], 200);
+    }
+
+    public function videoList(){
+        $videos = Video::latest()->get();
+        return response()->json([
+            'message' => 'Videos List',
+            'total' => $videos->count() ?? 0,
+            'data' => VideoResource::collection($videos)
+        ], 200);
+    }
+
 
 }

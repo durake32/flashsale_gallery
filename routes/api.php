@@ -49,6 +49,10 @@ use App\Http\Controllers\AuthController;
  //Advertisment2 Details
     Route::get('/advertisment2/click/{id}', [FrontController::class, 'advertisment2Details']);
 
+    Route::get('/galleries', [FrontController::class, 'galleryList']);
+
+    Route::get('/videos', [FrontController::class, 'videoList']);
+
    //View All New Arrival Product
     Route::get('/new_arrivals/all', [ProductController::class, 'newAllproduct']);
 
