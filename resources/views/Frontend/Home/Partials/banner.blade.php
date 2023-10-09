@@ -26,7 +26,6 @@
  }
  .modal-body{
      background:url(https://dailomaa.com/Asset/Uploads/Products/5fe75b7375490-500x500.jpg);
-
      background-size: 100% 100% ;
 
      background-repeat: no-repeat ;
@@ -37,13 +36,6 @@
  .modal-body p{
     color: #fff;
  }
- /* @media (min-width:270px) and (max-width: 580px) {
-     .animate_a {
-   width: 35%;
- }
-} */
-
-
 
 </style>
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -73,13 +65,4 @@
     <a class="carousel-control-next" href="#carouselExampleControls" data-slide="next">
       <i class="fa fa-chevron-circle-right" aria-hidden="true" style="font-size: 44px;"></i>
     </a>
-
-    {{-- <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-
-        <span class="sr-only">Next</span>
-    </a> --}}
 </div>

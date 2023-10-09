@@ -11,46 +11,35 @@
         </script>
     @endif
 
-
     @include('Frontend.Home.Partials.banner')
 
     <div class="container-fluid mt-5">
         @include('Frontend.Home.Partials.top-categories')
        
+        @if(!is_null($flash_products))
+            @include('Frontend.Home.Partials.flash-product')
+        @endif
+
       @include('Frontend.Home.Partials.new-products')
-          
+      
       @include('Frontend.Home.Partials.top-brands')
     </div>
     @include('Frontend.Home.Partials.featured-products')
 
-
-
-
     <section class="highlight">
         <div class="banner-bottom">
-
-
             <div class="">
-                {{-- <div class="video-img">
-
-                        </div> --}}
             </div>
-
             @include('Frontend.Home.Partials.featured-brands')
-
-
-
             <div class="clearfix"> </div>
 
         </div>
     </section>
 
-    @include('Frontend.Home.Partials.abc')
-    @include('Frontend.Home.Partials.def')
+    @include('Frontend.Home.Partials.nepali-products')
+    @include('Frontend.Home.Partials.top-selling')
     @include('Frontend.Home.Partials.featured-brands1')
     @include('Frontend.Home.Partials.just-for-you')
-  
-
 
     <!-- Modal -->
     <div class="modal show" id="myModal_a" role="dialog">
@@ -69,7 +58,6 @@
         </div>
 
     </div>
-
 
     @if ($errors->any())
         <script>

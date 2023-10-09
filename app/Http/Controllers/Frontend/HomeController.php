@@ -57,9 +57,14 @@ class HomeController extends Controller
         $section2 = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
                     ->take(12)->orderBy('order_products_count','desc')->get();
         //flash products
-        $flash_products = Product::onlineProduct()->where('status', 1)
-            ->where('is_discount', 1)->take(12)->latest()->get();
-
+        $setting = SiteSetting::find(1);
+        $today = today();
+        $flash_products = null;
+        if($setting->enable_flash_sale && $today->isBetween($setting->sale_from, $setting->sale_to)){
+            $flash_products = Product::onlineProduct()->where('status',1)
+            ->where('is_discount',1)->whereNotNull('discount_amount')->take(12)->latest()->get();
+        }
+        
         $topCategories = SubCategory::where('status', 1)
             ->where('is_featured', 1)
              ->select('id', 'name', 'image', 'slug', 'status', 'is_featured')
