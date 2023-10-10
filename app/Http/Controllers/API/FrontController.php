@@ -72,7 +72,7 @@ class FrontController extends Controller
        $forYou = Product::onlineProduct()->where('status', 1)
             ->where('is_foryou', 1)
             ->with('brand')
-            ->take(12)
+            ->take(12)->inRandomOrder()
             ->latest()
             ->get();
         $data['For You'] = $forYou;

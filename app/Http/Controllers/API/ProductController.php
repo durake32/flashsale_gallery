@@ -65,7 +65,7 @@ class ProductController extends Controller
 
     public function getForyouProducts(){
         $featured = Product::onlineProduct()->where('status', 1)
-            ->where('is_foryou', 1)->latest()->paginate(20);
+            ->where('is_foryou', 1)->inRandomOrder()->latest()->paginate(20);
         $data['featured']=$featured;
         $data['message'] = 'For You Product List';
         return response()->json($data, 200);
@@ -120,7 +120,7 @@ class ProductController extends Controller
 
     public function allForyouProducts(){
         $featured = Product::onlineProduct()->where('status', 1)
-            ->where('is_foryou', 1)->latest()->paginate(10);
+            ->where('is_foryou', 1)->inRandomOrder()->latest()->paginate(10);
         $data['For You Product List']= $featured;
         return response()->json($data, 200);
     }

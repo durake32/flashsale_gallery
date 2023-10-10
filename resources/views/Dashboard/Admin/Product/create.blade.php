@@ -61,11 +61,8 @@
                         @include('Dashboard.Admin.Product.Partials.retailer')
                     @endif
 
-
                     @include('Dashboard.Admin.Product.Partials.is_featured')
-                   @include('Dashboard.Admin.Product.Partials.is_foryou')
                    @include('Dashboard.Admin.Product.Partials.section1')
-                   @include('Dashboard.Admin.Product.Partials.section2')
 
                     @include('Dashboard.Includes.Buttons.submit-button-section')
 

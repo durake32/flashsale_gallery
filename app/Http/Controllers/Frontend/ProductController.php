@@ -397,9 +397,7 @@ class ProductController extends Controller
     {
         $pageTitle = 'JUST FOR YOU';
         $products=Product::onlineProduct()->where('status', 1)
-          ->where('is_foryou', 1)
-        ->latest()
-        ->paginate(24);
+          ->where('is_foryou', 1)->inRandomOrder()->latest()->paginate(24);
         return view('Frontend.Product.View-all.product-list',compact('products','pageTitle'));
     }
 

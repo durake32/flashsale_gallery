@@ -61,7 +61,6 @@ class ProductController extends Controller
                 'name' => 'required|string|max:255|unique:products',
                 'brand_id' => 'required|integer',
                 'is_featured' => 'required|boolean',
-                'is_foryou' => 'required|boolean',
                 'section1' => 'required|boolean',
                 'regular_price' => 'required|integer',
                 'category_id' => 'required|integer',
@@ -83,7 +82,6 @@ class ProductController extends Controller
                 'name' => 'required|string|max:255|unique:products',
                 'brand_id' => 'required|integer',
                 'is_featured' => 'required|boolean',
-                'is_foryou' => 'required|boolean',
                  'section1' => 'required|boolean',
                 'category_id' => 'required|integer',
                 'sub_category_id' => 'required|integer',
@@ -116,7 +114,7 @@ class ProductController extends Controller
         $product['category_id'] = $request->category_id;
         $product['sub_category_id'] = $request->sub_category_id;
         $product['is_featured'] = $request->input('is_featured');
-        $product['is_foryou'] = $request->input('is_foryou');
+        $product['is_foryou'] = 1;
         $product['section1'] = $request->input('section1');
         $product['regular_price'] = $request->regular_price;
         $product['sale_price'] = $request->sale_price;
@@ -128,9 +126,6 @@ class ProductController extends Controller
         $product['meta_description'] = $request->meta_description;
         $product['status'] = $request->status;
         $product['product_type'] = $request->product_type;
-        $product['best'] = $request->best;
-        $product['latest'] = 1;
-        $product['trending'] = $request->trending;
         $product['is_discount'] = $request->input('discount_amount') > 0 ? 1 : 0;
         $product['discount_amount'] = $request->discount_amount;
         $product['discount_percentage'] = ( $request->discount_amount / $request->regular_price) *100 ;
@@ -201,7 +196,6 @@ class ProductController extends Controller
                 'name' => 'required', 'string', 'max:255', 'unique:products,' . $product->name,
                 'brand_id' => 'required', 'integer',
                  'is_featured' => 'required', 'boolean',
-                 'is_foryou' => 'required|boolean',
                  'section1' => 'required|boolean',
                 'category_id' => 'required|integer',
                 'sub_category_id' => 'required|integer',
@@ -223,7 +217,6 @@ class ProductController extends Controller
                 'name' => 'required', 'string', 'max:255', 'unique:products,' . $product->name,
                 'brand_id' => 'required', 'integer',
                 'is_featured' => 'required', 'boolean',
-                 'is_foryou' => 'required|boolean',
                  'section1' => 'required|boolean',
                 'category_id' => 'required|integer',
                 'sub_category_id' => 'required|integer',
@@ -255,7 +248,6 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->sub_category_id = $request->sub_category_id;
         $product->is_featured = $request->input('is_featured');
-        $product->is_foryou = $request->input('is_foryou');
         $product->section1 = $request->input('section1');
         $product->regular_price = $request->input('regular_price');
         $product->sale_price = $request->input('sale_price');
@@ -267,9 +259,6 @@ class ProductController extends Controller
         $product->meta_description = $request->input('meta_description');
         $product->status = $request->input('status');
         $product->product_type = $request->product_type;
-        $product->best = $request->input('best');
-        $product->latest = $request->input('latest');
-        $product->trending = $request->input('trending');
         $product->is_discount = $request->input('discount_amount') > 0 ? 1 : 0;
         $product->discount_amount = $request->input('discount_amount');
         $product->discount_percentage = ( $request->input('discount_amount') / $request->input('regular_price')) *100 ;

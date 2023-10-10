@@ -15,7 +15,6 @@ class Product extends Model
         'is_featured'=>'integer',
         'is_foryou'=>'integer',
         'section1'=>'integer',
-        'section2'=>'integer',
         'regular_price'=>'integer',
         'sale_price'=>'integer',
         'wholesaler_price'=>'integer',
@@ -24,11 +23,10 @@ class Product extends Model
         'total'=>'integer',
         'retailer_id'=>'integer',
         'status'=>'integer',
-        'best' => 'integer',
-        'latest' => 'integer',
-        'trending' => 'integer',
         'is_discount' => 'integer',
         'discount_amount' => 'integer',
+        'discount_percentage' => 'integer',
+
     ];
     public function setNameAttribute($value)
     {

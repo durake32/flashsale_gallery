@@ -64,9 +64,7 @@
                     @endif
 
                     @include('Dashboard.Admin.Product.Partials.edit-is_featured')
-                      @include('Dashboard.Admin.Product.Partials.edit-is_foryou')
                    @include('Dashboard.Admin.Product.Partials.edit-section1')
-                   @include('Dashboard.Admin.Product.Partials.edit-section2')
 
                     @include('Dashboard.Commons.update-button-section')
                 </div>
