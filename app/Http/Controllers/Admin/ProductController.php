@@ -326,13 +326,12 @@ class ProductController extends Controller
             @unlink($mainImagePath);
         }
 
-
         if ($product->image) {
             $images = json_decode($product->image);
             foreach ($images as $image) {
                 $imagePath = 'Asset/Uploads/Products/' . $image;
                 if (file_exists($imagePath)) {
-@unlink($imagePath);
+                    @unlink($imagePath);
                 }
             }
         }
@@ -391,5 +390,17 @@ class ProductController extends Controller
         return back();
     }
 
+    public function productImageTransfer(){
+        $products = Product::all();
+        foreach($products as $product){
+            $product_images = json_decode($product->image,true);
+            foreach($product_images as $data){
+                $imagedata = new ModelsImage();
+                $imagedata->image = $data;
+                $product->images()->save($imagedata);
+            }
+        }
+        return redirect()->back()->with('success','data transfer');
+    }
 
 }

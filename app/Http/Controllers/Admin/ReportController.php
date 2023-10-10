@@ -64,6 +64,7 @@ class ReportController extends Controller
                         $search_by = $request->get('search_by') ?? 'order_date';
                         $q->whereBetween($search_by,[$start,$end]);
                     })
+                    ->orderBy('order_date','desc')
                     ->latest()->get();
         $users = User::has('orders')->get();
         $payments = PaymentMethod::where('status',1)->get();

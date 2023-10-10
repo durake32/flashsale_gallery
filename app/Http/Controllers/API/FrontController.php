@@ -37,14 +37,14 @@ class FrontController extends Controller
         $data['Sliders']=$banners;
 
 
-        $newarrivals = Product::onlineProduct()->onlineProduct()->where('status', 1)
+        $newarrivals = Product::onlineProduct()->where('status', 1)
             ->with('brand')
             ->take(12)
            ->latest()
             ->get();
         $data['New arrivals']=$newarrivals;
 
-       $featured = Product::onlineProduct()->onlineProduct()->where('status', 1)
+       $featured = Product::onlineProduct()->where('status', 1)
             ->where('is_featured', 1)
             ->with('brand')
             ->take(12)

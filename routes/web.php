@@ -378,6 +378,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::post('admin-page-ckeditor-image', [CkeditorController::class,'pageImage'])
         ->name('admin-ckeditor-page-image.upload');
     
+    Route::get('product-image/transfer',[AdminProductController::class,'productImageTransfer'])
+    ->name('admin.productImageTransfer');
+
+
     Route::get('product-image/{productId}/gallery',[AdminProductController::class,'createProductImage'])->name('admin.createProductImage');
     Route::post('product-image/{productId}/store',[AdminProductController::class,'storeProductImage'])->name('admin.storeProductImage');
     Route::get('product-image/{productImage}/destroy',[AdminProductController::class,'removeProductImage'])->name('admin.removeProductImage');

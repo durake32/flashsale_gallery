@@ -30,7 +30,7 @@ class AddExtraFieldsToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['best','trending','latest','is_discount','discount_amount']);
+            $table->dropColumn(['is_discount','discount_amount','discount_percentage']);
         });
     }
 }

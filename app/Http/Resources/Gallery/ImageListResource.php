@@ -15,7 +15,6 @@ class ImageListResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'image'=> !is_null($this->image) ? '/Asset/Uploads/Gallery/'.$this->image : null,
         ];
     }
