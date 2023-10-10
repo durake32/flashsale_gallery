@@ -68,12 +68,13 @@ class ReportController extends Controller
         $users = User::has('orders')->get();
         $payments = PaymentMethod::where('status',1)->get();
         $assigned_users =  Admin::role('delivery person')->get();
-        $total_amt = $query->selectRaw('SUM(total_amount - delivery_charge) as total_amount')->first()->total_amount;
+        $total_amt = $orders->sum('total_amount') - $orders->sum('delivery_charge');
         return view('Dashboard.reports.order',compact('orders','users','assigned_users','payments','total_amt'));
     }  
 
     public function customer_product(Request $request){
-        $query = OrderProduct::query()->whereHas('order',function($q){
+        $query = OrderProduct::query()
+                ->whereHas('order',function($q){
                     $q->where('status',3);
                 });
        
@@ -104,8 +105,9 @@ class ReportController extends Controller
                     ->latest()->get();
         $products = Product::where('status',1)->get();
         $users = User::has('orders')->get();
-        $total_amt = $query->selectRaw('price * quantity as total_amount')
-        ->first()->total_amount;
+        $total_amt = $order_products->map(function ($orderProduct) {
+            return $orderProduct->price * $orderProduct->quantity;
+        })->sum();
         return view('Dashboard.reports.customer_product',compact('users','order_products','products','total_amt'));
     }  
 }

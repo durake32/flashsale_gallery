@@ -130,6 +130,7 @@
                                     width="100%" style="width: 100%;" role="grid" aria-describedby="datatables_info">
                                     <thead>
                                         <tr role="row">
+                                            <th></th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
                                                 style="width: 130px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
                                                 Order Id
@@ -173,9 +174,9 @@
                                     <tbody>
                                         @foreach ($orders as $order)
                                         <tr role="row" class="odd">
+                                            <td></td>
                                             <td>{{ $order->random_id }}</td>
                                             <td>{{ $order->order_type == 'customer_added' ? 'On-line' : 'Off-line' }}</td>
-
                                             <td>{{ $order->user->name ?? '' }}</td>
                                             <td>{{ $order->adminUser->name ?? '---' }}</td>
                                             <td>Rs. {{ $order->delivery_charge }} </td>
