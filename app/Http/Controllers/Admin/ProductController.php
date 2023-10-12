@@ -290,54 +290,53 @@ class ProductController extends Controller
         return redirect(route($segment . '.' . 'product.index'))->with('success','Product updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request, Product $product)
     {
+        if($product->orderProducts()->count() > 0){
+            return redirect()->route('admin.product.index')->with('error','Sorry !!! ,Product has orders.');
+        }
         $mainImagePath = 'Asset/Uploads/Products/' . $product->main_image;
 
         if (file_exists($mainImagePath)) {
             @unlink($mainImagePath);
         }
 
-        if ($product->image) {
-            $images = json_decode($product->image);
-            foreach ($images as $image) {
-                $imagePath = 'Asset/Uploads/Products/' . $image;
-                if (file_exists($imagePath)) {
-@unlink($imagePath);
+        if($product->images()->count() > 0) {
+            foreach($product->images() as $image){
+                $existingImage = 'Asset/Uploads/Products/' . $image->image;
+                if (file_exists($existingImage)) {
+                    @unlink($existingImage);
                 }
+                $product->images()->delete($image);
             }
         }
 
         $product->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','Product deleted successfully.');
     }
 
     public function destroyProduct(Request $request, Product $product)
     {
+        if($product->orderProducts()->count() > 0){
+            return redirect()->route('admin.product.index')->with('error','Sorry !!! ,Product has orders.');
+        }
         $mainImagePath = 'Asset/Uploads/Products/' . $product->main_image;
 
         if (file_exists($mainImagePath)) {
             @unlink($mainImagePath);
         }
-
-        if ($product->image) {
-            $images = json_decode($product->image);
-            foreach ($images as $image) {
-                $imagePath = 'Asset/Uploads/Products/' . $image;
-                if (file_exists($imagePath)) {
-                    @unlink($imagePath);
+        if($product->images()->count() > 0) {
+            foreach($product->images() as $image){
+                $existingImage = 'Asset/Uploads/Products/' . $image->image;
+                if (file_exists($existingImage)) {
+                    @unlink($existingImage);
                 }
+                $product->images()->delete($image);
             }
         }
 
         $product->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','Product deleted successfully.');
     }
 
     //PRODUCT IMAGE GALLERY

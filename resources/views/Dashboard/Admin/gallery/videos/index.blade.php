@@ -34,6 +34,10 @@
                                             <tr role="row">
                                                 <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
                                                     style="width: 130px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
+                                                    Image
+                                                </th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
+                                                    style="width: 130px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
                                                     Name
                                                 </th>
                                                 <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
@@ -47,7 +51,12 @@
                                         <tbody>
                                             @foreach ($videos as $video)
                                                 <tr role="row" class="odd">
-                                                    
+                                                    <td>
+                                                        <div class="img-container">
+                                                            <img src="{{ !empty($video->image) ? asset('Asset/Uploads/Video/' . $video->image) : url('images/Static/profile.png') }}"
+                                                                alt="" height="100" width="100">
+                                                        </div>
+                                                    </td>
                                                     <td> {{ $video->name }}</td>
                                                     <td> {{ $video->video_link }}</td>
                                                     <td class="text-right">

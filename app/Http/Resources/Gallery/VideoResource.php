@@ -18,6 +18,7 @@ class VideoResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'image'=> !is_null($this->image) ? '/Asset/Uploads/Video/'.$this->image : null,
             'video_link' => $this->video_link,
         ];
     }

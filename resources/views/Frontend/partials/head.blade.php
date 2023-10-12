@@ -38,10 +38,3 @@
   gtag('config', 'G-TWQLV7HXGL');
 </script>
 </head>
-
-
-
-{{-- <script src="{{ asset('Asset/Frontend/js/jquery.min.js') }}"></script> --}}
-{{-- <script src="{{ asset('Asset/Frontend/js/owl.carousel.js') }}"></script>
-<script src="{{ asset('Asset/Frontend/js/highlight.js') }}"></script>
-<script src="{{ asset('Asset/Frontend/js/app.js') }}"></script> --}}
