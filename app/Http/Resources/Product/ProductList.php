@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources\Product;
 
+use App\Http\Resources\BrandResource;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\SubCategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductList extends JsonResource
@@ -39,6 +42,11 @@ class ProductList extends JsonResource
             'status' => $this->status,
             'main_image'=> !is_null($this->main_image) ? '/Asset/Uploads/Products/'.$this->main_image : null,
             'gallery'=> ProductImageList::collection($this->images),
+            'brand'=> new BrandResource($this->brand),
+            'category'=> new CategoryResource($this->category),
+            'sub_category'=> new SubCategoryResource($this->sub_category),
+
+
         ];
     }
 }

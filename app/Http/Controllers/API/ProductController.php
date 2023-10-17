@@ -22,107 +22,145 @@ class ProductController extends Controller
             ->onlineProduct()
             ->with('brand')
             ->get();
-        if(count($products)){
-            return response()->json($products);
-        }
-        else
-        {
-            return response()->json(['Result' => 'No Data not found'], 404);
-        }
+
+        return response()->json([
+            'message' => 'Search Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
     }
 
     public function getNewArrivals(){
-        $newarrivals = Product::onlineProduct()->where('status', 1)
+        $products = Product::onlineProduct()->where('status', 1)
             ->latest()->take(12)->get();
-        $data['newarrivals'] = $newarrivals;
-        $data['message'] = 'New Arrivals List';
-        return response()->json($data, 200);
+        
+        return response()->json([
+            'message' => 'New Arrivals Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
     }
 
     public function getFeaturedProducts(){
-        $featured = Product::onlineProduct()->where('status', 1)->where('is_featured', 1)
+        $products = Product::onlineProduct()->where('status', 1)->where('is_featured', 1)
             ->take(12)->get();
-        $data['featured'] = $featured;
-        $data['message'] = 'Featured Product List';
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Featured Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);    
     }
 
     public function getSection1Products(){
-        $section1 = Product::onlineProduct()->where('status', 1)
+        $products = Product::onlineProduct()->where('status', 1)
             ->where('section1', 1)->take(12)->get();
-        $data['featured']=$section1;
-        $data['message'] = 'Nepali Product List';
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Nepali Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
+       
     }
 
     public function getSection2Products(){
-        $featured = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
+        $products = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
                     ->orderBy('order_products_count','desc')->latest()->get();
-        $data['featured'] = $featured;
-        $data['message'] = 'Top Selling Product List';
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Top Selling Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
     }
 
     public function getForyouProducts(){
-        $featured = Product::onlineProduct()->where('status', 1)
+        $products = Product::onlineProduct()->where('status', 1)
             ->where('is_foryou', 1)->inRandomOrder()->latest()->paginate(20);
-        $data['featured']=$featured;
-        $data['message'] = 'For You Product List';
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'For You Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
     }
 
     public function productDetails($id){
-      $productDetails = Product::with('brand')->find($id);
-       $data['Product Details']= $productDetails;
+        $product = Product::with('brand')->find($id);
         $similarProducts = Product::onlineProduct()->where('status', 1)
-            ->where('sub_category_id', $productDetails->sub_category_id)
+            ->where('sub_category_id', $product->sub_category_id)
             ->where('id', '!=', $id)
-            ->with('brand')
             ->latest()
             ->take(15)
             ->get();
+        $review = Review::where('product_id',$product->id)->with('user')->latest()->get();
+        $average =  Review::where('product_id',$product->id)->avg('rating') ?? "0";
 
-        $data['Similar Products']= $similarProducts;
-      	$reviewcount = Review::where('product_id',$productDetails->id)->with('user')->latest()->get();
-        $data['Product Review ']= $reviewcount;
-	   $avarage = Review::where('product_id',$productDetails->id)->avg('rating') ?? "0";
-       $data['Product Avarage']= $avarage;
-       return Response()->json($data, 200);
+        return response()->json([
+            'message' => 'Product Details with Similar Product and ProductAverage',
+            'total' => 1,
+            'data' => [
+                'product_details' => new ProductList($product),
+                'similar_products' => ProductList::collection($similarProducts),
+                'product_reviews' => $review,
+                'product_average' =>  $average,
+            ],
+        ], 200);
+
+        // $data['Similar Products']= $similarProducts;
+      	// $reviewcount = Review::where('product_id',$productDetails->id)->with('user')->latest()->get();
+        // $data['Product Review ']= $reviewcount;
+	//    $avarage = Review::where('product_id',$productDetails->id)->avg('rating') ?? "0";
+    //    $data['Product Avarage']= $avarage;
+    //    return Response()->json($data, 200);
     }
 
     public function newAllproduct(){
-        $allnewProducts =  Product::onlineProduct()->where('status', 1)
+        $products =  Product::onlineProduct()->where('status', 1)
                 ->with('brand')->latest()->get();
-        $data['All New Products'] = $allnewProducts;
-        return Response()->json($data, 200);
+        return response()->json([
+            'message' => 'New Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
+    
     }
 
     public function allFeaturedProducts(){
-        $featured = Product::onlineProduct()->where('status', 1)
+        $products = Product::onlineProduct()->where('status', 1)
             ->where('is_featured', 1)->latest()->get();
-        $data['All featured Product'] = $featured;
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Featured Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
     }
 
     public function allSection1Products(){
-        $section1 = Product::onlineProduct()->where('status', 1)
+        $products = Product::onlineProduct()->where('status', 1)
             ->where('section1', 1)->latest()->get();
-        $data['Nepali Product List']=$section1;
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Nepali Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
     }
 
     public function allSection2Products(){
-        $featured = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
+         $products = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
                     ->orderBy('order_products_count','desc')->latest()->get();
-        $data['Top Selling Product List'] = $featured;
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Top Selling Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
     }
 
     public function allForyouProducts(){
-        $featured = Product::onlineProduct()->where('status', 1)
+        $products = Product::onlineProduct()->where('status', 1)
             ->where('is_foryou', 1)->inRandomOrder()->latest()->paginate(10);
-        $data['For You Product List']= $featured;
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Featured Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
     }
 
     public function allFlashProducts(){
@@ -145,22 +183,28 @@ class ProductController extends Controller
     {
        $products = Product::onlineProduct()->where('status', 1)
            ->where('brand_id', '=', $id)
-            ->with('brand')
              ->latest()
             ->get();
-       $data['Brand Wise Product List']= $products;
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Brand Wise Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
+    
     }
 
     public function allCategoryProducts($id)
     {
         $products = Product::onlineProduct()->where('status', 1)
            ->where('category_id', '=', $id)
-            ->with('brand')
              ->latest()
             ->get();
-        $data['Category Wise Product List']= $products;
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Category Wise Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
+       
     }
 
 
@@ -168,11 +212,14 @@ class ProductController extends Controller
     {
        $products = Product::onlineProduct()->where('status', 1)
            ->where('sub_category_id', '=', $id)
-            ->with('brand')
             ->latest()
             ->get();
-       $data['SubCategory Wise Product List']= $products;
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'SubCategory Wise Product List',
+            'total' => count($products) ?? 0,
+            'data' => ProductList::collection($products)
+        ], 200);
+      
     }
 
 }
