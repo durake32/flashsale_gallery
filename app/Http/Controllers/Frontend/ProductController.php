@@ -459,7 +459,7 @@ class ProductController extends Controller
         return view('Frontend.Product.View-all.product-list',compact('products','pageTitle'));
     }
 
-   public function brandWise($slug, Request $request)
+    public function brandWise($slug, Request $request)
     {
         $brand= Brand::where('status', 1)->where('slug', $slug)->first() ?? abort('404');
        $products = Product::select('products.*')
@@ -469,9 +469,5 @@ class ProductController extends Controller
             ->where('brands.slug', '=', $slug)->get();
         return view('Frontend.Product.Brand-Wise.index', compact('products','brand'));
     }
-
-
-
-
 
 }

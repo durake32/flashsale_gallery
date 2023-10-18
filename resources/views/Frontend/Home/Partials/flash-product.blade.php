@@ -1,7 +1,7 @@
 <section class="item-detail">
     <div class="container-fluid">
       <div class="category-header">
-        <h2>Flash Products </h2>
+        <h2>{{ $setting->flash_title}} </h2>
       </div>
 
         <div class="feature-catogory home-page-fc lazyload animated fadeIn">

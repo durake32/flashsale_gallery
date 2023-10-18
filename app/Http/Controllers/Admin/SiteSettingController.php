@@ -127,23 +127,27 @@ class SiteSettingController extends Controller
         $setting->enable_flash_sale = $request->input('enable_flash_sale');
         $setting->sale_from = $request->input('sale_from');
         $setting->sale_to = $request->input('sale_to');
-    
+        $setting->flash_title = $request->input('flash_title');
+
         if ($request->hasFile('logo')) {
-            $setting['logo'] = uniqid() . '.' . $request->logo->getClientOriginalExtension();
-            $request->logo->move('Asset/Uploads/Logo', $setting['logo']);
+            $setting->logo = uniqid() . '.' . $request->logo->getClientOriginalExtension();
+            $request->logo->move('Asset/Uploads/Logo', $setting->logo);
         }
         
         if ($request->hasFile('login_banner')) {
-            $setting['login_banner'] = uniqid() . '.' . $request->login_banner->getClientOriginalExtension();
-            $request->login_banner->move('Asset/Uploads/Logo', $setting['login_banner']);
+            $setting->login_banner = uniqid() . '.' . $request->login_banner->getClientOriginalExtension();
+            $request->login_banner->move('Asset/Uploads/Logo', $setting->login_banner);
         }
             if ($request->hasFile('popup')) {
-            $setting['popup'] = uniqid() . '.' . $request->popup->getClientOriginalExtension();
-            $request->popup->move('Asset/Uploads/Logo', $setting['popup']);
+            $setting->popup = uniqid() . '.' . $request->popup->getClientOriginalExtension();
+            $request->popup->move('Asset/Uploads/Logo', $setting->popup);
+        }
+
+        if ($request->hasFile('flash_image')) {
+            $setting->flash_image = uniqid() . '.' . $request->flash_image->getClientOriginalExtension();
+            $request->flash_image->move('Asset/Uploads/Logo', $setting->flash_image);
         }
         $setting->save();
-
-
         return redirect(route('site-settings.index'))->with('success','Site Setting updated');
     }
 

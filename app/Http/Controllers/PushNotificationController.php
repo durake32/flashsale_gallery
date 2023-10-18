@@ -36,7 +36,7 @@ class PushNotificationController extends Controller
             'title' =>$req->title,
              'body' => $req->body, 
              'image'=> $req->img, 
-             'sound' => 'true', 
+             'sound' => 'default', 
              'badge' => '1', 
              'android_channel_id' => 'dailomaa'
             );
