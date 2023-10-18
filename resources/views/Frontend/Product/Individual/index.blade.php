@@ -41,11 +41,11 @@
                                     data-imagezoom="true" class="img-fluid" alt=" " />
                             </li>
 
-                            @if ($product->image)
-                                @foreach (json_decode($product->image, true) as $image)
-                                    <li data-thumb="{{ asset('Asset/Uploads/Products/' . $image) }}">
-                                        <img src="{{ asset('Asset/Uploads/Products/' . $image) }}" data-imagezoom="true"
-                                            class="img-fluid" alt="{{ $product->product_details['name'] }}">
+                            @if($product->images()->count() > 0)
+                                @foreach ($product->images  as $image)
+                                    <li data-thumb="{{ asset('Asset/Uploads/Products/' . $image->image) }}">
+                                        <img src="{{ asset('Asset/Uploads/Products/' . $image->image) }}" data-imagezoom="true"
+                                            class="img-fluid" alt="{{ $product->name }}">
                                     </li>
                                 @endforeach
                             @endif

@@ -38,7 +38,6 @@
                                         </a>
                                     </div>
                                     <div class="pro-detail">
-                                        {{-- <span class="p-tag">{{ $product->name }}</span> --}}
                                         <span class="abt-pro">
                                             <a href="{{ route('product-details', $product->slug) }}">
                                                 {{ $product->name }}
@@ -57,9 +56,7 @@
                                         </span>
                                         <a href="{{ route('product-details', $product->slug) }}">
                                             <span class="p-view text-center">
-
                                                 View Details
-
                                             </span>
                                         </a>
                                     </div>

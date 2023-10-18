@@ -461,21 +461,13 @@ class ProductController extends Controller
 
    public function brandWise($slug, Request $request)
     {
-        $brand= Brand::where('status', 1)->where('slug', $slug)->select(
-            'id',
-            'name',
-            'slug'
-        )->first() ?? abort('404');
-       $products = DB::table('products')
-            ->select('products.*')
+        $brand= Brand::where('status', 1)->where('slug', $slug)->first() ?? abort('404');
+       $products = Product::select('products.*')
             ->join('brands', 'products.brand_id', '=', 'brands.id')
             ->where('products.status', '=', 1)
             ->where('products.product_type', '=','online')
             ->where('brands.slug', '=', $slug)->get();
-        return view('Frontend.Product.Brand-Wise.index', compact(
-            'products',
-             'brand'
-        ));
+        return view('Frontend.Product.Brand-Wise.index', compact('products','brand'));
     }
 
 

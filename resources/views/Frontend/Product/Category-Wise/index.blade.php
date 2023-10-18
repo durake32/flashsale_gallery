@@ -49,9 +49,9 @@
                                           <a href="{{ route('product-details', $forYou->slug) }}">
                                             <img src="{{ asset('Asset/Uploads/Products/' . $forYou->main_image) }}"
                                                 alt=" " width="100%" height="100%">
-                                            @if ($forYou->image)
-                                                @foreach (json_decode($forYou->image, true) as $forYo)
-                                                    <img src="{{ asset('Asset/Uploads/Products/' . $forYo) }}"
+                                            @if($forYou->images()->count() > 0)
+                                                @foreach ($forYou->images as $forYo)
+                                                    <img src="{{ asset('Asset/Uploads/Products/' . $forYo->image) }}"
                                                         width="100%" height="100%">
                                                 @endforeach
                                             @endif
