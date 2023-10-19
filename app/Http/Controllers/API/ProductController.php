@@ -75,11 +75,8 @@ class ProductController extends Controller
     public function getForyouProducts(){
         $products = Product::onlineProduct()->where('status', 1)
             ->where('is_foryou', 1)->inRandomOrder()->latest()->paginate(20);
-        return response()->json([
-            'message' => 'For You Product List',
-            'total' => count($products) ?? 0,
-            'data' => ProductList::collection($products)
-        ], 200);
+        
+        return ProductList::collection($products);
     }
 
     public function productDetails($id){
@@ -103,13 +100,6 @@ class ProductController extends Controller
                 'product_average' =>  $average,
             ],
         ], 200);
-
-        // $data['Similar Products']= $similarProducts;
-      	// $reviewcount = Review::where('product_id',$productDetails->id)->with('user')->latest()->get();
-        // $data['Product Review ']= $reviewcount;
-	//    $avarage = Review::where('product_id',$productDetails->id)->avg('rating') ?? "0";
-    //    $data['Product Avarage']= $avarage;
-    //    return Response()->json($data, 200);
     }
 
     public function newAllproduct(){
@@ -206,7 +196,6 @@ class ProductController extends Controller
         ], 200);
        
     }
-
 
     public function allSubCategoryProducts($id)
     {
