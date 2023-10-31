@@ -128,7 +128,7 @@ class ProductController extends Controller
         $product['product_type'] = $request->product_type;
         $product['is_discount'] = $request->input('discount_amount') > 0 ? 1 : 0;
         $product['discount_amount'] = $request->discount_amount;
-        $product['discount_percentage'] = ( $request->discount_amount / $request->regular_price) *100 ;
+        $product['discount_percentage'] = ($request->regular_price - $request->discount_amount) / $request->regular_price * 100;
 
         if ($request->hasFile('main_image')) {
             $image = $request->file('main_image');
@@ -261,7 +261,7 @@ class ProductController extends Controller
         $product->product_type = $request->product_type;
         $product->is_discount = $request->input('discount_amount') > 0 ? 1 : 0;
         $product->discount_amount = $request->input('discount_amount');
-        $product->discount_percentage = ( $request->input('discount_amount') / $request->input('regular_price')) *100 ;
+        $product->discount_percentage = ($request->input('regular_price') - $request->input('discount_amount')) / $request->input('regular_price') * 100;
 
         if ($request->hasFile('main_image')) {
             $existingImage = 'Asset/Uploads/Products/' . $product->main_image;
@@ -400,6 +400,16 @@ class ProductController extends Controller
             }
         }
         return redirect()->back()->with('success','data transfer');
+    }
+
+    public function updateProductDiscountPercentage(){
+        $products = Product::where('discount_amount', '>', 0)->get();
+        foreach($products as $product){
+            $product->update([
+                'discount_percentage' => ($product->regular_price - $product->discount_amount) / $product->regular_price * 100
+            ]);
+        }
+        return redirect()->back()->with('success','product percentage updated');
     }
 
 }

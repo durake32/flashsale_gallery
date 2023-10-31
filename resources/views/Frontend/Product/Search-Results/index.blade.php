@@ -70,11 +70,19 @@
                                             <strong>
                                                 <h5>
                                                     <b>
-                                                        @if ($forYou->sale_price)
+                                                        @if ($flash && $forYou->discount_amount > 0)
+                                                            NRS<del> {{ $forYou->regular_price }}</del>
+                                                            <span style="color: #f30404;"> {{ $forYou->discount_amount }}</span>
+                                                        @elseif ($forYou->sale_price)
                                                             NRS<del> {{ $forYou->regular_price }}</del>
                                                             <span style="color: #f30404;"> {{ $forYou->sale_price }}</span>
                                                         @else
                                                             NRS {{ $forYou->regular_price }}
+                                                        @endif
+                                                    </b>
+                                                    <b>
+                                                        @if($flash && $forYou->is_discount)
+                                                            <span style="color: #f30404;"> Off {{ $forYou->discount_percentage }} %</span>
                                                         @endif
                                                     </b>
                                                 </h5>

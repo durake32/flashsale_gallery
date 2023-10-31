@@ -54,6 +54,11 @@
 
                                             @endif
                                         </span>
+                                        <b>
+                                            @if($flash && $product->is_discount)
+                                                <span style="color: #f30404;"> Off {{ $product->discount_percentage }} %</span>
+                                            @endif
+                                        </b>
                                         <a href="{{ route('product-details', $product->slug) }}">
                                             <span class="p-view text-center">
                                                 View Details

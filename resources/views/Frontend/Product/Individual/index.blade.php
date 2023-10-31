@@ -88,7 +88,18 @@
                                         </ins>
                                     @endif
                                 @else
-                                    @if ($product->sale_price)
+                                    @if($flash && $product->discount_amount > 0)
+                                        <del>
+                                            <span class="amount">
+                                                <span class="Price-currencySymbol"style="font-family: 'Roboto', sans-serif;">NRS</span>&nbsp;{{ $product->regular_price }}
+                                            </span>
+                                        </del>
+                                        <ins>
+                                            <span class="amount">
+                                                <span class="Price-currencySymbol"style=" font-family: 'Roboto', sans-serif;">NRS</span>&nbsp;<span style="color: #f30404;">{{ $product->discount_amount }}</span>
+                                            </span>
+                                        </ins>
+                                    @elseif ($product->sale_price)
                                         <del>
                                             <span class="amount">
                                                 <span class="Price-currencySymbol"style="font-family: 'Roboto', sans-serif;">NRS</span>&nbsp;{{ $product->regular_price }}
