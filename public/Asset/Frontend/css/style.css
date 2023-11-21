@@ -2167,7 +2167,7 @@ button:focus {
 
 
 
-
+/* -----------------------------------------------FLASH SALE--------------------------- */
 
 /* oct updates  */
 /* flash sale */
@@ -2323,65 +2323,64 @@ input {
 
 
 
-/* swiper */
+/* ---------------------swiper ------------------------*/
 
 
-
-
-
-
-
-
-
-
-swiper-slide {
-    transition: 0.3s;
+/* .swiper-box {
     cursor: pointer;
-    transition: 0.4s;
-
-}
-
-swiper-slide .card-group {
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-swiper-slide .card-group:hover {
-
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-
-    transform: scale(1.09);
-    /* transform: scaleY(1.05); */
-
-}
-
-
-swiper-slide .card-group:hover {
-    cursor: pointer;
-}
-
-/* swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 } */
 
-swiper-container {
-    width: 100%;
-    height: 300px;
-    margin: 20px auto;
+
+.right {
+    position: absolute;
+    border-radius: 3px;
+    color: white;
+    background-color: #030342;
+    margin-left: 540px;
+    font-size: 29px;
+    margin-top: 100px;
+    z-index: 2;
+    cursor: pointer;
 }
 
 
 
-.card-group {
-    height: 170px;
-    border-radius: 30px;
+.left {
+    position: absolute;
+    border-radius: 3px;
+    color: white;
+    background-color: #030342;
+    margin-left: 50px;
+    font-size: 29px;
+    margin-top: 100px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+
+
+.swiper1 {
+
+
+    width: 500px;
+    margin-top: 30px;
+
+
+
+}
+
+
+
+
+.card {
+    background-color: rgb(255, 255, 255);
     text-align: center;
-    box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
-
-
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 150px;
+    cursor: pointer;
 
 }
 
@@ -2392,21 +2391,27 @@ a.card-link {
 
 
 .card-img-top {
-    height: 110px;
+    height: 150px;
     width: 150px;
     border: 1px solid rgba(0, 0, 0, 0.055);
+    object-fit: cover;
 
 
 }
 
-.card .sale {
-    background-color: yellow;
-    float: left;
-    border-radius: 10%;
-    height: 22px;
-    width: 47px;
-    position: relative;
+.card .offer {
+    background-color: rgb(255, 64, 0);
+
+    border-radius: 60px;
+    height: 20px;
+    width: 50px;
+    position: absolute;
     display: inline-block;
+    z-index: 1;
+
+    margin-right: 95px;
+    margin-bottom: 173px;
+    color: wheat;
 }
 
 * {
@@ -2414,27 +2419,149 @@ a.card-link {
     margin: 0;
 }
 
-.card-text {}
+.card-title {
+    font-size: small;
+}
 
-.card .off-text {
-    text-decoration: line-through;
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------GALLERY ------------------------------*/
+
+
+
+
+.gallery {
+    height: 600px;
+    background-color: #00aced;
+    background: url(../../../Asset/Uploads/gallery/gllbg.png);
+    /* background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(7, 7, 7, 0.9)), url('../../../Asset/Uploads/Banner/bg.png'); */
+
+
+    height: 40vh;
+    background-size: 100%;
+    position: relative;
+    background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+
+swiper-container {
+    width: 100%;
+    height: 300px;
+    margin: 20px auto;
+
+}
+
+swiper-container {
+
+    background-color: transparent;
+    height: 500px;
+    cursor: pointer;
+}
+
+swiper-container :hover .watch-button {
+    opacity: 1;
+    transition: 0.3s;
+}
+
+swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 400px;
+    margin: 10px
+}
+
+
+.t-nail {
+    height: 200px;
+    width: 340px;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    background-size: cover;
     color: red;
 }
 
 
-.swiper-button-next svg,
-.swiper-button-prev svg {
-    width: 8%;
-    height: 8%;
-    object-fit: contain;
-    transform-origin: center center;
-    margin-bottom: 30px;
-    padding: 39px;
+.t-nail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 9px;
+    border: 2px solid rgb(171, 139, 139);
+}
+
+.play-icon {
+    color: #cacdd1;
+    font-size: 107px;
+    top: 30%;
+    left: 30%;
+    text-align: center;
+    position: absolute;
+    transition: 0.3s;
+    /* Change to your desired icon size */
+}
+
+.play-icon:hover {
+    transform: scale(1.1);
+    color: #1e0650;
+}
+
+.watch-button {
+    background-color: rgb(4, 18, 50);
+    color: #fff;
+    padding: 5px 5px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1;
+    transition: 0.3s;
+    opacity: 0;
+    font-size: small;
 }
 
 
+.watch-button:hover {
+    background-color: #33176f;
+    /* Change to your desired hover color */
+}
+
+.vall {
+    float: right;
+    color: red;
+    font-weight: 500;
+}
+
+.modal-content {
 
 
+    background-color: transparent;
+}
+
+video {
+    padding: 2px;
+
+}
 
 
 
