@@ -5,7 +5,7 @@
             <div class="col-md-4 col-sm-4 col-6">
                 <p class="footer-text">Download App:</p>
                 <div class="flex flex-row items-center  app">
-                    <a href="" target="_blank" class="mr-2 mr-0 ">
+                    <a href=" https://onelink.to/8bm923" target=" https://onelink.to/8bm923" class="mr-2 mr-0 ">
                         <img src="<?php echo e(asset('Asset/Uploads/Static/dailomaaQr.jpg')); ?>" alt="Play Store"
                             class="mb-2" loading="lazy">
                     </a>
@@ -63,7 +63,7 @@
 
         <div class="d-md-flex payment-img">
             <div class="mr-auto p-2 copyright-text">Copyright © <?php echo date("Y"); ?>
-                Dailoma. All Rights Reserved.</div>
+                Dailomaa. All Rights Reserved.</div>
             <div class="p-2">
                 <img src="{{ asset('Asset/Uploads/Static/esewa.png') }}" alt="esewa">
                 <img src="{{ asset('Asset/Uploads/Payment-Methods/cod.png') }}" alt="imepay">
