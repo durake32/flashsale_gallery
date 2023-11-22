@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('Frontend.partials.head')
+    @include('Frontend.partials.head')
 
-<body>
-  <!-- Messenger Chat Plugin Code -->
-    <div id="fb-root"></div>
+    <body>
+        <!-- Messenger Chat Plugin Code -->
+        <div id="fb-root"></div>
 
-    <!-- Your Chat Plugin code -->
-    <div id="fb-customer-chat" class="fb-customerchat">
-    </div>
+        <!-- Your Chat Plugin code -->
+        <div id="fb-customer-chat" class="fb-customerchat">
+        </div>
 
-    <script>
-      var chatbox = document.getElementById('fb-customer-chat');
-      chatbox.setAttribute("page_id", "100950596209100");
-      chatbox.setAttribute("attribution", "biz_inbox");
-    </script>
+        <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "100950596209100");
+        chatbox.setAttribute("attribution", "biz_inbox");
+        </script>
 
-    <!-- Your SDK code -->
-    <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          xfbml            : true,
-          version          : 'v15.0'
-        });
-      };
+        <!-- Your SDK code -->
+        <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v15.0'
+            });
+        };
 
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        </script>
 
-    @include('Frontend.partials.Nav.top')
-    @include('Frontend.partials.header')
+        @include('Frontend.partials.Nav.top')
+        @include('Frontend.partials.header')
 
-    @yield('content')
+        @yield('content')
 
-    @include('Frontend.partials.footer')
+        @include('Frontend.partials.footer')
 
 
-</body>
-@include('Frontend.partials.js-files')
+    </body>
+    @include('Frontend.partials.js-files')
 
 </html>
