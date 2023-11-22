@@ -7,6 +7,8 @@ use App\Models\Brand;
 use App\Models\Advertisement;
 use App\Models\Advertisement1;
 use App\Models\Advertisement2;
+use App\Models\Gallery;
+use App\Models\Video;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\SubCategory;
@@ -73,7 +75,8 @@ class HomeController extends Controller
         $advertisements = Advertisement::all();
         $advertisements1 = Advertisement1::all();
         $sectionFeatured = Advertisement2::all();
-
+        $galleries =  Gallery::latest()->get();
+        $videos =  Video::latest()->get();
         if (Auth::check()){
             $userId = auth()->user()->id;
             $cartCollection = \Cart::session($userId)->getContent();
@@ -96,7 +99,7 @@ class HomeController extends Controller
             'siteSetting'
             ,'advertisements1',
             'sectionFeatured',
-           'cartCollection','flash_products'
+           'cartCollection','flash_products','galleries','videos'
         ));
     }
 

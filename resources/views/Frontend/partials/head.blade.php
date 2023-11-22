@@ -25,8 +25,7 @@
     <link href="{{ asset('Asset/Frontend/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('Asset/Frontend/css/responsive.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('Asset/Frontend/css/owl.carousel.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('Asset/Frontend/css/owl.theme.default.min.css') }}" />
-    {{--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />  --}}
+    <link rel="stylesheet" href="{{ asset('Asset/Frontend/css/owl.theme.default.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TWQLV7HXGL"></script>
@@ -37,4 +36,5 @@
 
   gtag('config', 'G-TWQLV7HXGL');
 </script>
+@yield('style')
 </head>

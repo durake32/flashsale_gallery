@@ -41,7 +41,7 @@
         @yield('content')
 
         @include('Frontend.partials.footer')
-
+        @yield('scripts')
 
     </body>
     @include('Frontend.partials.js-files')
