@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('admin.video.update',$video->id)}}" method="POST">
+            <form action="{{ route('admin.video.update',$video->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="modal-body">
@@ -23,6 +23,29 @@
                                 <div>
                                     <label for="video_link"> Video Link</label>
                                     <input type="text" name="video_link" class="form-control" value="{{ $video->video_link ?? old('video_link') }}" required>
+                                </div>
+                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                    @if($video->image)
+                                        <div class="user-image mb-3 text-center">
+                                            <div class="displayImage">
+                                                    <img src="{{ asset('Asset/Uploads/Video/' . $video->image) }}"
+                                                        alt="{{ $video->name }}" width="100%">
+                                            </div>
+                                        </div>
+                                    @endif
+                                    <div class="fileinput-new thumbnail">
+                                        <img src="{{ asset('Asset/Uploads/Static/avatar.jpg') }}" alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                    <div>
+                                        <span class="btn btn-rose btn-round btn-file">
+                                            <span class="fileinput-new">Select image</span>
+                                            <span class="fileinput-exists">Change</span>
+                                            <input type="file" name="image" kl_vkbd_parsed="true">
+                                        </span>
+                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i
+                                                class="fa fa-times"></i> Remove</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

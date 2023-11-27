@@ -38,7 +38,6 @@
                                         </a>
                                     </div>
                                     <div class="pro-detail">
-                                        {{-- <span class="p-tag">{{ $product->name }}</span> --}}
                                         <span class="abt-pro">
                                             <a href="{{ route('product-details', $product->slug) }}">
                                                 {{ $product->name }}
@@ -55,11 +54,14 @@
 
                                             @endif
                                         </span>
+                                        <b>
+                                            @if($flash && $product->is_discount)
+                                                <span style="color: #f30404;"> Off {{ $product->discount_percentage }} %</span>
+                                            @endif
+                                        </b>
                                         <a href="{{ route('product-details', $product->slug) }}">
                                             <span class="p-view text-center">
-
                                                 View Details
-
                                             </span>
                                         </a>
                                     </div>

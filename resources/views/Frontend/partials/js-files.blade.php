@@ -164,14 +164,6 @@
             });
         });
 
-        // For adding modal popup after selecting payment method
-        // $('input[name="payment_method"]').change(function() {
-        //     if ($(this).is(':checked') && ($(this).val() == 'esewa' || 'cellpay' || 'fonepay')) {
-        //         $('#myPaymentModal').modal('show');
-        //     }
-        // });
-
-
         /* 2. Action to perform on click */
         $('#stars li').on('click', function() {
             var onStar = parseInt($(this).data('value'), 10); // The star currently selected

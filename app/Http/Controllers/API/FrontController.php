@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Product\ProductList;
 use App\Http\Resources\Gallery\ImageResource;
 use App\Http\Resources\Gallery\VideoResource;
 use App\Models\Category;
@@ -22,7 +23,7 @@ class FrontController extends Controller
     public function getHome(){
 
         $categories = Category::where('status', 1)->get();
-        $data['Category']=$categories;
+        $data['Category']= $categories;
 
         $subcategories = SubCategory::where('status', 1)->get();
         $data['Subcategory']=$subcategories;
@@ -36,46 +37,25 @@ class FrontController extends Controller
         $banners = Banner::where('status', 1)->get();
         $data['Sliders']=$banners;
 
-
         $newarrivals = Product::onlineProduct()->where('status', 1)
-            ->with('brand')
-            ->take(12)
-           ->latest()
-            ->get();
-        $data['New arrivals']=$newarrivals;
+            ->take(12)->latest()->get();
+        $data['New arrivals']= ProductList::collection($newarrivals);
 
        $featured = Product::onlineProduct()->where('status', 1)
-            ->where('is_featured', 1)
-            ->with('brand')
-            ->take(12)
-            ->latest()
-            ->get();
-        $data['Featured Product']=$featured;
+            ->where('is_featured', 1)->take(12)->latest()->get();
+        $data['Featured Product']= ProductList::collection($featured);
 
        $section1 = Product::onlineProduct()->where('status', 1)
-            ->where('section1', 1)
-            ->with('brand')
-            ->take(12)
-            ->latest()
-            ->get();
-        $data['Section1'] = $section1;
+            ->where('section1', 1)->take(12)->latest()->get();
+        $data['Section1'] = ProductList::collection($section1);
 
-
-       $section2 = Product::onlineProduct()->where('status', 1)
-            ->where('section2', 1)
-            ->with('brand')
-            ->take(12)
-            ->latest()
-            ->get();
-        $data['Section2'] = $section2;
+        $section2 = Product::withCount('orderProducts')->onlineProduct()->where('status', 1)
+                    ->orderBy('order_products_count','desc')->latest()->get();
+        $data['Section2'] = ProductList::collection($section2);
 
        $forYou = Product::onlineProduct()->where('status', 1)
-            ->where('is_foryou', 1)
-            ->with('brand')
-            ->take(12)->inRandomOrder()
-            ->latest()
-            ->get();
-        $data['For You'] = $forYou;
+            ->where('is_foryou', 1)->take(12)->inRandomOrder()->latest()->get();
+        $data['For You'] = ProductList::collection($forYou);
 
         $advertisement = Advertisement::get();
         $data['All Advertisement'] = $advertisement;
@@ -101,7 +81,7 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'category';
                     $data['typeId'] = $bannerDetails['type'];
                     return response()->json($data, 200);
@@ -120,7 +100,7 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'subcategory';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
@@ -137,13 +117,30 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'brand';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
                 }else{
                     $data['data']= 'No Data Found';
                     $data['type']= 'brand';
+                    $data['typeId'] = $bannerDetails['type_id'];
+                    return response()->json($data, 200);
+                }
+            }elseif (!empty($bannerDetails['type'] == 'product')){
+                $products = Product::onlineProduct()->where('status', 1)
+                    ->where('id', $bannerDetails->type_id)
+                    ->with('brand')
+                    ->latest()
+                    ->get();
+                if($products){
+                    $data['data']= ProductList::collection($products);
+                    $data['type']= 'product';
+                    $data['typeId'] = $bannerDetails['type_id'];
+                    return response()->json($data, 200);
+                }else{
+                    $data['data']= 'No Data Found';
+                    $data['type']= 'product';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
                 }
@@ -168,7 +165,7 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'category';
                     $data['typeId'] = $bannerDetails['type'];
                     return response()->json($data, 200);
@@ -187,7 +184,7 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'subcategory';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
@@ -204,13 +201,30 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'brand';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
                 }else{
                     $data['data']= 'No Data Found';
                     $data['type']= 'brand';
+                    $data['typeId'] = $bannerDetails['type_id'];
+                    return response()->json($data, 200);
+                }
+            }elseif (!empty($bannerDetails['type'] == 'product')){
+                $products = Product::onlineProduct()->where('status', 1)
+                    ->where('id', $bannerDetails->type_id)
+                    ->with('brand')
+                    ->latest()
+                    ->get();
+                if($products){
+                    $data['data']= ProductList::collection($products);
+                    $data['type']= 'product';
+                    $data['typeId'] = $bannerDetails['type_id'];
+                    return response()->json($data, 200);
+                }else{
+                    $data['data']= 'No Data Found';
+                    $data['type']= 'product';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
                 }
@@ -235,7 +249,7 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'category';
                     $data['typeId'] = $bannerDetails['type'];
                     return response()->json($data, 200);
@@ -254,7 +268,7 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'subcategory';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
@@ -271,13 +285,30 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'brand';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
                 }else{
                     $data['data']= 'No Data Found';
                     $data['type']= 'brand';
+                    $data['typeId'] = $bannerDetails['type_id'];
+                    return response()->json($data, 200);
+                }
+            }elseif (!empty($bannerDetails['type'] == 'product')){
+                $products = Product::onlineProduct()->where('status', 1)
+                    ->where('id', $bannerDetails->type_id)
+                    ->with('brand')
+                    ->latest()
+                    ->get();
+                if($products){
+                    $data['data']= ProductList::collection($products);
+                    $data['type']= 'product';
+                    $data['typeId'] = $bannerDetails['type_id'];
+                    return response()->json($data, 200);
+                }else{
+                    $data['data']= 'No Data Found';
+                    $data['type']= 'product';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
                 }
@@ -302,7 +333,7 @@ class FrontController extends Controller
                         ->latest()
                         ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'category';
                     $data['typeId'] = $bannerDetails['type'];
                     return response()->json($data, 200);
@@ -321,7 +352,7 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'subcategory';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
@@ -338,7 +369,7 @@ class FrontController extends Controller
                     ->latest()
                     ->get();
                 if($products){
-                    $data['data']= $products;
+                    $data['data']= ProductList::collection($products);
                     $data['type']= 'brand';
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
@@ -348,11 +379,28 @@ class FrontController extends Controller
                     $data['typeId'] = $bannerDetails['type_id'];
                     return response()->json($data, 200);
                 }
+            }elseif (!empty($bannerDetails['type'] == 'product')){
+                $products = Product::onlineProduct()->where('status', 1)
+                    ->where('id', $bannerDetails->type_id)
+                    ->with('brand')
+                    ->latest()
+                    ->get();
+                if($products){
+                    $data['data']= ProductList::collection($products);
+                    $data['type']= 'product';
+                    $data['typeId'] = $bannerDetails['type_id'];
+                    return response()->json($data, 200);
+                }else{
+                    $data['data']= 'No Data Found';
+                    $data['type']= 'product';
+                    $data['typeId'] = $bannerDetails['type_id'];
+                    return response()->json($data, 200);
+                }
             }
-            }else{
-                $data['data']= 'No Data Found';
-                return response()->json($data, 200);
-            }
+        }else{
+            $data['data']= 'No Data Found';
+            return response()->json($data, 200);
+        }
     }
 
     public function galleryList(){
@@ -372,6 +420,5 @@ class FrontController extends Controller
             'data' => VideoResource::collection($videos)
         ], 200);
     }
-
 
 }

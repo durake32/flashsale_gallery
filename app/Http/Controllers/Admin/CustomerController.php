@@ -165,12 +165,6 @@ class CustomerController extends Controller
         return redirect()->route('customer.index')->with('success','Customer updated Successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $user = User::findOrFail($id);
@@ -181,6 +175,9 @@ class CustomerController extends Controller
         }
         if($user->orders()->count() > 0){
             return redirect()->route('customer.index')->with('error','Sorry !!! ,Customer has orders.');
+        }
+        if($user->calendarEvents()->count() > 0){
+            return redirect()->route('customer.index')->with('error','Sorry !!! ,Customer has calendar events.');
         }
         $user->delete();
         return redirect()->route('customer.index')->with('success','Customer deleted Successfully');

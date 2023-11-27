@@ -49,7 +49,6 @@ class ProductController extends Controller
         TwitterCard::setImage($siteSEO[0]['site_url'] . '/' . 'Asset/Uploads/Products/' . $productSEO['image']);
 
         $similarProducts = Product::onlineProduct()->where('status', 1)
-            ->select('name', 'slug', 'sub_category_id', 'main_image', 'regular_price', 'sale_price', 'wholesaler_price', 'created_at')
             ->where('sub_category_id', $product->sub_category_id)
             ->where('slug', '!=', $slug)
             ->with('brand.sub_category')
@@ -66,11 +65,7 @@ class ProductController extends Controller
     {
         $segment = $request->fullurl();
 
-        $category = Category::where('status', 1)->where('slug', $slug)->select(
-            'id',
-            'name',
-            'slug'
-        )->first() ?? abort('404');
+        $category = Category::where('status', 1)->where('slug', $slug)->first() ?? abort('404');
 
         $brands = Brand::where('status', 1)->get()->toArray();
         $categories = Category::where('status', 1)->where('is_featured', 1)->select('id', 'slug', 'name', 'status', 'image')->with('sub_categories')->with('sub_categories.products')->get();
@@ -82,81 +77,21 @@ class ProductController extends Controller
                 array_push($subCatFilter,$c->id);
             }
         if (Str::contains($segment,'sort_by=name-ascending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status'
-            )->with('brand')
-                ->orderBy('name')
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()->with('brand')
+                ->orderBy('name')->paginate(15);
         } elseif (Str::contains($segment,'sort_by=name-descending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
-                ->orderBy('name', 'DESC')
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()->with('brand')
+                ->orderBy('name', 'DESC')->paginate(15);
         } elseif (Str::contains($segment,'sort_by=price-ascending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
-                ->orderBy('regular_price')
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()->with('brand')
+                ->orderBy('regular_price')->paginate(15);
         } elseif (Str::contains($segment, 'sort_by=price-descending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
-                ->orderBy('regular_price', 'DESC')
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()->with('brand')
+                ->orderBy('regular_price', 'DESC')->paginate(15);
         } else {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )
-            ->whereIn('sub_category_id',$subCatFilter)
-                ->latest()
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()
+                ->whereIn('sub_category_id',$subCatFilter)
+                ->latest()->paginate(15);
         }
 
         $siteSEO = SiteSetting::select('title', 'meta_title', 'site_url', 'meta_description', 'twitter', 'default_image')->get()->toArray();
@@ -197,65 +132,17 @@ class ProductController extends Controller
         $subCategories = SubCategory::where('status', 1)->where('is_featured', 1)->select('id', 'slug', 'name', 'status', 'category_id', 'image')->with('products')->get();
 
         if (Str::contains($segment, 'sort_by=name-ascending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
-                ->orderBy('name')
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()->with('brand')
+                ->orderBy('name')->paginate(15);
         } elseif (Str::contains($segment, 'sort_by=name-descending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
-                ->orderBy('name', 'DESC')
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()->with('brand')
+                ->orderBy('name', 'DESC')->paginate(15);
         } elseif (Str::contains($segment, 'sort_by=price-ascending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
-                ->orderBy('regular_price')
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()->with('brand')
+                ->orderBy('regular_price')->paginate(15);
         } elseif (Str::contains($segment, 'sort_by=price-descending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
-                ->orderBy('regular_price', 'DESC')
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()->with('brand')
+                ->orderBy('regular_price', 'DESC')->paginate(15);
         } else {
             $products = Product::onlineProduct()->with('brand')->active()->where('sub_category_id', $subCategory->id)
             ->latest()
@@ -300,63 +187,18 @@ class ProductController extends Controller
         $subCategories = SubCategory::where('status', 1)->where('is_featured', 1)->select('id', 'slug', 'name', 'status', 'category_id', 'image')->with('products')->get();
 
         if (Str::contains($segment, 'sort_by=name-ascending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
-                ->orderBy('name')
-                ->paginate(15);
+            $products = Product::onlineProduct()->active()->with('brand')
+                ->orderBy('name')->paginate(15);
         } elseif (Str::contains($segment, 'sort_by=name-descending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
+            $products = Product::onlineProduct()->active()->with('brand')
                 ->orderBy('name', 'DESC')
                 ->paginate(15);
         } elseif (Str::contains($segment, 'sort_by=price-ascending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
+            $products = Product::onlineProduct()->active()->with('brand')
                 ->orderBy('regular_price')
                 ->paginate(15);
         } elseif (Str::contains($segment, 'sort_by=price-descending')) {
-            $products = Product::onlineProduct()->active()->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id',
-                'status',
-            )->with('brand')
+            $products = Product::onlineProduct()->active()->with('brand')
                 ->orderBy('regular_price', 'DESC')
                 ->paginate(15);
         } else {
@@ -459,27 +301,15 @@ class ProductController extends Controller
         return view('Frontend.Product.View-all.product-list',compact('products','pageTitle'));
     }
 
-   public function brandWise($slug, Request $request)
+    public function brandWise($slug, Request $request)
     {
-        $brand= Brand::where('status', 1)->where('slug', $slug)->select(
-            'id',
-            'name',
-            'slug'
-        )->first() ?? abort('404');
-       $products = DB::table('products')
-            ->select('products.*')
+        $brand= Brand::where('status', 1)->where('slug', $slug)->first() ?? abort('404');
+       $products = Product::select('products.*')
             ->join('brands', 'products.brand_id', '=', 'brands.id')
             ->where('products.status', '=', 1)
             ->where('products.product_type', '=','online')
             ->where('brands.slug', '=', $slug)->get();
-        return view('Frontend.Product.Brand-Wise.index', compact(
-            'products',
-             'brand'
-        ));
+        return view('Frontend.Product.Brand-Wise.index', compact('products','brand'));
     }
-
-
-
-
 
 }

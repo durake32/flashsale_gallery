@@ -128,7 +128,7 @@ class ProductController extends Controller
         $product['product_type'] = $request->product_type;
         $product['is_discount'] = $request->input('discount_amount') > 0 ? 1 : 0;
         $product['discount_amount'] = $request->discount_amount;
-        $product['discount_percentage'] = ( $request->discount_amount / $request->regular_price) *100 ;
+        $product['discount_percentage'] = ($request->regular_price - $request->discount_amount) / $request->regular_price * 100;
 
         if ($request->hasFile('main_image')) {
             $image = $request->file('main_image');
@@ -261,7 +261,7 @@ class ProductController extends Controller
         $product->product_type = $request->product_type;
         $product->is_discount = $request->input('discount_amount') > 0 ? 1 : 0;
         $product->discount_amount = $request->input('discount_amount');
-        $product->discount_percentage = ( $request->input('discount_amount') / $request->input('regular_price')) *100 ;
+        $product->discount_percentage = ($request->input('regular_price') - $request->input('discount_amount')) / $request->input('regular_price') * 100;
 
         if ($request->hasFile('main_image')) {
             $existingImage = 'Asset/Uploads/Products/' . $product->main_image;
@@ -290,54 +290,53 @@ class ProductController extends Controller
         return redirect(route($segment . '.' . 'product.index'))->with('success','Product updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request, Product $product)
     {
+        if($product->orderProducts()->count() > 0){
+            return redirect()->route('admin.product.index')->with('error','Sorry !!! ,Product has orders.');
+        }
         $mainImagePath = 'Asset/Uploads/Products/' . $product->main_image;
 
         if (file_exists($mainImagePath)) {
             @unlink($mainImagePath);
         }
 
-        if ($product->image) {
-            $images = json_decode($product->image);
-            foreach ($images as $image) {
-                $imagePath = 'Asset/Uploads/Products/' . $image;
-                if (file_exists($imagePath)) {
-@unlink($imagePath);
+        if($product->images()->count() > 0) {
+            foreach($product->images() as $image){
+                $existingImage = 'Asset/Uploads/Products/' . $image->image;
+                if (file_exists($existingImage)) {
+                    @unlink($existingImage);
                 }
+                $product->images()->delete($image);
             }
         }
 
         $product->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','Product deleted successfully.');
     }
 
     public function destroyProduct(Request $request, Product $product)
     {
+        if($product->orderProducts()->count() > 0){
+            return redirect()->route('admin.product.index')->with('error','Sorry !!! ,Product has orders.');
+        }
         $mainImagePath = 'Asset/Uploads/Products/' . $product->main_image;
 
         if (file_exists($mainImagePath)) {
             @unlink($mainImagePath);
         }
-
-        if ($product->image) {
-            $images = json_decode($product->image);
-            foreach ($images as $image) {
-                $imagePath = 'Asset/Uploads/Products/' . $image;
-                if (file_exists($imagePath)) {
-                    @unlink($imagePath);
+        if($product->images()->count() > 0) {
+            foreach($product->images() as $image){
+                $existingImage = 'Asset/Uploads/Products/' . $image->image;
+                if (file_exists($existingImage)) {
+                    @unlink($existingImage);
                 }
+                $product->images()->delete($image);
             }
         }
 
         $product->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','Product deleted successfully.');
     }
 
     //PRODUCT IMAGE GALLERY
@@ -401,6 +400,16 @@ class ProductController extends Controller
             }
         }
         return redirect()->back()->with('success','data transfer');
+    }
+
+    public function updateProductDiscountPercentage(){
+        $products = Product::where('discount_amount', '>', 0)->get();
+        foreach($products as $product){
+            $product->update([
+                'discount_percentage' => ($product->regular_price - $product->discount_amount) / $product->regular_price * 100
+            ]);
+        }
+        return redirect()->back()->with('success','product percentage updated');
     }
 
 }

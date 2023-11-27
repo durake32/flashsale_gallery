@@ -59,6 +59,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Order::class);
     }
 
+    public function calendarEvents()
+    {
+        return $this->hasMany(CalendarEvent::class);
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);

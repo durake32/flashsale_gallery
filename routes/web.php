@@ -380,6 +380,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     
     Route::get('product-image/transfer',[AdminProductController::class,'productImageTransfer'])
     ->name('admin.productImageTransfer');
+    Route::get('product-update',[AdminProductController::class,'updateProductDiscountPercentage'])
+    ->name('admin.updateProductDiscountPercentage');
 
 
     Route::get('product-image/{productId}/gallery',[AdminProductController::class,'createProductImage'])->name('admin.createProductImage');

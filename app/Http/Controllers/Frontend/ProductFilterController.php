@@ -22,17 +22,7 @@ class ProductFilterController extends Controller
         $maxPrice = $request->max;
 
         $products = Product::onlineProduct()->where('regular_price', '>=', $minPrice)->where('regular_price', '<=', $maxPrice)
-            ->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id'
-            )->with('brand')
+            ->with('brand')
             ->latest()
             ->paginate(6);
 
@@ -78,90 +68,35 @@ class ProductFilterController extends Controller
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->orderBy('name')
                 ->paginate(6);
         } elseif (Str::contains($segment, 'sort_by=name-descending')) {
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->orderBy('name', 'DESC')
                 ->paginate(6);
         } elseif (Str::contains($segment, 'sort_by=price-ascending')) {
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->orderBy('regular_price')
                 ->paginate(6);
         } elseif (Str::contains($segment, 'sort_by=price-descending')) {
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->orderBy('regular_price', 'DESC')
                 ->paginate(6);
         } else {
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->latest()
                 ->paginate(6);
         }
@@ -205,17 +140,7 @@ class ProductFilterController extends Controller
         $maxPrice = $request->max;
 
         $products = Product::onlineProduct()->where('regular_price', '>=', $minPrice)->where('regular_price', '<=', $maxPrice)
-            ->select(
-                'id',
-                'name',
-                'meta_description',
-                'regular_price',
-                'sale_price',
-                'main_image',
-                'slug',
-                'created_at',
-                'brand_id'
-            )->with('brand')
+            ->with('brand')
             ->latest()
             ->paginate(6);
 
@@ -260,90 +185,35 @@ class ProductFilterController extends Controller
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->orderBy('name')
                 ->paginate(6);
         } elseif (Str::contains($segment, 'sort_by=name-descending')) {
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->orderBy('name', 'DESC')
                 ->paginate(6);
         } elseif (Str::contains($segment, 'sort_by=price-ascending')) {
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->orderBy('regular_price')
                 ->paginate(6);
         } elseif (Str::contains($segment, 'sort_by=price-descending')) {
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->orderBy('regular_price', 'DESC')
                 ->paginate(6);
         } else {
             $products = Product::onlineProduct()->where('status', 1)
                 ->where('regular_price', '>=', $minPrice)
                 ->where('regular_price', '<=', $maxPrice)
-                ->select(
-                    'id',
-                    'name',
-                    'meta_description',
-                    'regular_price',
-                    'sale_price',
-                    'main_image',
-                    'slug',
-                    'created_at',
-                    'brand_id',
-                    'status',
-                )->with('brand')
+                ->with('brand')
                 ->latest()
                 ->paginate(6);
         }

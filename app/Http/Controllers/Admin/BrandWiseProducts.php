@@ -37,11 +37,7 @@ class BrandWiseProducts extends Controller
         $retailers = Retailer::select('id', 'name')->get();
 
         return view('Dashboard.Admin.Brand-Wise-Products.create', compact(
-            'oldBrand',
-            'brands',
-            'retailers',
-            'product'
-        ));
+            'oldBrand','brands','retailers','product'));
     }
 
     /**
@@ -239,8 +235,6 @@ class BrandWiseProducts extends Controller
         $brand = Brand::where('id', $brandID)->firstOrFail();
 
         $subCategoryID = $brand['sub_category_id'];
-
-        // dd($subCategoryID);
 
         $product->name = $request->input('name');
         $product->brand_id = $brandID;

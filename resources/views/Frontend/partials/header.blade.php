@@ -2,11 +2,11 @@
 
 
 .logo-img {
-
+/* 
   animation-name: rotate-windows;
   animation-iteration-count: infinite;
   animation-duration: 40s;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards; */
 }
 
 

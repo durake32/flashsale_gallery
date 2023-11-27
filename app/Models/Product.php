@@ -26,8 +26,10 @@ class Product extends Model
         'is_discount' => 'integer',
         'discount_amount' => 'integer',
         'discount_percentage' => 'integer',
-
     ];
+
+    protected $fillable = ['discount_percentage'];
+    
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;

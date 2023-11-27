@@ -46,9 +46,9 @@
                                            <a href="{{ route('product-details', $forYou->slug) }}">
                                             <img src="{{ asset('Asset/Uploads/Products/' . $forYou->main_image) }}"
                                                 alt=" " width="100%" height="100%">
-                                            @if ($forYou->image)
-                                                @foreach (json_decode($forYou->image, true) as $forYo)
-                                                    <img src="{{ asset('Asset/Uploads/Products/' . $forYo) }}"
+                                            @if($forYou->images()->count() > 0)
+                                                @foreach ($forYou->images as $forYo)
+                                                    <img src="{{ asset('Asset/Uploads/Products/' . $forYo->image) }}"
                                                         width="100%" height="100%">
                                                 @endforeach
                                             @endif
@@ -70,15 +70,23 @@
                                                 <strong>
                                                     <h5>
                                                         <b>
-                                                            @if ($forYou->sale_price)
+                                                            @if ($flash && $forYou->discount_amount > 0)
                                                                 NRS<del> {{ $forYou->regular_price }}</del>
-                                                                <span style="color: #f30404;">
-                                                                    {{ $forYou->sale_price }}</span>
+                                                                <span style="color: #f30404;"> {{ $forYou->discount_amount }}</span>
+                                                            @elseif ($forYou->sale_price)
+                                                                NRS<del> {{ $forYou->regular_price }}</del>
+                                                                <span style="color: #f30404;"> {{ $forYou->sale_price }}</span>
                                                             @else
                                                                 NRS {{ $forYou->regular_price }}
                                                             @endif
                                                         </b>
+                                                        <b>
+                                                            @if($flash && $forYou->is_discount)
+                                                                <span style="color: #f30404;"> Off {{ $forYou->discount_percentage }} %</span>
+                                                            @endif
+                                                        </b>
                                                     </h5>
+                                                    
                                                 </strong>
                                             </div>
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Gallery;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VideoResource extends JsonResource
+class SubCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +18,9 @@ class VideoResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'image'=> !is_null($this->image) ? '/Asset/Uploads/Video/'.$this->image : null,
-            'video_link' => $this->video_link,
+            'is_featured' => $this->is_featured,
+            'image'=> !is_null($this->image) ? '/Asset/Uploads/Sub-Categories/'.$this->image : null,
+            
         ];
     }
 }
